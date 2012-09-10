@@ -1,4 +1,4 @@
 PHP-Battlescript
 ================
 
-An advanced battlescript built in PHP that will allow an attack to wage war against a defender.
+Developed as part of a MMOG, this engine is capable of taking an attacking and defending fleet and battling them against each other. The engine is capable of freezing, stealing and destroying the opponents ships.
