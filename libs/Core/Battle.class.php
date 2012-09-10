@@ -17,133 +17,133 @@
  */
 class Core_Battle
 {
-	/**
-	 * Contains information on the ship statistics.
-	 *
-	 * <code>
-	 * array(
-	 *     0 => array(
-	 *         'name'          => The name of the ship. 
-	 *         'class'         => What class of ship it is.
-	 *         'target'        => Which class of ship it is designed to target.
-	 *         'life'          => How much damage this ship can sustain before being inoperable.
-	 *         'attack'        => How much damage this ship can deal.
-	 *         'primaryCost'   => How much primary material this ship costs to purchase.
-	 *         'secondaryCost' => How much secondary material this ship costs to purchase.
-	 *     ),
-	 *     1 => array(
-	 *        ...
-	 *     ),
-	 *     2 => array(
-	 *        ...
-	 *     )
-	 * )
-	 * </code>
-	 *
-	 * @var array
-	 * @access private
-	 */
+    /**
+     * Contains information on the ship statistics.
+     *
+     * <code>
+     * array(
+     *     0 => array(
+     *         'name'          => The name of the ship. 
+     *         'class'         => What class of ship it is.
+     *         'target'        => Which class of ship it is designed to target.
+     *         'life'          => How much damage this ship can sustain before being inoperable.
+     *         'attack'        => How much damage this ship can deal.
+     *         'primaryCost'   => How much primary material this ship costs to purchase.
+     *         'secondaryCost' => How much secondary material this ship costs to purchase.
+     *     ),
+     *     1 => array(
+     *        ...
+     *     ),
+     *     2 => array(
+     *        ...
+     *     )
+     * )
+     * </code>
+     *
+     * @var array
+     * @access private
+     */
     private $_ship = array();
     
-	/**
-	 * Contains information on which class has which ships.
-	 * 
-	 * We set this information once for speed, so we do not have to loop over
-	 * over each ship every time when we only need a couple.
-	 *
-	 * Also contains informaton on attacking and defending ship class totals so
-	 * we can work out how to spread the total attack power.
-	 *
-	 * <code>
-	 * array(
-	 *     'class' => array(
-	 *         'Frigate' => array(
-	 *             0 => 1,
-	 *             1 => 2
-	 *         ),
-	 *         'Destroyer' => array(
-	 *             0 => 1,
-	 *             1 => 2
-	 *         )
-	 *     ),
-	 *     'defending' => array(
-	 *         'Frigate'   => 12345,
-	 *         'Destroyer' => 54321
-	 *     ),
-	 *     'attacking' => array(
-	 *         'Frigate'   => 56789,
-	 *         'Destroyer' => 98765
-	 *     )
-	 * )
-	 * </code>
-	 *
-	 * @var array
-	 * @access private
-	 */
+    /**
+     * Contains information on which class has which ships.
+     * 
+     * We set this information once for speed, so we do not have to loop over
+     * over each ship every time when we only need a couple.
+     *
+     * Also contains informaton on attacking and defending ship class totals so
+     * we can work out how to spread the total attack power.
+     *
+     * <code>
+     * array(
+     *     'class' => array(
+     *         'Frigate' => array(
+     *             0 => 1,
+     *             1 => 2
+     *         ),
+     *         'Destroyer' => array(
+     *             0 => 1,
+     *             1 => 2
+     *         )
+     *     ),
+     *     'defending' => array(
+     *         'Frigate'   => 12345,
+     *         'Destroyer' => 54321
+     *     ),
+     *     'attacking' => array(
+     *         'Frigate'   => 56789,
+     *         'Destroyer' => 98765
+     *     )
+     * )
+     * </code>
+     *
+     * @var array
+     * @access private
+     */
     private $_shipClass = array();
     
-	/**
-	 * Information on the defending entity such as how many
-	 * asteroids and what their population is.
-	 * 
-	 * <code>
-	 * array(
-	 *     'asteroid_count'   => 12345
-	 * )
-	 * </code>
-	 * 
-	 * @var array
-	 * @access private
-	 */
+    /**
+     * Information on the defending entity such as how many
+     * asteroids and what their population is.
+     * 
+     * <code>
+     * array(
+     *     'asteroid_count'   => 12345
+     * )
+     * </code>
+     * 
+     * @var array
+     * @access private
+     */
     private $_defendingEntity = array();
     
-	/**
-	 * The defending entities ships.
-	 * 
-	 * <code>
-	 * array(
-	 *     0 => 1234,
-	 *     1 => 5678,
-	 *     2 => 9012,
-	 *     3 => 3456
-	 * )
-	 * </code>
-	 * 
-	 * @var array
-	 * @access private
-	 */
-	private $_defendingShips = array();
+    /**
+     * The defending entities ships.
+     * 
+     * <code>
+     * array(
+     *     0 => 1234,
+     *     1 => 5678,
+     *     2 => 9012,
+     *     3 => 3456
+     * )
+     * </code>
+     * 
+     * @var array
+     * @access private
+     */
+    private $_defendingShips = array();
     
-	/**
-	 * Information on the attacking entity such as how many
-	 * asteroids they have stolen.
-	 * 
-	 * <code>
-	 * array(
-	 *     'asteroid_count'   => 12345
-	 * )
-	 * </code>
-	 * 
-	 * @var array
-	 * @access private
-	 */
-	private $_attackingEntity = array();
+    /**
+     * Information on the attacking entity such as how many
+     * asteroids they have stolen.
+     * 
+     * <code>
+     * array(
+     *     'asteroid_count'   => 12345
+     * )
+     * </code>
+     * 
+     * @var array
+     * @access private
+     */
+    private $_attackingEntity = array();
 
-	/**
-	 * The attacking entities ships.
-	 * 
-	 * <code>
-	 * array(
-	 *     0 => 1234,
-	 *     1 => 5678,
-	 *     2 => 9012,
-	 *     3 => 3456
-	 * )
-	 * </code>
-	 * 
-	 * @var array
-	 * @access private
-	 */
+    /**
+     * The attacking entities ships.
+     * 
+     * <code>
+     * array(
+     *     0 => 1234,
+     *     1 => 5678,
+     *     2 => 9012,
+     *     3 => 3456
+     * )
+     * </code>
+     * 
+     * @var array
+     * @access private
+     */
     private $_attackingShips = array();
     
     /**
@@ -162,54 +162,54 @@ class Core_Battle
      * will not be able to support itself and will probably quit the
      * game. A recommended percentage is around 10% per wave.
      * 
-	 * @var int
-	 * @access private
-	 */
+     * @var int
+     * @access private
+     */
     private $_maxAsteroidCap = 10;
 
-	/**
-	 * How much salvage of the primary resource the defending entity
-	 * has collected from the wave of battle on a percentage scale. A
-	 * recommended percntage is around 15%.
-	 *
-	 * Salvage is from destroyed ships that can no longer be used. The
-	 * defending entity collects the usable salvage which is added to their
-	 * store for use. Salvage is good because it means that after the entity
-	 * has been attacked they can rebuild quicker.
-	 *
-	 * Note: An entity can only collect salvage if they have salvage collection
-	 * ships in the aresnal.
-	 *
-	 * @var int
-	 * @access private
-	 */
+    /**
+     * How much salvage of the primary resource the defending entity
+     * has collected from the wave of battle on a percentage scale. A
+     * recommended percntage is around 15%.
+     *
+     * Salvage is from destroyed ships that can no longer be used. The
+     * defending entity collects the usable salvage which is added to their
+     * store for use. Salvage is good because it means that after the entity
+     * has been attacked they can rebuild quicker.
+     *
+     * Note: An entity can only collect salvage if they have salvage collection
+     * ships in the aresnal.
+     *
+     * @var int
+     * @access private
+     */
     private $_salvagePrimary = 15;
     
-	/**
-	 * How much salvage of the secondary resource the defending entity
-	 * has collected from the wave of battle on a percentage scale. A
-	 * recommended percntage is around 15%.
-	 *
-	 * Salvage is from destroyed ships that can no longer be used. The
-	 * defending entity collects the usable salvage which is added to their
-	 * store for use. Salvage is good because it means that after the entity
-	 * has been attacked they can rebuild quicker.
-	 *
-	 * Note: An entity can only collect salvage if they have salvage collection
-	 * ships in the aresnal.
-	 *
-	 * @var int
-	 * @access private
-	 */
+    /**
+     * How much salvage of the secondary resource the defending entity
+     * has collected from the wave of battle on a percentage scale. A
+     * recommended percntage is around 15%.
+     *
+     * Salvage is from destroyed ships that can no longer be used. The
+     * defending entity collects the usable salvage which is added to their
+     * store for use. Salvage is good because it means that after the entity
+     * has been attacked they can rebuild quicker.
+     *
+     * Note: An entity can only collect salvage if they have salvage collection
+     * ships in the aresnal.
+     *
+     * @var int
+     * @access private
+     */
     private $_salvageSecondary = 15;
     
-	/**
-	 * Everything that happens in this engine is debugged so we can inspect it
-	 * at a later date to ensure that there are no bugs.
-	 *
-	 * @var array
-	 * @access private 
-	 */
+    /**
+     * Everything that happens in this engine is debugged so we can inspect it
+     * at a later date to ensure that there are no bugs.
+     *
+     * @var array
+     * @access private 
+     */
     private $_debug = array();
 
     /**
@@ -799,24 +799,24 @@ class Core_Battle
         
         // Echo out the footer
         echo '
-                    <tr>
-                        <th>Totals</th>
-                        <th>' . number_format($defendingTotal)     . '</th>
-                        <th>' . number_format($defendingDestroyed) . '</th>
-                        <th>' . number_format($defendingFrozen)    . '</th>
-                        <th style="border-right:2px solid #DDD">' . number_format($defendingStolen) . '</th>
-                        <th>' . number_format($attackingTotal)     . '</th>
-                        <th>' . number_format($attackingDestroyed) . '</th>
-                        <th>' . number_format($attackingFrozen)    . '</th>
-                        <th>' . number_format($attackingStolen)    . '</th>
-                    </tr>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th colspan="4">Defenders salvaged ' . number_format($this->_defendingEntity['salvage_primary']) . ' primary and ' . number_format($this->_defendingEntity['salvage_secondary']) . ' secondary.</th>
-                        <th colspan="4">Attackers have stolen ' . $this->_attackingEntity['asteroid_count'] . ' asteroids.</td>
-                    </tr>
-                </table>
-            </div>';
+                <tr>
+                    <th>Totals</th>
+                    <th>' . number_format($defendingTotal)     . '</th>
+                    <th>' . number_format($defendingDestroyed) . '</th>
+                    <th>' . number_format($defendingFrozen)    . '</th>
+                    <th style="border-right:2px solid #DDD">' . number_format($defendingStolen) . '</th>
+                    <th>' . number_format($attackingTotal)     . '</th>
+                    <th>' . number_format($attackingDestroyed) . '</th>
+                    <th>' . number_format($attackingFrozen)    . '</th>
+                    <th>' . number_format($attackingStolen)    . '</th>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th colspan="4">Defenders salvaged ' . number_format($this->_defendingEntity['salvage_primary']) . ' primary and ' . number_format($this->_defendingEntity['salvage_secondary']) . ' secondary.</th>
+                    <th colspan="4">Attackers have stolen ' . $this->_attackingEntity['asteroid_count'] . ' asteroids.</td>
+                </tr>
+            </table>
+        </div>';
     }
 
     /**
