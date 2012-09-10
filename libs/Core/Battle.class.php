@@ -294,7 +294,7 @@ class Core_Battle
         
         // Start battle
         for ($i = 1; $i <= $_POST['waves']; $i++) {
-                $this->doBattle($i);
+            $this->doBattle($i);
         }
         
         // Debug
