@@ -95,7 +95,7 @@ class Core_Battle
 	 * @var array
 	 * @access private
 	 */
-	private $_defendingEntity = array();
+    private $_defendingEntity = array();
     
 	/**
 	 * The defending entities ships.
@@ -112,7 +112,7 @@ class Core_Battle
 	 * @var array
 	 * @access private
 	 */
-    private $_defendingShips = array();
+	private $_defendingShips = array();
     
 	/**
 	 * Information on the attacking entity such as how many
@@ -146,7 +146,7 @@ class Core_Battle
 	 */
     private $_attackingShips = array();
     
-    /*
+    /**
      * Much much life each asteroid has before it is claimed by the
      * attacking entity.
      *
@@ -223,7 +223,7 @@ class Core_Battle
     public function __construct() {
         // Set ship statictics
         $this->setShipStatistics();
-        
+            
         // Echo out the wave selector
         echo '<ul id="wave_selector">';
         for ($i = 1; $i <= $_POST['waves']; $i++) {
@@ -231,7 +231,7 @@ class Core_Battle
         }
         echo '</ul><div class="clear"><!-- Clear //--></div>';
     }
-    
+
     /**
      * Set all of the ship information.
      * 
@@ -273,19 +273,19 @@ class Core_Battle
             $this->_shipClass['attacking'][$shipInformation['class']] = 0;
         }
     }
-    
-	/**
-	 * Sets all of the defending entity information.
-	 *
-	 * This function also works out the defending and attacking fleets
-	 * and fires starts the battle sequence.
-	 *
-	 * @access public
-	 */
-	public function initiateWave() {
+
+    /**
+     * Sets all of the defending entity information.
+     *
+     * This function also works out the defending and attacking fleets
+     * and fires starts the battle sequence.
+     *
+     * @access public
+     */
+    public function initiateWave() {
         // Set entity information
         $this->setDefendingEntityInformation();
-
+        
         // Set ship numbers and ship class information
         $this->setDefendingEntityShips();
         $this->setAttackingEntityShips();
@@ -294,13 +294,13 @@ class Core_Battle
         
         // Start battle
         for ($i = 1; $i <= $_POST['waves']; $i++) {
-        	$this->doBattle($i);
+                $this->doBattle($i);
         }
         
         // Debug
         $this->_debug[] = 'Battle has finished.';
     }
-    
+
     /**
      * Set the information about the defending entity such as asteroid count.
      * 
@@ -315,7 +315,7 @@ class Core_Battle
             'salvage_secondary' => 0
         );
     }
-    
+
     /**
      * Set the initial stats for the defending fleet.
      *
@@ -335,7 +335,7 @@ class Core_Battle
             );
         }
     }
-    
+
     /**
      * Set the initial stats for the defending fleet.
      *
@@ -355,7 +355,7 @@ class Core_Battle
             );
         }
     }
-    
+
     /**
      * Battle started, or wave has finished. Reset totals ready to add up again.
      *
@@ -367,7 +367,7 @@ class Core_Battle
             $this->_shipClass['attacking'][$classId] = 0;
         }
     }
-    
+
     /**
      * How much life each ship class has.
      *
@@ -378,16 +378,16 @@ class Core_Battle
      * @access private
      */
     private function setShipClassLifeTotals() {
-    	// Loop over each ship that we have
+        // Loop over each ship that we have
         foreach ($this->_ship as $shipId => $shipInformation) {
-        	// We want to add the life total of all the ships remaining after this wave
-        	// So we want the total minus any ships stolen and destroyed
-        	// Frozen ships are unfrozen after each wave, so we still need to count them
+            // We want to add the life total of all the ships remaining after this wave
+            // So we want the total minus any ships stolen and destroyed
+            // Frozen ships are unfrozen after each wave, so we still need to count them
             $this->_shipClass['defending'][$shipInformation['class']] += ($this->getEntityShipNumber('defending', $shipId, array('stolen', 'destroyed')) * $this->_ship[$shipId]['life']);
             $this->_shipClass['attacking'][$shipInformation['class']] += ($this->getEntityShipNumber('attacking', $shipId, array('stolen', 'destroyed')) * $this->_ship[$shipId]['life']);
         }
     }
-    
+
     /**
      * Start the battle process.
      * 
@@ -451,91 +451,91 @@ class Core_Battle
             $totalDefendingAttack = $this->getEntityShipNumber('defending', $shipId, array('frozen', 'stolen', 'destroyed')) * $shipInformation['attack'];
             $totalAttackingAttack = $this->getEntityShipNumber('attacking', $shipId, array('frozen', 'stolen', 'destroyed')) * $shipInformation['attack'];
             
-			// So we do not have to repeat ourselves 3 times below, set some variables that contain the different logic
-			if ($this->_ship[$shipId]['type'] == 'EMP') {
-				// This ship freezes other ships so they cannot attack this wave
-				$shipToDeductStats = array('frozen', 'stolen', 'destroyed');
-				$shipToAddToStats  = 'frozen';
-			} else if ($this->_ship[$shipId]['type'] == 'Steal') {
-				// This ship steals other ships to fight against the opponant on the next wave
-				$shipToDeductStats = array('stolen', 'destroyed');
-				$shipToAddToStats  = 'stolen';
-			} else {
-				// This ship destroys other ships
-				$shipToDeductStats = array('stolen', 'destroyed');
-				$shipToAddToStats  = 'destroyed';
-			}
-
+            // So we do not have to repeat ourselves 3 times below, set some variables that contain the different logic
+            if ($this->_ship[$shipId]['type'] == 'EMP') {
+                // This ship freezes other ships so they cannot attack this wave
+                $shipToDeductStats = array('frozen', 'stolen', 'destroyed');
+                $shipToAddToStats  = 'frozen';
+            } else if ($this->_ship[$shipId]['type'] == 'Steal') {
+                // This ship steals other ships to fight against the opponant on the next wave
+                $shipToDeductStats = array('stolen', 'destroyed');
+                $shipToAddToStats  = 'stolen';
+            } else {
+                // This ship destroys other ships
+                $shipToDeductStats = array('stolen', 'destroyed');
+                $shipToAddToStats  = 'destroyed';
+            }
+            
             // Debug
             $this->_debug[] = 'Defenders will deal ' . number_format($totalDefendingAttack) . ' damage through ' . number_format($this->getEntityShipNumber('defending', $shipId, array('frozen', 'stolen', 'destroyed'))) . ' ' . $shipInformation['name'] . 's.';
             $this->_debug[] = 'Attackers will deal ' . number_format($totalAttackingAttack) . ' damage through ' . number_format($this->getEntityShipNumber('attacking', $shipId, array('frozen', 'stolen', 'destroyed'))) . ' ' . $shipInformation['name'] . 's.';
             
             // Loop over each ship in the target class
-        	foreach ($this->_shipClass['class'][$shipInformation['target']] as $void => $shipIdTargeted) {
+            foreach ($this->_shipClass['class'][$shipInformation['target']] as $void => $shipIdTargeted) {
                 // Debug
                 $this->_debug[] = 'We are now dealing damage to the ' . $this->_ship[$shipIdTargeted]['name'] . ' ship.';
-                
+        
                 // What percentage is this ship in relation to the rest of the class?
                 // We want to get it at the start of the wave to apply the percentage evenly
                 $defendingLifePercentage = 0;
                 $defendingAttackTotal    = 0;
                 $attackingLifePercentage = 0;
                 $attackingAttackTotal    = 0;
-                
+        
                 // Does the entity actually have any ships in the class we are targeting?
                 // After this we will know the percentage of attack to apply to this ship
                 if ($this->_shipClass['defending'][$shipInformation['target']] > 0) {
-                	// Defenders have some ships in this target class
+                    // Defenders have some ships in this target class
                     $attackingLifePercentage = (($this->getEntityShipNumber('defending', $shipIdTargeted, array('frozen', 'stolen', 'destroyed')) * $this->_ship[$shipIdTargeted]['life']) / $this->_shipClass['defending'][$shipInformation['target']]) * 100;
                 }
                 if ($this->_shipClass['attacking'][$shipInformation['target']] > 0) {
-                	// Attackers have some ships in this target class
+                    // Attackers have some ships in this target class
                     $defendingLifePercentage = (($this->getEntityShipNumber('attacking', $shipIdTargeted, array('frozen', 'stolen', 'destroyed')) * $this->_ship[$shipIdTargeted]['life']) / $this->_shipClass['attacking'][$shipInformation['target']]) * 100;
                 }
-                
+        
                 // Work out the attack total based on that percentage
                 if ($defendingLifePercentage > 0) { $defendingAttackTotal = round(($totalDefendingAttack / 100) * $defendingLifePercentage); }
                 if ($attackingLifePercentage > 0) { $attackingAttackTotal = round(($totalAttackingAttack / 100) * $attackingLifePercentage); }
-                
+        
                 // Debug
                 $this->_debug[] = 'Defenders are shooting ' . number_format($defendingAttackTotal) . ' (' . $defendingLifePercentage . '%) of their firepower at this ship which has ' . $this->getEntityShipNumber('attacking', $shipIdTargeted, array('stolen', 'destroyed')) . ' @ ' . $this->_ship[$shipIdTargeted]['life'] . ' life.';
                 $this->_debug[] = 'Attackers are shooting ' . number_format($attackingAttackTotal) . ' (' . $attackingLifePercentage . '%) of their firepower at this ship which has ' . $this->getEntityShipNumber('defending', $shipIdTargeted, array('stolen', 'destroyed')) . ' @ ' . $this->_ship[$shipIdTargeted]['life'] . ' life.';
-                
+        
                 // How many ships will that destroy?
                 // This does not take into account that the opponant may not have this many ships...
                 // only that we could destroy that amount with the attack we have.
                 $defendingDestroyed = floor($defendingAttackTotal / $this->_ship[$shipIdTargeted]['life']);
                 $attackingDestroyed = floor($attackingAttackTotal / $this->_ship[$shipIdTargeted]['life']);
-
-            	// The ship we are attacking with is a ship that can destroy the opponants ships
-            	// We can only destroy those ships that have not already been destroyed or stolen
-            	// We can still destroy ships that have been frozen
-            	// Work out how many that is
-				if ($defendingDestroyed > $this->getEntityShipNumber('attacking', $shipIdTargeted, $shipToDeductStats)) {
-					// Defenders destroyed more ships than the attackers have remaining
-					// Bring that down to the maximum possible
-					$defendingDestroyed = $this->getEntityShipNumber('attacking', $shipIdTargeted, $shipToDeductStats);
-				}
-				if ($attackingDestroyed > $this->getEntityShipNumber('defending', $shipIdTargeted, $shipToDeductStats)) {
-					// Attackers destroyed more ships than the defenders have remaining
-					// Bring that down to the maximum possible
-					$attackingDestroyed = $this->getEntityShipNumber('defending', $shipIdTargeted, $shipToDeductStats);
-				}
-
-				// Add the ships that we just destroyed to their destroyed total in this wave
-            	$this->_attackingShips[$shipIdTargeted]['ship_' . $shipToAddToStats] += $defendingDestroyed;
-				$this->_defendingShips[$shipIdTargeted]['ship_' . $shipToAddToStats] += $attackingDestroyed;
-
-				// Debug
-				$this->_debug[] = 'Defenders have ' . $shipToAddToStats . ' ' . number_format($defendingDestroyed) . ' ships.';
-				$this->_debug[] = 'Attackers have ' . $shipToAddToStats . ' ' . number_format($attackingDestroyed) . ' ships.';                	
+        
+                // The ship we are attacking with is a ship that can destroy the opponants ships
+                // We can only destroy those ships that have not already been destroyed or stolen
+                // We can still destroy ships that have been frozen
+                // Work out how many that is
+                if ($defendingDestroyed > $this->getEntityShipNumber('attacking', $shipIdTargeted, $shipToDeductStats)) {
+                    // Defenders destroyed more ships than the attackers have remaining
+                    // Bring that down to the maximum possible
+                    $defendingDestroyed = $this->getEntityShipNumber('attacking', $shipIdTargeted, $shipToDeductStats);
+                }
+                if ($attackingDestroyed > $this->getEntityShipNumber('defending', $shipIdTargeted, $shipToDeductStats)) {
+                    // Attackers destroyed more ships than the defenders have remaining
+                    // Bring that down to the maximum possible
+                    $attackingDestroyed = $this->getEntityShipNumber('defending', $shipIdTargeted, $shipToDeductStats);
+                }
+        
+                // Add the ships that we just destroyed to their destroyed total in this wave
+                $this->_attackingShips[$shipIdTargeted]['ship_' . $shipToAddToStats] += $defendingDestroyed;
+                $this->_defendingShips[$shipIdTargeted]['ship_' . $shipToAddToStats] += $attackingDestroyed;
+        
+                // Debug
+                $this->_debug[] = 'Defenders have ' . $shipToAddToStats . ' ' . number_format($defendingDestroyed) . ' ships.';
+                $this->_debug[] = 'Attackers have ' . $shipToAddToStats . ' ' . number_format($attackingDestroyed) . ' ships.';
             }
         }
         
         // Asteroid stealing, and salvage reclaiming
         $this->doAsteroidStealing();
         $this->doSalvageReclaiming();
-             
+        
         // Debug
         $this->_debug[] = 'Wave has finished.';
         
@@ -545,7 +545,7 @@ class Core_Battle
         // Tally up for next wave
         $this->prepareForNextWave();
     }
-    
+
     /**
      * Get the number of ships based on several factors.
      * 
@@ -560,26 +560,26 @@ class Core_Battle
      * @return int
      */
     private function getEntityShipNumber($attackerOrDefender, $shipId, $shipsToDeduct) {
-    	// Add Ships to the end of attacking or defending
-    	$attackerOrDefender = '_' . $attackerOrDefender . 'Ships';
-    	
-    	// The starting number of ships
-    	$shipCount = $this->{$attackerOrDefender}[$shipId]['ship_total'];
-    	
-    	// And then deduct as necessary
-    	foreach ($shipsToDeduct as $index => $typeToDeduct) {
-    		$shipCount = $shipCount - $this->{$attackerOrDefender}[$shipId]['ship_' . $typeToDeduct];
-    	}
-    	
-    	// And return the number of ships after all of the deductiosn
-    	// But first we need to make sure it is 0 or greater. The reason...
-    	// this can happen is because you could have 100 ships, 100 could
-    	// be frozen, but 100 could also be destroyed giving you -100.
-    	return $shipCount >= 0
-    		? $shipCount
-    		: 0;
+        // Add Ships to the end of attacking or defending
+        $attackerOrDefender = '_' . $attackerOrDefender . 'Ships';
+
+        // The starting number of ships
+        $shipCount = $this->{$attackerOrDefender}[$shipId]['ship_total'];
+
+        // And then deduct as necessary
+        foreach ($shipsToDeduct as $index => $typeToDeduct) {
+            $shipCount = $shipCount - $this->{$attackerOrDefender}[$shipId]['ship_' . $typeToDeduct];
+        }
+
+        // And return the number of ships after all of the deductiosn
+        // But first we need to make sure it is 0 or greater. The reason...
+        // this can happen is because you could have 100 ships, 100 could
+        // be frozen, but 100 could also be destroyed giving you -100.
+        return $shipCount >= 0
+            ? $shipCount
+            : 0;
     }
-    
+
     /**
      * Steals asteroids from the defending entity.
      *
@@ -588,34 +588,34 @@ class Core_Battle
      * @access private
      */
     private function doAsteroidStealing() {
-    	// What is the potential maximum asteroids we can steal?
-    	$asteroidMaximumSteal = floor(($this->_defendingEntity['asteroid_count'] / 100) * $this->_maxAsteroidCap);
-    	
-    	// How many asteroids can the attacking entity actually steal?
-    	// Set the total attack variable
-    	$totalAttackingAttack = 0;
-    	
-    	// Need to loop over each ship to see if it can steal asteroids
-    	foreach ($this->_ship as $shipId => $shipInformation) {
-    		// Is this an asteroid stealing ship?
-    		if ($shipInformation['type'] == 'Pod') {
-				// Add how many asteroids this ship can steal
-				$totalAttackingAttack += $this->getEntityShipNumber('attacking', $shipId, array('frozen', 'stolen', 'destroyed')) * $shipInformation['attack'];
-    		}
-    	}
-    	
-    	// How many asteroids can the attacking entity steal?
-    	$asteroidsStolen = floor($totalAttackingAttack / $this->_asteroidLife);
-    	
-    	// Is this more than the attacker is allowed to steal?
-    	if ($asteroidsStolen > $asteroidMaximumSteal) {
-    		$asteroidsStolen = $asteroidMaximumSteal;
-    	}
-    	
-    	// Set the asteroids stolen
-    	$this->_attackingEntity['asteroid_count'] = $asteroidsStolen;
+        // What is the potential maximum asteroids we can steal?
+        $asteroidMaximumSteal = floor(($this->_defendingEntity['asteroid_count'] / 100) * $this->_maxAsteroidCap);
+
+        // How many asteroids can the attacking entity actually steal?
+        // Set the total attack variable
+        $totalAttackingAttack = 0;
+
+        // Need to loop over each ship to see if it can steal asteroids
+        foreach ($this->_ship as $shipId => $shipInformation) {
+            // Is this an asteroid stealing ship?
+            if ($shipInformation['type'] == 'Pod') {
+                // Add how many asteroids this ship can steal
+                $totalAttackingAttack += $this->getEntityShipNumber('attacking', $shipId, array('frozen', 'stolen', 'destroyed')) * $shipInformation['attack'];
+            }
+        }
+
+        // How many asteroids can the attacking entity steal?
+        $asteroidsStolen = floor($totalAttackingAttack / $this->_asteroidLife);
+
+        // Is this more than the attacker is allowed to steal?
+        if ($asteroidsStolen > $asteroidMaximumSteal) {
+            $asteroidsStolen = $asteroidMaximumSteal;
+        }
+
+        // Set the asteroids stolen
+        $this->_attackingEntity['asteroid_count'] = $asteroidsStolen;
     }
-    
+
     /**
      * Reclaims salvage from destroyed ships.
      *
@@ -635,29 +635,29 @@ class Core_Battle
         foreach ($this->_ship as $shipId => $shipInformation) {
             // How many ships were destroyed?
             $totalDestroyedShips = $this->_defendingShips[$shipId]['ship_destroyed'] + $this->_attackingShips[$shipId]['ship_destroyed'];
-            
+    
             // Add to the salvage
             $totalPrimarySalvage   += $totalDestroyedShips * $shipInformation['primaryCost'];
             $totalSecondarySalvage += $totalDestroyedShips * $shipInformation['secondaryCost'];
-            
+    
             // If this is a salvage ship then add up how much it can hold
             if ($shipInformation['type'] == 'Salvage') {
                 $totalSalvageShipsReclaimable += $this->getEntityShipNumber('defending', $shipId, array('frozen', 'stolen', 'destroyed')) * $shipInformation['attack'];
             }
         }
-
+        
         // Was there any salvage?
         if ($totalPrimarySalvage <= 0) {
             return false;
         }
-
+        
         // Get a percentage that is reclaimable
         $totalPrimarySalvage   = ($totalPrimarySalvage   / 100) * $this->_salvagePrimary;
         $totalSecondarySalvage = ($totalSecondarySalvage / 100) * $this->_salvageSecondary;
-
+        
         // We want to get an even spread of primary to secondary
         $percentageAsPrimary = ($totalPrimarySalvage / ($totalPrimarySalvage + $totalSecondarySalvage)) * 100;
-
+        
         // Work out the maximum we can get for primary and secondary based on this percentage
         $totalSalvageShipsPrimaryReclaimable   = ($totalSalvageShipsReclaimable / 100) * $percentageAsPrimary;
         $totalSalvageShipsSecondaryReclaimable = $totalSalvageShipsReclaimable - $totalSalvageShipsPrimaryReclaimable;
@@ -676,7 +676,7 @@ class Core_Battle
         $this->_defendingEntity['salvage_primary']   = $totalSalvageShipsPrimaryReclaimable;
         $this->_defendingEntity['salvage_secondary'] = $totalSalvageShipsSecondaryReclaimable;
     }
-    
+
     /**
      * Deduct the asteroids from the defending entities total.
      * 
@@ -691,41 +691,41 @@ class Core_Battle
      * @access private
      */
     private function prepareForNextWave() {
-    	// Deduct stolen asteroids from the defending entity
-    	$this->_defendingEntity['asteroid_count'] -= $this->_attackingEntity['asteroid_count'];
-    	
+        // Deduct stolen asteroids from the defending entity
+        $this->_defendingEntity['asteroid_count'] -= $this->_attackingEntity['asteroid_count'];
+
         // Loop over each ship
         foreach ($this->_ship as $shipId => $shipInformation) {
             // Deduct destroyed & stolen ships from the total
             $this->_defendingShips[$shipId]['ship_total'] = $this->_defendingShips[$shipId]['ship_total'] - ($this->_defendingShips[$shipId]['ship_destroyed'] + $this->_defendingShips[$shipId]['ship_stolen']);
             $this->_attackingShips[$shipId]['ship_total'] = $this->_attackingShips[$shipId]['ship_total'] - ($this->_attackingShips[$shipId]['ship_destroyed'] + $this->_attackingShips[$shipId]['ship_stolen']);
-            
+
             // Reset detroyed total
             $this->_defendingShips[$shipId]['ship_destroyed'] = 0;
             $this->_attackingShips[$shipId]['ship_destroyed'] = 0;
-            
+
             // Unfreeze ships
             $this->_defendingShips[$shipId]['ship_frozen'] = 0;
             $this->_attackingShips[$shipId]['ship_frozen'] = 0;
-            
+
             // Place stolen ships to opposing teams
             $this->_defendingShips[$shipId]['ship_total'] += $this->_attackingShips[$shipId]['ship_stolen'];
             $this->_attackingShips[$shipId]['ship_total'] += $this->_defendingShips[$shipId]['ship_stolen'];
-            
+
             // Reset stolen ships
             $this->_defendingShips[$shipId]['ship_stolen'] = 0;
             $this->_attackingShips[$shipId]['ship_stolen'] = 0;
         }
-        
+
         // Set Reset and then set the ship class life totals
-		$this->resetShipClassLifeTotals();
+        $this->resetShipClassLifeTotals();
         $this->setShipClassLifeTotals();
-        
+
         // Reset the primary and secondary salvage
-		$this->_defendingEntity['salvage_primary']   = 0;
-		$this->_defendingEntity['salvage_secondary'] = 0;
+        $this->_defendingEntity['salvage_primary']   = 0;
+        $this->_defendingEntity['salvage_secondary'] = 0;
     }
-    
+
     /**
      * Produces output of what has just happened.
      *
@@ -736,96 +736,96 @@ class Core_Battle
      * @access private
      */
     private function produceWaveReport($wave) {
-    	// Set variables
-		$defendingTotal     = 0;
-		$defendingDestroyed = 0;
-		$defendingFrozen    = 0;
-		$defendingStolen    = 0;
-		// Attacking
-		$attackingTotal     = 0;
-		$attackingDestroyed = 0;
-		$attackingFrozen    = 0;
-		$attackingStolen    = 0;
-    	
-    	// Echo out the header
+        // Set variables
+        $defendingTotal     = 0;
+        $defendingDestroyed = 0;
+        $defendingFrozen    = 0;
+        $defendingStolen    = 0;
+        // Attacking
+        $attackingTotal     = 0;
+        $attackingDestroyed = 0;
+        $attackingFrozen    = 0;
+        $attackingStolen    = 0;
+        
+        // Echo out the header
         echo '
-        <div id="wave' . $wave . '" class="wave_report">
-        <table>
-            <tr>
-                <td></td>
-                <th colspan="4" style="text-align:center">Defending</th>
-                <th colspan="4" style="text-align:center">Attacking</th>
-            </tr>
-            <tr>
-                <th>Ship</th>
-                <th style="width:85px">Total</th>
-                <th style="width:85px">Destroyed</th>
-                <th style="width:85px">Frozen</th>
-                <th style="width:85px;border-right:2px solid #DDD">Stolen</th>
-                <th style="width:85px">Total</th>
-                <th style="width:85px">Destroyed</th>
-                <th style="width:85px">Frozen</th>
-                <th style="width:85px">Stolen</th>
-            </tr>';
+            <div id="wave' . $wave . '" class="wave_report">
+                <table>
+                    <tr>
+                        <td></td>
+                        <th colspan="4" style="text-align:center">Defending</th>
+                        <th colspan="4" style="text-align:center">Attacking</th>
+                    </tr>
+                    <tr>
+                        <th>Ship</th>
+                        <th style="width:85px">Total</th>
+                        <th style="width:85px">Destroyed</th>
+                        <th style="width:85px">Frozen</th>
+                        <th style="width:85px;border-right:2px solid #DDD">Stolen</th>
+                        <th style="width:85px">Total</th>
+                        <th style="width:85px">Destroyed</th>
+                        <th style="width:85px">Frozen</th>
+                        <th style="width:85px">Stolen</th>
+                    </tr>';
         
         // Loop over each ship
         foreach ($this->_ship as $shipId => $shipInformation) {
-        	// Tally up
-        	// Defending
-			$defendingTotal     += $this->_defendingShips[$shipId]['ship_total'];
-			$defendingDestroyed += $this->_defendingShips[$shipId]['ship_destroyed'];
-			$defendingFrozen    += $this->_defendingShips[$shipId]['ship_frozen'];
-			$defendingStolen    += $this->_defendingShips[$shipId]['ship_stolen'];
-			// Attacking
-			$attackingTotal     += $this->_attackingShips[$shipId]['ship_total'];
-			$attackingDestroyed += $this->_attackingShips[$shipId]['ship_destroyed'];
-			$attackingFrozen    += $this->_attackingShips[$shipId]['ship_frozen'];
-			$attackingStolen    += $this->_attackingShips[$shipId]['ship_stolen'];
-        	
-        	// Echo out
+            // Tally up
+            // Defending
+            $defendingTotal     += $this->_defendingShips[$shipId]['ship_total'];
+            $defendingDestroyed += $this->_defendingShips[$shipId]['ship_destroyed'];
+            $defendingFrozen    += $this->_defendingShips[$shipId]['ship_frozen'];
+            $defendingStolen    += $this->_defendingShips[$shipId]['ship_stolen'];
+            // Attacking
+            $attackingTotal     += $this->_attackingShips[$shipId]['ship_total'];
+            $attackingDestroyed += $this->_attackingShips[$shipId]['ship_destroyed'];
+            $attackingFrozen    += $this->_attackingShips[$shipId]['ship_frozen'];
+            $attackingStolen    += $this->_attackingShips[$shipId]['ship_stolen'];
+            
+            // Echo out
             echo '
-            <tr>
-                <th>' . $shipInformation['name'] . '</th>
-                <td>' . number_format($this->_defendingShips[$shipId]['ship_total'])     . '</td>
-                <td>' . number_format($this->_defendingShips[$shipId]['ship_destroyed']) . '</td>
-                <td>' . number_format($this->_defendingShips[$shipId]['ship_frozen'])    . '</td>
-                <td style="border-right:2px solid #DDD">' . number_format($this->_defendingShips[$shipId]['ship_stolen']) . '</td>
-                <td>' . number_format($this->_attackingShips[$shipId]['ship_total'])     . '</td>
-                <td>' . number_format($this->_attackingShips[$shipId]['ship_destroyed']) . '</td>
-                <td>' . number_format($this->_attackingShips[$shipId]['ship_frozen'])    . '</td>
-                <td>' . number_format($this->_attackingShips[$shipId]['ship_stolen'])    . '</td>
-            </tr>';
+                <tr>
+                    <th>' . $shipInformation['name'] . '</th>
+                    <td>' . number_format($this->_defendingShips[$shipId]['ship_total'])     . '</td>
+                    <td>' . number_format($this->_defendingShips[$shipId]['ship_destroyed']) . '</td>
+                    <td>' . number_format($this->_defendingShips[$shipId]['ship_frozen'])    . '</td>
+                    <td style="border-right:2px solid #DDD">' . number_format($this->_defendingShips[$shipId]['ship_stolen']) . '</td>
+                    <td>' . number_format($this->_attackingShips[$shipId]['ship_total'])     . '</td>
+                    <td>' . number_format($this->_attackingShips[$shipId]['ship_destroyed']) . '</td>
+                    <td>' . number_format($this->_attackingShips[$shipId]['ship_frozen'])    . '</td>
+                    <td>' . number_format($this->_attackingShips[$shipId]['ship_stolen'])    . '</td>
+                </tr>';
         }
         
         // Echo out the footer
         echo '
-        	<tr>
-        		<th>Totals</th>
-				<th>' . number_format($defendingTotal)     . '</th>
-				<th>' . number_format($defendingDestroyed) . '</th>
-				<th>' . number_format($defendingFrozen)    . '</th>
-				<th style="border-right:2px solid #DDD">' . number_format($defendingStolen) . '</th>
-				<th>' . number_format($attackingTotal)     . '</th>
-				<th>' . number_format($attackingDestroyed) . '</th>
-				<th>' . number_format($attackingFrozen)    . '</th>
-				<th>' . number_format($attackingStolen)    . '</th>
-        	</tr>
-        	<tr>
-        		<th>&nbsp;</th>
-        		<th colspan="4">Defenders salvaged ' . number_format($this->_defendingEntity['salvage_primary']) . ' primary and ' . number_format($this->_defendingEntity['salvage_secondary']) . ' secondary.</th>
-        		<th colspan="4">Attackers have stolen ' . $this->_attackingEntity['asteroid_count'] . ' asteroids.</td>
-        	</tr>
-       	</table>
-       	</div>';
+                    <tr>
+                        <th>Totals</th>
+                        <th>' . number_format($defendingTotal)     . '</th>
+                        <th>' . number_format($defendingDestroyed) . '</th>
+                        <th>' . number_format($defendingFrozen)    . '</th>
+                        <th style="border-right:2px solid #DDD">' . number_format($defendingStolen) . '</th>
+                        <th>' . number_format($attackingTotal)     . '</th>
+                        <th>' . number_format($attackingDestroyed) . '</th>
+                        <th>' . number_format($attackingFrozen)    . '</th>
+                        <th>' . number_format($attackingStolen)    . '</th>
+                    </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th colspan="4">Defenders salvaged ' . number_format($this->_defendingEntity['salvage_primary']) . ' primary and ' . number_format($this->_defendingEntity['salvage_secondary']) . ' secondary.</th>
+                        <th colspan="4">Attackers have stolen ' . $this->_attackingEntity['asteroid_count'] . ' asteroids.</td>
+                    </tr>
+                </table>
+            </div>';
     }
-    
+
     /**
      * Return the ship stats so we can produce a table of ships that are being used.
      * 
      * @access public
      */
     public function getShipStats() {
-    	return $this->_ship;
+        return $this->_ship;
     }
     
     /**
