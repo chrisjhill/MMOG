@@ -19,8 +19,6 @@
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       10/09/2012
- * @homepage    http://www.chrisjhill.co.uk
- * @twitter     @chrisjhill
  */
 class Core_Battle
 {
