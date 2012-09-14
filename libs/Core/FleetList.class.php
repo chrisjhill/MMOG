@@ -11,7 +11,7 @@
 class FleetList
 {
 	/**
-	 * An array of the fleets this entity controls.
+	 * An array of the fleets this country controls.
 	 *
 	 * @access private
 	 * @var array

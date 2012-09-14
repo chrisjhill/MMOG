@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains information on a single entity fleet.
+ * Contains information on a single country fleet.
  *
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
  * @author      Christopher Hill <cjhill@gmail.com>
@@ -45,13 +45,13 @@ class Fleet
 		$statement = $database->prepare("
 			SELECT s.ship_id, s.ship_quantity
 			FROM   `fleet_ship` s
-			WHERE  s.entity_id = :entity_id
+			WHERE  s.country_id = :country_id
 			       AND
-			       s.fleet_id  = :fleet_id
+			       s.fleet_id   = :fleet_id
 		");
 		// Execute the query
 		$statement->execute(array(
-			':entity_id' => $this->_fleet['entity_id'],
+			':country_id' => $this->_fleet['country_id'],
 			':fleet_id'  => $this->_fleet['fleet_id']
 		));
 
