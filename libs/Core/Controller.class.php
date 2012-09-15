@@ -99,7 +99,6 @@ class Core_Controller
 			$this->view->_action = $action;
 			$this->child->{$action . 'Action'}();
 		} else {
-			//die('controller redirect');
 			// Controller redirect
 			// No longer render this controller, thank you
 			$this->_void = true;
