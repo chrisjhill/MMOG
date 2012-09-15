@@ -42,13 +42,13 @@ class Core_BattleReport
 		$battleReport = Core_BattleReport::parseBattleString($battleReport['battle_string']);
 
         // Set the header
-		$template     = new Core_Template('battle_report/header.tpl');
+		$template     = new Core_Template('battle_report/header.phtml');
 		$reportString = $template->render();
 
 		// Loop over each ship
 		foreach ($ship as $shipId => $shipInformation) {
 	        // Add the ship
-	        $template      = new Core_Template('battle_report/body.tpl');
+	        $template      = new Core_Template('battle_report/body.phtml');
 	        $reportString .= $template
 	        	// Ship name
 	        	->addVariable('ship_name', str_replace(' ', '&nbsp;', $ship[$shipId]['ship_name']))
@@ -72,7 +72,7 @@ class Core_BattleReport
 		}
 
         // Echo out the footer
-        $template      = new Core_Template('battle_report/footer.tpl');
+        $template      = new Core_Template('battle_report/footer.phtml');
         $reportString .= $template
         	// Defender totals
         	->addVariable('ship_defender_total',       number_format($battleReport[0][0]))

@@ -67,13 +67,13 @@ class Core_Template extends Core_Cache
 	 */
 	public function render() {
 		// Can we use a cached template?
-		if ($this->cachedTemplateAvailable()) {
+		if ($this->cachedFileAvailable()) {
 			// We can use a cached copy, mucho quick
-			return $this->getCachedTemplate();
+			return $this->getCachedFile();
 		}
 
 		// Nope, looks as though we are generating a fresh template
-		$content = file_get_contents(PATH_TEMPLATE . $this->_template);
+		$content = file_get_contents(PATH_TEMPLATE . $this->_file);
 
 		// Start the replacements
 		foreach ($this->_variable as $variable => $value) {
@@ -83,7 +83,7 @@ class Core_Template extends Core_Cache
 
 		// Do we want to save this to the cache
 		if ($this->_enableCache) {
-			$this->saveTemplate($content);
+			$this->saveFileToCache($content);
 		}
 
 		// Rendering complete

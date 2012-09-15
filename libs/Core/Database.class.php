@@ -16,7 +16,7 @@ class Core_Database
 	 * @var PDO
 	 * @static
 	 */
-	public static $_connection;
+	public static $connection;
 
 	/**
 	 * Returns the database conenction, or connects if doesn't exist.
@@ -26,12 +26,12 @@ class Core_Database
 	 */
 	public function getInstance() {
 		// Have we already connecteD?
-		if (! self::$_connection) {
+		if (! self::$connection) {
 			// No, try and connect
 			try {
 				// PDO connection
 				// Details from /libs/config.php
-				self::$_connection = new PDO(
+				self::$connection = new PDO(
 					'mysql:host=' . DB_LOCATION . ';dbname=' . DB_NAME . ';charset=utf8',
 					DB_USERNAME,
 					DB_PASSWORD
@@ -43,10 +43,10 @@ class Core_Database
 
 			// We want associate arrays returned by PDO, not the default objects
 			// Sorry if you prefer objects, but I prefer arrays :)
-			self::$_connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+			self::$connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 		}
 
 		// We have connected, return the instance
-		return self::$_connection;
+		return self::$connection;
 	}
 }
