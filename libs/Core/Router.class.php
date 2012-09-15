@@ -11,8 +11,7 @@ class Core_Router
 		Core_Url::getUrlBreakdown();
 
 		// Try and instantiate the controller
-		$controller = $_GET['controller'];
-		$this->loadController($controller);
+		$this->loadController($_GET['controller']);
 	}
 
 	/**
@@ -62,6 +61,9 @@ class Core_Router
 				// There was an error with the action, and we were not running the 404 action
 				// Try and run the 404 action
 				$this->loadAction('404');
+
+				// No need to go any further
+				return false;
 			} else if ($action == '404') {
 				// Even the 404 action does not work
 				// Just die

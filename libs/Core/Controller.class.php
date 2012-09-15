@@ -44,7 +44,7 @@ class Core_Controller
 		// Does the child allow caching?
 		if (isset($this->child->enableCache) && $this->child->enableCache) {
 			// Create a new cache instance
-			$cache = new Core_Cache($this->view->controller . '/' . $this->view->action . '.phtml', PATH_VIEW);
+			$cache = new Core_Cache($this->view->controller . DIRECTORY_SEPARATOR . $this->view->action . '.phtml', PATH_VIEW);
 
 			// Set the cache settings
 			$cache->setCache(true)
