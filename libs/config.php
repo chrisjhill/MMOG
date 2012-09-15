@@ -1,13 +1,18 @@
 <?php
-// Game locations
-define('PATH_BASE',  '/Users/chris/Documents/Repo/Battle/');
-define('PATH_CACHE', '/Users/chris/Documents/Repo/Battle/cache/');
+// Game paths
+define('PATH_BASE',     '/Users/chris/Documents/Repo/Battle/');
+define('PATH_TEMPLATE', '/Users/chris/Documents/Repo/Battle/template/');
+define('PATH_CACHE',    '/Users/chris/Documents/Repo/Battle/cache/');
 
 // Database details
 define('DB_LOCATION', 'localhost');
 define('DB_NAME',     'battle');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
+
+// Generic game settings
+define('GAME_NAME',    'MMOG Demonstration');
+define('GAME_VERSION', 'v0.4'); // We follow the major.minor.bugfix format
 
 // Battle settings
 define('GAME_BASH_LIMIT',                    '20'); // Percent

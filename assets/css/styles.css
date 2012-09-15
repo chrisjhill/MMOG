@@ -11,6 +11,11 @@ body{margin:0;padding:0;background:#EEE;color:#555;font-family:Arial;font-size:1
     #battle_output_introduction{color:#CCC;font-size:20px;text-align:center;padding-top:10px;letter-spacing:-.5px}
         .battle_ship_count{font-size:12px;font-family:Courier;width:60px;border:1px solid #CCC;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;padding:2px}
         #battle_output .loading{width:24px;height:24px;margin:10px 0 0 460px}
+.battle-report{}
+    .battle-report-stat-heading{width:65px;text-align:right}
+    .battle-report-entity,.battle-report-resource-stat{text-align:center}
+    .battle-report-end-of-section{border-right:1px solid #CCC}
+    .stat{text-align:right;font-family:Monaco,Courier;font-size:10px}
 
 /* generic styles */
 .right{float:right}
