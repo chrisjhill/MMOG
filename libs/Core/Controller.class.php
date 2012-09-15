@@ -86,19 +86,17 @@ class Core_Controller
 	 */
 	public function forward($action = 'index', $controller = '') {
 		// Is this an controller forward or an action forward?
-		//   Controller forward = A new controller
-		//   Action redirect    = Same controller, different action
+		// Controller forward = A new controller
+		// Action redirect    = Same controller, different action
 		if ($controller == '' || $controller == str_replace('Controller_', '', get_called_class())) {
 			// Action redirect
-			$this->view->_action = $action;
-
-			// And run the new action
-			// But does the method exist?
+			// Does the method actually exist?
 			if (! method_exists($this->child, $action . 'Action')) {
 				throw new Exception('The action ' . $action . ' does not exist.');
 			}
 
 			// Yes, it exists
+			$this->view->_action = $action;
 			$this->child->{$action . 'Action'}();
 		} else {
 			//die('controller redirect');
