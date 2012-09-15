@@ -58,15 +58,16 @@ class Core_Ship
 		$database  = Core_Database::getInstance();
 		// Prepare the SQL
 		$statement = $database->prepare("
-			SELECT s.ship_id, s.ship_order_of_fire, s.ship_name, s.ship_type, s.ship_class, s.ship_target, s.ship_life, s.ship_attack, s.ship_primary_cost, s.ship_secondary_cost
-			FROM   `ship` s
+			SELECT   s.ship_id, s.ship_order_of_fire, s.ship_name, s.ship_type, s.ship_class, s.ship_target, s.ship_life, s.ship_attack, s.ship_primary_cost, s.ship_secondary_cost
+			FROM     `ship` s
+			ORDER BY s.ship_order_of_fire ASC
 		");
 		// Execute the query
 		$statement->execute();
 
 		// Did we find any ships?
 		while ($ship = $statement->fetch()) {
-			self::$_ship[$ship['ship_order_of_fire']] = $ship;
+			self::$_ship[$ship['ship_id']] = $ship;
 		}
 	}
 }
