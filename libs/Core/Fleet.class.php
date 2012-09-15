@@ -5,10 +5,8 @@
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       13/09/2012
- * @homepage    http://www.chrisjhill.co.uk
- * @twitter     @chrisjhill
  */
-class Fleet
+class Core_Fleet
 {
 	/**
 	 * Information on this fleet.
@@ -40,7 +38,7 @@ class Fleet
 	 */
 	public function setShips() {
 		// Get the database connection
-		$database  = Database::getInstance();
+		$database  = Core_Database::getInstance();
 		// Prepare the SQL
 		$statement = $database->prepare("
 			SELECT s.ship_id, s.ship_quantity
