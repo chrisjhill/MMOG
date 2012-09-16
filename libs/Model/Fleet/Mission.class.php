@@ -6,37 +6,37 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       16/09/2012
  */
-class Model_Mission
+class Model_Fleet_Mission
 {
 	/**
-	 * Get mission for a single fleet.
+	 * Get mission for a single squadron.
 	 *
 	 * @access public
 	 * @param int $countryId
-	 * @param int $fleetId
+	 * @param int $squadronId
 	 */
-	public function getFleet($countryId, $fleetId) {
+	public function getSquadron($countryId, $squadronId) {
         // Get the missions that are due to wage battle on this country
         // They need to have arrived (ETA 0), have waves remaining, and not have a status of Returning
         $database  = Core_Database::getInstance();
         $statement = $database->prepare("
-            SELECT m.mission_id, m.country_id, m.fleet_id, m.mission_destination_country_id,
+            SELECT m.mission_id, m.country_id, m.squadron_id, m.mission_destination_country_id,
                    m.mission_status, m.mission_eta, m.mission_wave_length,
                    m.mission_created
             FROM   `mission` m
-            WHERE  m.country_id = :country_id
+            WHERE  m.country_id  = :country_id
                    AND
-                   m.fleet_id   = :fleet_id
+                   m.squadron_id = :squadron_id
         ");
 
         // Execute the query
         $statement->execute(array(
-            ':country_id' => $countryId,
-            ':fleet_id'   => $fleetId
+            ':country_id'  => $countryId,
+            ':squadron_id' => $squadronId
         ));
 
         // Return the missions
-        return Model_Mission::prepareMissions($statement);
+        return Model_Fleet_Mission::prepareMissions($statement);
 	}
 
 	/**
@@ -52,7 +52,7 @@ class Model_Mission
         // They need to have arrived (ETA 0), have waves remaining, and not have a status of Returning
         $database  = Core_Database::getInstance();
         $statement = $database->prepare("
-            SELECT m.mission_id, m.country_id, m.fleet_id, m.mission_destination_country_id,
+            SELECT m.mission_id, m.country_id, m.squadron_id, m.mission_destination_country_id,
                    m.mission_status, m.mission_eta, m.mission_wave_length,
                    m.mission_created
             FROM   `mission` m
@@ -65,13 +65,13 @@ class Model_Mission
         ));
 
         // Return the missions
-        return Model_Mission::prepareMissions($statement);
+        return Model_Fleet_Mission::prepareMissions($statement);
 	}
 
 	/**
 	 * Get mission by country ID.
 	 *
-	 * Get an overview on all the incoming and outgoing fleets to a country.
+	 * Get an overview on all the incoming and outgoing squadrons to a country.
 	 * Used in the battle and radar code.
 	 *
 	 * @access public
@@ -83,7 +83,7 @@ class Model_Mission
         // They need to have arrived (ETA 0), have waves remaining, and not have a status of Returning
         $database  = Core_Database::getInstance();
         $statement = $database->prepare("
-            SELECT m.mission_id, m.country_id, m.fleet_id, m.mission_destination_country_id,
+            SELECT m.mission_id, m.country_id, m.squadron_id, m.mission_destination_country_id,
                    m.mission_status, m.mission_eta, m.mission_wave_length,
                    m.mission_created
             FROM   `mission` m
@@ -102,7 +102,7 @@ class Model_Mission
         ));
 
         // Return the missions
-        return Model_Mission::prepareMissions($statement);
+        return Model_Fleet_Mission::prepareMissions($statement);
 	}
 
 	/**
@@ -113,9 +113,9 @@ class Model_Mission
 	 * @return array
 	 */
 	public function prepareMissions($statement) {
-        // Were there any fleets?
+        // Were there any squadrons?
         if ($statement->rowCount() <= 0) {
-            // There were no fleets, we can't have a battle
+            // There were no squadrons, we can't have a battle
             return false;
         }
 

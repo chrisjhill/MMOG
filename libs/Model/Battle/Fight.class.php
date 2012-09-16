@@ -3,7 +3,7 @@
  * Battle script.
  *
  * Developed as part of a <abbr title="Massively Multiplayer Online Game">MMOG</abbr>,
- * this engine is capable of taking an attacking and defending fleet and battling them
+ * this engine is capable of taking an attacking and defending squadrons and battling them
  * against each other. The engine is capable of freezing, stealing and destroying the
  * opponents ships.
  *
@@ -11,12 +11,12 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       10/09/2012
  *
- * @todo Work out how many asteroids each fleet stole.
+ * @todo Work out how many asteroids each squadron stole.
  * @todo produceBattleReport() needs a bit of refactoring. It's a bit long winded.
- * @todo Update fleet upon end of battle.
+ * @todo Update squadron upon end of battle.
  * @todo Insert news item for each country.
  */
-class Model_Battle
+class Model_Battle_Fight
 {
     /**
      * The ID of this battle.
@@ -104,11 +104,11 @@ class Model_Battle
      * <code>
      * array(
      *     'defending' => array(
-     *         0 => Model_Fleet
+     *         0 => Model_Fleet_Squadron
      *     ),
      *     'attacking' => array(
-     *         0 => Model_Fleet,
-     *         1 => Model_Fleet
+     *         0 => Model_Fleet_Squadron,
+     *         1 => Model_Fleet_Squadron
      *     )
      * )
      * </code>
@@ -116,21 +116,21 @@ class Model_Battle
      * @access private
      * @var array
      */
-    private $_fleet = array();
+    private $_squadron = array();
 
     /**
-     * Stats on the outcome of each fleet.
+     * Stats on the outcome of each squadron.
      *
      * @access private
      * @var array
      */
-    private $_fleetStats = array();
+    private $_squadronStats = array();
     
     /**
      * Information on the defending country.
      * 
      * @access private
-     * @var Model_Country
+     * @var Model_Planet_Country
      */
     private $_defendingCountry = array();
     
@@ -225,7 +225,7 @@ class Model_Battle
     private function setShipStatistics() {
         // These are the ship statistics
         // @todo These would normally be stored in a database, but for this example they are hard-coded.
-        $this->_ship = Model_Ship::getInstance();
+        $this->_ship = Model_Fleet_Ship::getInstance();
         
         // Set the ship classes
         foreach ($this->_ship as $shipId => $shipInformation) {
@@ -241,7 +241,7 @@ class Model_Battle
     /**
      * Sets all of the defending country information.
      *
-     * This function also works out the defending and attacking fleets
+     * This function also works out the defending and attacking squadrons
      * and fires starts the battle sequence.
      *
      * @access public
@@ -250,17 +250,17 @@ class Model_Battle
         // Set country informati_shipMatrixon
         $this->setDefendingCountryInformation();
         
-        // Set attacker and defender information and their fleets
-        $battleStatus = $this->setFleets();
+        // Set attacker and defender information and their squadrons
+        $battleStatus = $this->setSquadrons();
 
         // Can we actually have a battle?
-        // There might not be any fleets, or there may not be any attackers
+        // There might not be any squadrons, or there may not be any attackers
         if (! $battleStatus) {
             return false;
         }
 
         // Group attackers and defenders together
-        $this->setFleetTotals();
+        $this->setSquadronTotals();
 
         // Set the ship matrix
         $this->setShipClassLifeTotals();
@@ -277,77 +277,79 @@ class Model_Battle
     private function setDefendingCountryInformation() {
         // Set information about the defending country
         // These would normally be stored in a database, but for this example they are hard-coded 
-        $this->_defendingCountry = new Model_Country(1);
+        $this->_defendingCountry = new Model_Planet_Country(1);
 
-        // Get all of the fleets this country has
-        $fleetList = $this->_defendingCountry->getFleet(0);
+        // Get all of the squadrons this country has
+        $squadronList = $this->_defendingCountry->getSquadron(0);
 
         // Loop over them, and if they are currently docked add them to the defender list
-        foreach ($fleetList as $fleetId => $fleet) {
-            $this->_fleet['defending'][] = $fleet;
+        foreach ($squadronList as $squadronId => $squadron) {
+            if ($squadron->getInfo('squadron_status') & FLEET_DOCKED) {
+                $this->_squadron['defending'][] = $squadron;
+            }
         }
     }
 
     /**
-     * Set the initial fleet stats for the attacking and defending countries.
+     * Set the initial squadron stats for the attacking and defending countries.
      *
      * @todo Needs to grab data from a database.
      * @access private
      */
-    private function setFleets() {
+    private function setSquadrons() {
         // Get the missions
-        $missions = Model_Mission::getBattle($this->_defendingCountry->getInfo('country_id'));
+        $missions = Model_Fleet_Mission::getBattle($this->_defendingCountry->getInfo('country_id'));
 
         // Loop over each of the missions and set them
         foreach ($missions as $mission) {
             // Get the country information
-            $country = new Model_Country($mission['country_id']);
+            $country = new Model_Planet_Country($mission['country_id']);
 
-            // Get the fleet this country has sent
-            $fleet = $country->getFleet($mission['fleet_id']);
+            // Get the squadron this country has sent
+            $squadron = $country->getSquadron($mission['squadron_id']);
 
             // Loop over them, and if they are currently docked add them to the defender list
-            $this->_fleet[$mission['mission_status'] == 'A' ? 'attacking' : 'defending'][] = $fleet;
+            $this->_squadron[$mission['mission_status'] == 'A' ? 'attacking' : 'defending'][] = $squadron;
         }
 
         // The battle has an attacker, right?
-        return count($this->_fleet['attacking']) >= 1;
+        return count($this->_squadron['attacking']) >= 1;
     }
 
     /**
      * We group defenders as one and attackers as one. This means we do not have to worry
-     * about individual fleets during the battle function and can instead focus on the
-     * logic. We can work out the individual fleet stats afterwards.
+     * about individual squadrons during the battle function and can instead focus on the
+     * logic. We can work out the individual squadrons stats afterwards.
      *
      * @access private
      */
-    private function setFleetTotals() {
+    private function setSquadronTotals() {
         // Loop over each of the attackers and defenders
-        foreach ($this->_fleet as $status => $fleets) {
-            // Loop over each fleet
-            foreach ($fleets as $index => $fleet) {
-                // And loop over each ship that this fleet can contain
+        foreach ($this->_squadron as $status => $squadrons) {
+            // Loop over each squadron
+            foreach ($squadrons as $index => $squadron) {
+                // And loop over each ship that this squadron can contain
                 foreach ($this->_ship as $shipId => $ship) {
-                    // First things first, add to fleet stats
-                    $this->_fleetStats[$fleet->getInfo('country_id')]
-                                      [$fleet->getInfo('fleet_id')]
+                    // First things first, add to squadron stats
+                    $this->_squadronStats[$squadron->getInfo('country_id')]
+                                      [$squadron->getInfo('squadron_id')]
                                       [$shipId] = array('ship_destroyed' => 0, 'ship_frozen' => 0, 'ship_stolen' => 0);
 
-                    // Create side to add this fleet to
+                    // Create side to add this squadron to
                     $tempSide = '_' . $status . 'Ships';
 
-                    // Add fleet to attacking or defending totals
+                    // Add squadron to attacking or defending totals
                     if (! isset($this->{$tempSide}[$shipId])) {
                         // This ship does not currently exist, add it
                         $this->{$tempSide}[$shipId] = array(
-                            'ship_total'     => (int)$fleet->getInfo($shipId),
+                            'ship_total'     => (int)$squadron->getInfo($shipId),
                             'ship_frozen'    => 0,
                             'ship_stolen'    => 0,
                             'ship_destroyed' => 0
                         );
                     } else {
-                        // This ship already exists in this fleet, add to total
-                        $this->{$tempSide}[$shipId]['ship_total'] += (int)$fleet->getInfo($shipId);
+                        // This ship already exists in this squadron, add to total
+                        $this->{$tempSide}[$shipId]['ship_total'] += (int)$squadron->getInfo($shipId);
                     }
                 }
             }
@@ -496,7 +498,7 @@ class Model_Battle
         $this->doAsteroidStealing();
         $this->doSalvageReclaiming();
 
-        // Work out stats for each fleet
+        // Work out stats for each squadron
         $this->produceCountryStats();
         
         // Produce a battle report
@@ -649,7 +651,7 @@ class Model_Battle
         // We first need to loop over each ship
         foreach ($this->_ship as $shipId => $shipInformation) {
             // Loop over the defenders and then the attackers
-            foreach ($this->_fleet as $status => $fleets) {
+            foreach ($this->_squadron as $status => $squadrons) {
                 // Did the $status actually have any of this ship, though?
                 if ($this->getCountryShipNumber($status, $shipId, array()) <= 0) {
                     continue;
@@ -658,61 +660,61 @@ class Model_Battle
                 // Set which we are dealing with
                 $attackerOrDefender = '_' . $status . 'Ships';
 
-                // There might be a rounding error, remember which fleets have been affected
+                // There might be a rounding error, remember which squadrons have been affected
                 $shipTally      = array('ship_destroyed' => 0, 'ship_frozen' => 0, 'ship_stolen' => 0);
-                $fleetsAffected = array();
+                $squadronsAffected = array();
 
                 // Totals for this status ship
                 $shipDestroyedTally = 0;
                 $shipFrozenTally    = 0;
                 $shipStolenTally    = 0;
 
-                // And work out the stats for each fleet
-                // Remember, each country might have multiple fleets
-                foreach ($fleets as $index => $fleet) {
-                    // Did the fleet actually contain this ship?
-                    if ($fleet->getInfo($shipId) <= 0) {
+                // And work out the stats for each squadron
+                // Remember, each country might have multiple squadrons
+                foreach ($squadrons as $index => $squadron) {
+                    // Did the squadron actually contain this ship?
+                    if ($squadron->getInfo($shipId) <= 0) {
                         continue;
                     }
 
-                    // This fleet might need to be corrected for the rounding error
-                    $fleetsAffected[] = $index;
+                    // This squadron might need to be corrected for the rounding error
+                    $squadronsAffected[] = $index;
 
-                    // What percentage of this ship did this fleet have?
-                    $fleetShipPercentage = ($fleet->getInfo($shipId) / $this->{$attackerOrDefender}[$shipId]['ship_total']) * 100;
+                    // What percentage of this ship did this squadron have?
+                    $squadronShipPercentage = ($squadron->getInfo($shipId) / $this->{$attackerOrDefender}[$shipId]['ship_total']) * 100;
 
-                    // We can now work out how many of this fleets ship have been affected
+                    // We can now work out how many of this squadrons ship have been affected
                     foreach (array('ship_destroyed', 'ship_frozen', 'ship_stolen') as $shipState) {
                         // Destroyed
-                        $this->_fleetStats[$fleet->getInfo('country_id')]
-                                          [$fleet->getInfo('fleet_id')]
+                        $this->_squadronStats[$squadron->getInfo('country_id')]
+                                          [$squadron->getInfo('squadron_id')]
                                           [$shipId]
                                           [$shipState] =
                             $this->{$attackerOrDefender}[$shipId][$shipState] > 0
-                                ? ($this->{$attackerOrDefender}[$shipId][$shipState] / 100) * $fleetShipPercentage
+                                ? ($this->{$attackerOrDefender}[$shipId][$shipState] / 100) * $squadronShipPercentage
                                 : 0;
 
                         // Tally
-                        $shipTally[$shipState] += $this->_fleetStats[$fleet->getInfo('country_id')]
-                                                                    [$fleet->getInfo('fleet_id')]
+                        $shipTally[$shipState] += $this->_squadronStats[$squadron->getInfo('country_id')]
+                                                                    [$squadron->getInfo('squadron_id')]
                                                                     [$shipId]
                                                                     [$shipState];
                     }
                 }
 
-                // If we have accounted for less than we need, assign the remaining to a random fleet
+                // If we have accounted for less than we need, assign the remaining to a random squadron
                 // "God doesn't play dice with the world", but in this case he (almost) does.
                 // @todo This code has not been tested
                 foreach (array('ship_destroyed', 'ship_frozen', 'ship_stolen') as $shipState) {
                     if ($shipDestroyedTally < $this->{$attackerOrDefender}[$shipId]['ship_destroyed']) {
-                        // Pick a random fleet to assign this difference
-                        $randomFleet = array_rand($fleetsAffected);
-                        $randomFleet = $fleetsAffected[$randomFleet];
+                        // Pick a random squadron to assign this difference
+                        $randomSquadron = array_rand($squadronsAffected);
+                        $randomSquadron = $squadronsAffected[$randomSquadron];
 
-                        // Add the difference to this fleet
-                        $this->_fleetStats
-                            [$this->_fleet[$status][$randomFleet]->getInfo('country_id')]
-                            [$this->_fleet[$status][$randomFleet]->getInfo('fleet_id')]
+                        // Add the difference to this squadron
+                        $this->_squadronStats
+                            [$this->_squadron[$status][$randomSquadron]->getInfo('country_id')]
+                            [$this->_squadron[$status][$randomSquadron]->getInfo('squadron_id')]
                             [$shipId]
                             [$shipState]
                                 += $this->{$attackerOrDefender}[$shipId][$shipState] - $shipDestroyedTally;
@@ -739,7 +741,7 @@ class Model_Battle
         // Defending and attacking totals
         $defending     = array('ship_total' => 0, 'ship_destroyed' => 0, 'ship_frozen' => 0, 'ship_stolen' => 0);
         $attacking     = array('ship_total' => 0, 'ship_destroyed' => 0, 'ship_frozen' => 0, 'ship_stolen' => 0);
-        $countryFleets = array();
+        $countrySquadrons = array();
 
         // Loop over each ship
         foreach ($this->_ship as $shipId => $shipInformation) {
@@ -759,25 +761,25 @@ class Model_Battle
                  . $this->_attackingShips[$shipId]['ship_frozen']    . '|'  // Total frozen
                  . $this->_attackingShips[$shipId]['ship_stolen']    . ','; // Total stolen
 
-            // Individual fleets
-            // Loop over the fleets
-            foreach ($this->_fleet as $status => $fleets) {
-                foreach ($fleets as $index => $fleet) {
-                    // Does this fleet actually contain any of this ship?
+            // Individual squadrons
+            // Loop over the squadrons
+            foreach ($this->_squadron as $status => $squadrons) {
+                foreach ($squadrons as $index => $squadron) {
+                    // Does this squadron actually contain any of this ship?
                     // Shorthand
-                    $stats = $this->_fleetStats[$fleet->getInfo('country_id')][$fleet->getInfo('fleet_id')];
+                    $stats = $this->_squadronStats[$squadron->getInfo('country_id')][$squadron->getInfo('squadron_id')];
 
                     // And set the string
                     // Do we need to create the reference?
-                    if (! isset($countryFleets[$fleet->getInfo('country_id')][$fleet->getInfo('fleet_id')])) {
+                    if (! isset($countrySquadrons[$squadron->getInfo('country_id')][$squadron->getInfo('squadron_id')])) {
                         // Yes, haven't created it yet
-                        $countryFleets[$fleet->getInfo('country_id')][$fleet->getInfo('fleet_id')] = '';
+                        $countrySquadrons[$squadron->getInfo('country_id')][$squadron->getInfo('squadron_id')] = '';
                     }
 
-                    // Add to the country fleet stats
-                    $countryFleets[$fleet->getInfo('country_id')][$fleet->getInfo('fleet_id')] .=
+                    // Add to the country squadron stats
+                    $countrySquadrons[$squadron->getInfo('country_id')][$squadron->getInfo('squadron_id')] .=
                         $shipId                              . ':'  // The ship ID
-                         . (int)$fleet->getInfo($shipId)     . '|'  // Total amount of this ship
+                         . (int)$squadron->getInfo($shipId)     . '|'  // Total amount of this ship
                          . $stats[$shipId]['ship_destroyed'] . '|'  // Total destroyed
                          . $stats[$shipId]['ship_frozen']    . '|'  // Total frozen
                          . $stats[$shipId]['ship_stolen']    . ','; // Total stolen
@@ -822,10 +824,10 @@ class Model_Battle
             // Attacker individual ship totals
             rtrim($battleStringAttacking, ',');
 
-        // Loop over each country fleet and set to string
-        foreach ($countryFleets as $countryId => $fleets) {
-            foreach ($fleets as $fleetId => $countryFleetStats) {
-                $battleString .= "\n" . $countryId . ',' . $fleetId . ',' . rtrim($countryFleetStats, ',');
+        // Loop over each country squadron and set to string
+        foreach ($countrySquadrons as $countryId => $squadrons) {
+            foreach ($squadrons as $squadronId => $countrySquadronStats) {
+                $battleString .= "\n" . $countryId . ',' . $squadronId . ',' . rtrim($countrySquadronStats, ',');
             }
         }
 

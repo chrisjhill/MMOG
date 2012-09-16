@@ -2,13 +2,13 @@
 /**
  * Information on a country. A country can be thought of as a "player" or "user".
  *
- * Contains information on the country including their fleet information.
+ * Contains information on the country including their squadron information.
  *
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       13/09/2012
  */
-class Model_Country
+class Model_Planet_Country
 {
 	/**
 	 * Information on the country.
@@ -39,13 +39,13 @@ class Model_Country
 	private $_info = array();
 
 	/**
-	 * Information on this entities fleet.
+	 * Information on this countries fleet.
 	 *
-	 * An entities entire fleet can be split into separate fleets. E.g., one
-	 * fleet could be docked, whilst another two are sent out on missions.
+	 * A countries entire fleet can be split into squadrons. E.g., one
+	 * squadron could be docked, whilst another two are sent out on missions.
 	 *
 	 * @access private
-	 * @var FleetList
+	 * @var Model_Fleet_List
 	 */
 	private $_fleetList;
 
@@ -93,20 +93,20 @@ class Model_Country
 	}
 
 	/**
-	 * Get all of the fleet information for the country and place it into
-	 * a FleetList so we can manipulate easily.
+	 * Get all of the squadron information for the country and place it into
+	 * a Model_Fleet_List so we can manipulate easily.
 	 *
 	 * @access public
 	 */
 	public function setFleet() {
-		// Set the FleetList
-		$this->_fleetList = new Model_FleetList();
+		// Set the Model_Fleet_List
+		$this->_fleetList = new Model_Fleet_List();
 
 		// Get the database connection
 		$database  = Core_Database::getInstance();
 		// Prepare the SQL
 		$statement = $database->prepare("
-			SELECT f.country_id, f.fleet_id, f.fleet_status
+			SELECT f.country_id, f.squadron_id, f.squadron_status
 			FROM   `fleet` f
 			WHERE  f.country_id = :country_id
 		");
@@ -116,9 +116,9 @@ class Model_Country
 		));
 
 		// Yes, loop over them
-		while ($fleet = $statement->fetch()) {
-			// And add a new Fleet to the FleetList
-			$this->_fleetList->add(new Model_Fleet($fleet));
+		while ($squadron = $statement->fetch()) {
+			// And add a new squadron to the Model_Fleet_List
+			$this->_fleetList->add(new Model_Fleet_Squadron($squadron));
 		}
 	}
 
@@ -136,26 +136,26 @@ class Model_Country
 	}
 
 	/**
-	 * Return a fleet that the country controls.
+	 * Return a squadron that the country controls.
 	 * 
 	 * @access public
-	 * @param int $fleetId
-	 * @return Fleet
+	 * @param int $squadronId
+	 * @return Model_Fleet_Squadron
 	 */
-	public function getFleet($fleetId = 0) {
-		// If we have not yet got the fleets, then set them
+	public function getSquadron($squadronId = 0) {
+		// If we have not yet got the squadrons, then set them
 		if (! $this->_fleetList) {
 			$this->setFleet();
 		}
 		
-		// Do we want all fleets, or just a single fleet?
-		if (! $fleetId) {
+		// Do we want all squadrons, or just a single squadron?
+		if (! $squadronId) {
 			return $this->_fleetList;
 		}
 
 		// We just want a single fleet
-		return $this->_fleetList->exists($fleetId)
-			? $this->_fleetList->get($fleetId)
+		return $this->_fleetList->exists($squadronId)
+			? $this->_fleetList->get($squadronId)
 			: false;
 	}
 }

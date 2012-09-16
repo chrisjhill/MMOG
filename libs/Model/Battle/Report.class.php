@@ -10,9 +10,9 @@
  * @since       15/09/2012
  *
  * @todo Outputting figures is really, really horrible, and almost guess work. Make nicer.
- * @todo Group together the countrys fleets - they may have more than one defending!
+ * @todo Group together the countrys squadrons - they may have more than one defending!
  */
-class Model_BattleReport
+class Model_Battle_Report
 {
 	/**
 	 * Details on the battle.
@@ -42,7 +42,7 @@ class Model_BattleReport
 	 * Information on the defending country.
 	 * 
 	 * @access private
-	 * @var Model_Country
+	 * @var Model_Planet_Country
 	 */
 	private $_defendingCountry;
 
@@ -50,7 +50,7 @@ class Model_BattleReport
 	 * Information on the ships in this game.
 	 *
 	 * @access private
-	 * @var Model_Ship
+	 * @var Model_Fleet_Ship
 	 */
 	private $_ship;
 
@@ -93,10 +93,10 @@ class Model_BattleReport
 		}
 
 		// Get the country that this battle report was for
-		$this->_defendingCountry = new Model_Country($this->_battle['country_id']);
+		$this->_defendingCountry = new Model_Planet_Country($this->_battle['country_id']);
 
 		// Get the ships
-		$this->_ship = Model_Ship::getInstance();
+		$this->_ship = Model_Fleet_Ship::getInstance();
 
 		// Parse the battle string
 		$this->_battleMatrix = $this->parseBattleString($this->_battle['battle_string']);
@@ -113,6 +113,13 @@ class Model_BattleReport
 		return $this->_template;
 	}
 
+	/**
+	 * Return the battle report stored in the database.
+	 * 
+	 * @access public
+	 * @param $battleId int
+	 * @return array
+	 */
 	public function getBattleReport($battleId) {
 		// Get the database connection
 		$database  = Core_Database::getInstance();
