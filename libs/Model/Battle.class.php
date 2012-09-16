@@ -295,34 +295,11 @@ class Model_Battle
      * @access private
      */
     private function setFleets() {
-        // Get the missions that are due to wage battle on this country
-        // They need to have arrived (ETA 0), have waves remaining, and not have a status of Returning
-        $database  = Core_Database::getInstance();
-        $statement = $database->prepare("
-            SELECT m.country_id, m.fleet_id, m.mission_status
-            FROM   `mission` m
-            WHERE  m.mission_destination_country_id = :country_id
-                   AND
-                   m.mission_eta                    = 0
-                   AND 
-                   m.mission_wave_length            > 0
-                   AND
-                   m.mission_status                != 'R'
-        ");
-
-        // Execute the query
-        $statement->execute(array(
-            ':country_id' => $this->_defendingCountry->getInfo('country_id')
-        ));
-
-        // Were there any fleets?
-        if ($statement->rowCount() <= 0) {
-            // There were no fleets, we can't have a battle
-            return false;
-        }
+        // Get the missions
+        $missions = Model_Mission::getBattle($this->_defendingCountry->getInfo('country_id'));
 
         // Loop over each of the missions and set them
-        while ($mission = $statement->fetch()) {
+        foreach ($missions as $mission) {
             // Get the country information
             $country = new Model_Country($mission['country_id']);
 
@@ -569,7 +546,7 @@ class Model_Battle
      */
     private function doAsteroidStealing() {
         // What is the potential maximum asteroids we can steal?
-        $asteroidMaximumSteal = floor(($this->_defendingCountry->getInfo('asteroid_count') / 100) * GAME_ASTEROID_MAX_CAP);
+        $asteroidMaximumSteal = floor(($this->_defendingCountry->getInfo('asteroid_count') / 100) * BATTLE_ASTEROID_MAX_CAP);
 
         // How many asteroids can the attacking country actually steal?
         // Set the total attack variable
@@ -585,7 +562,7 @@ class Model_Battle
         }
 
         // How many asteroids can the attacking country steal?
-        $asteroidsStolen = floor($totalAttackingAttack / GAME_ASTEROID_LIFE);
+        $asteroidsStolen = floor($totalAttackingAttack / BATTLE_ASTEROID_LIFE);
 
         // Is this more than the attacker is allowed to steal?
         if ($asteroidsStolen > $asteroidMaximumSteal) {
@@ -635,8 +612,8 @@ class Model_Battle
         }
         
         // Get a percentage that is reclaimable
-        $totalPrimarySalvage   = ($totalPrimarySalvage   / 100) * GAME_SALVAGE_PRIMARY_RECLAIMABLE;
-        $totalSecondarySalvage = ($totalSecondarySalvage / 100) * GAME_SALVAGE_SECONDARY_RECLAIMABLE;
+        $totalPrimarySalvage   = ($totalPrimarySalvage   / 100) * BATTLE_SALVAGE_PRIMARY;
+        $totalSecondarySalvage = ($totalSecondarySalvage / 100) * BATTLE_SALVAGE_SECONDARY;
         
         // We want to get an even spread of primary to secondary
         $percentageAsPrimary = ($totalPrimarySalvage / ($totalPrimarySalvage + $totalSecondarySalvage)) * 100;

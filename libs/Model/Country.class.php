@@ -15,8 +15,21 @@ class Model_Country
 	 *
 	 * <code>
 	 * array(
-	 *     'country_id'     => 12345,
-	 *     'asteroid_count' => 54321
+	 *     'country_id'                 => 12345,
+	 *     'alliance_id'                => 54321,
+	 *     'country_x_coord'            => 1,
+	 *     'country_y_coord'            => 2,
+	 *     'country_z_coord'            => 3,
+	 *     'country_status'             => 1,
+	 *     'country_ruler_name'         => 'Ruler',
+	 *     'country_name'               => 'The Land',
+	 *     'country_resource_primary'   => 12345,
+	 *     'country_resource_secondary' => 5432§,
+	 *     'asteroid_count'             => 100,
+	 *     'prism_count'                => 200,
+	 *     'country_created'            => 1234567890,
+	 *     'country_updated'            => 0,
+	 *     'country_removed'            => 0
 	 * )
 	 * </code>
 	 *
@@ -57,7 +70,12 @@ class Model_Country
 		$database  = Core_Database::getInstance();
 		// Prepare the SQL
 		$statement = $database->prepare("
-			SELECT c.country_id, c.asteroid_count
+			SELECT c.country_id, c.alliance_id,
+			       c.country_x_coord, c.country_y_coord, c.country_z_coord,
+			       c.country_status, c.country_ruler_name, c.country_name,
+			       c.country_resource_primary, c.country_resource_secondary,
+			       c.asteroid_count, c.prism_count,
+			       c.country_created, c.country_updated, c.country_removed
 			FROM   `country` c
 			WHERE  c.country_id = :country_id
 			LIMIT  1
