@@ -8,7 +8,7 @@ The project is under the following idea: Country -> Planet -> Galaxy -> Universe
 You are a country. You have your fellow planetary companions who you will work as a team with. You are within a turbulent galaxy where planets attack other planets for galaxy supremecy. There are multiple galaxies, each galaxy is their own game (e.g., a planet in the Milky Way couldn't attack a planet in the Andromeda galaxy).
 
 Basics
-======
+------
 
 This project aims to create the barebones for any MMOG, complete with (but not limited):
 
@@ -31,7 +31,7 @@ This project aims to create the barebones for any MMOG, complete with (but not l
 * Administration tools
 
 Installation
-============
+------------
 
 * Copy files to your document root
 * Config file is located in /libs/config.php
