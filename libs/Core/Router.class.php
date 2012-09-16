@@ -60,7 +60,7 @@ class Core_Router
 			if ($action != '404') {
 				// There was an error with the action, and we were not running the 404 action
 				// Try and run the 404 action
-				$this->loadAction('404');
+				$this->loadAction($controller, '404');
 
 				// No need to go any further
 				return false;

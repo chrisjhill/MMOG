@@ -1,5 +1,5 @@
 <?php
-class Core_View
+class Core_View extends Core_ViewHelper
 {
 	/**
 	 * Which layout we are going to use for this view.
@@ -16,22 +16,6 @@ class Core_View
 	 * @var Core_Cache
 	 */
 	public $cache;
-
-	/**
-	 * The controller that we need to render.
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $controller = 'index';
-
-	/**
-	 * The action that we need to render.
-	 *
-	 * @access public
-	 * @var string
-	 */
-	public $action = 'index';
 
 	/**
 	 * The variables that we want to pass to this view.
@@ -63,43 +47,42 @@ class Core_View
 	public function render() {
 		// Can we use a cache to speed things up?
 		// If the cache object exists then it means the controller wants to use caching
-		if ($this->cache->cachedFileAvailable()) {
+		// However, the action might have disabled it
+		if ($this->cache && $this->cache->cachedFileAvailable()) {
 			// The cache is enabled and there is an instance of the file in cache
-			echo $this->cache->getCachedFile();
-			return true;
+			$viewContent = $this->cache->getCachedFile();
 		}
 
-		// Does the view file exist?
-		if (! file_exists(PATH_VIEW . $this->controller . DIRECTORY_SEPARATOR . $this->action . '.phtml')) {
-			throw new Exception('The view ' . $this->action . ' does not exist in ' . $this->controller . '.');
-		}
+		// Nope, there is no cache
+		else {
+			// Does the view file exist?
+			if (! file_exists(PATH_VIEW . $this->controller . DIRECTORY_SEPARATOR . $this->action . '.phtml')) {
+				throw new Exception('The view ' . $this->action . ' does not exist in ' . $this->controller . '.');
+			}
 
-		// The view exists
-		// Extract the variables that have been set
-		if ($this->_variables) {
-			extract($this->_variables);
-		}
+			// The view exists
+			// Extract the variables that have been set
+			if ($this->_variables) {
+				extract($this->_variables);
+			}
 
-		// Enable object buffering if we want a cache
-		if ($this->cache) {
+			// Enable object buffering
 			ob_start();
+
+			// And include the file for parsing
+			include PATH_VIEW . $this->controller . DIRECTORY_SEPARATOR . $this->action . '.phtml';
+
+			// Get the content of the view after parsing, and dispose of the buffer
+			$viewContent = ob_get_contents();
+			ob_end_clean();
+
+			// If we are using the cache then save it
+			if ($this->cache && $this->cache->getCacheEnabled()) {
+				$this->cache->saveFileToCache($viewContent);
+			}
 		}
 
-		// And include the file for parsing
-		include PATH_VIEW . $this->controller . DIRECTORY_SEPARATOR . $this->action . '.phtml';
-
-		// If we are using the cache then save it
-		if ($this->cache) {
-			// Quickly state that this is a cached file they are seeing
-			// And when it was generated and set to expire
-			echo "\n" . '<!--
-				This page was cached on ' . date('r', $_SERVER['REQUEST_TIME']) . '
-				and is due to expire on ' . date('r', ($_SERVER['REQUEST_TIME'] + $this->cache->getCacheLife())) .
-				"\n" . '//-->';
-
-			// Save the cache to disk
-			$this->cache->saveFileToCache(ob_get_contents());
-			ob_end_flush();
-		}
+		// Include the layout
+		include PATH_LAYOUT . $this->layout . '.phtml';
 	}
 }

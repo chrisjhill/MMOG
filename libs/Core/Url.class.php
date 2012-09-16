@@ -18,9 +18,10 @@ class Core_Url
 	 */
 	public function getUrlBreakdown() {
 		// Set the URL
-		// We do not want the start and the end slash
+		// We do not want the start and the end slash, explode on separators, and filter
 		$urlBreakdown = trim($_SERVER['REQUEST_URI'], '/');
 		$urlBreakdown = explode('/', $urlBreakdown);
+		$urlBreakdown = array_filter($urlBreakdown);
 
 		// Start to piece back together and create a nice, usable, array
 		$url = array(

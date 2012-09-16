@@ -16,7 +16,7 @@
  * @todo Update fleet upon end of battle.
  * @todo Insert news item for each country.
  */
-class Core_Battle
+class Model_Battle
 {
     /**
      * The ID of this battle.
@@ -104,11 +104,11 @@ class Core_Battle
      * <code>
      * array(
      *     'defending' => array(
-     *         0 => Core_Fleet
+     *         0 => Model_Fleet
      *     ),
      *     'attacking' => array(
-     *         0 => Core_Fleet,
-     *         1 => Core_Fleet
+     *         0 => Model_Fleet,
+     *         1 => Model_Fleet
      *     )
      * )
      * </code>
@@ -130,7 +130,7 @@ class Core_Battle
      * Information on the defending country.
      * 
      * @access private
-     * @var Core_Country
+     * @var Model_Country
      */
     private $_defendingCountry = array();
     
@@ -225,7 +225,7 @@ class Core_Battle
     private function setShipStatistics() {
         // These are the ship statistics
         // @todo These would normally be stored in a database, but for this example they are hard-coded.
-        $this->_ship = Core_Ship::getInstance();
+        $this->_ship = Model_Ship::getInstance();
         
         // Set the ship classes
         foreach ($this->_ship as $shipId => $shipInformation) {
@@ -277,7 +277,7 @@ class Core_Battle
     private function setDefendingCountryInformation() {
         // Set information about the defending country
         // These would normally be stored in a database, but for this example they are hard-coded 
-        $this->_defendingCountry = new Core_Country(1);
+        $this->_defendingCountry = new Model_Country(1);
 
         // Get all of the fleets this country has
         $fleetList = $this->_defendingCountry->getFleet(0);
@@ -324,7 +324,7 @@ class Core_Battle
         // Loop over each of the missions and set them
         while ($mission = $statement->fetch()) {
             // Get the country information
-            $country = new Core_Country($mission['country_id']);
+            $country = new Model_Country($mission['country_id']);
 
             // Get the fleet this country has sent
             $fleet = $country->getFleet($mission['fleet_id']);

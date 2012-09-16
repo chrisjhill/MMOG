@@ -63,12 +63,16 @@ class Core_Cache
 	 *
 	 * @access public
 	 * @param $file string
+	 * @param $path string
+	 * @param $performExist boolean
 	 * @throws Exception
 	 */
-	public function __construct($file, $path = PATH_TEMPLATE) {
+	public function __construct($file, $path = PATH_VIEW, $performExist = true) {
 		// Do we actually have this file?
-		if (! file_exists($path . $file)) {
-			throw new Exception('Unable to locate the file: ' . $path . $file);
+		if ($performExist) {
+			if (! file_exists($path . $file)) {
+				throw new Exception('Unable to locate the file: ' . $path . $file);
+			}
 		}
 
 		// Set the file to use
@@ -176,7 +180,22 @@ class Core_Cache
 	 * @param $content string
 	 */
 	public function saveFileToCache($content) {
-		file_put_contents(PATH_CACHE . $this->_cacheLocation, $content);
+		// If the content is nothing then something has obviously gone wrong
+		// Do not cache otherwise we'll have nothing but problems
+		//if ($content != '' && $this->_cacheLocation != '') {
+		if ($content != '') {
+			file_put_contents(PATH_CACHE . $this->_cacheLocation, $content);
+		}
+	}
+
+	/**
+	 * Return whether the cache is enabled or not.
+	 *
+	 * @access pubic
+	 * @return boolean
+	 */
+	public function getCacheEnabled() {
+		return $this->_enableCache;
 	}
 
 	/**

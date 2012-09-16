@@ -6,15 +6,12 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       15/09/2012
  *
- * @todo A way to merge a group of templates into one cache (e.g., battle report).
+ * @todo A way to merge a group of snippets into one cache (e.g., a battle report).
  */
-class Core_Template extends Core_Cache
+class Core_Snippet extends Core_Cache
 {
 	/**
 	 * The variables that we wish to replace.
-	 *
-	 * Note: Variables in the template file are wrapped in { and }. You do not need
-	 * to pass these in, we'll do that for you automatically.
 	 *
 	 * <code>
 	 * array(
@@ -29,16 +26,18 @@ class Core_Template extends Core_Cache
 	private $_variable = array();
 
 	/**
-	 * Start to build the template snippet.
+	 * Start to build the snippet.
 	 *
-	 * We only want to pass in a template file at the moment. We do not want to give the
-	 * constructor too much power, and we would rather build the template up as we go along.
+	 * We only want to pass in a snippet file at the moment. We do not want to give the
+	 * constructor too much power, and we would rather build the snippet up as we go along.
 	 *
 	 * @access public
+	 * @param $file string
+	 * @param $path srring
 	 * @throws Exception
 	 */
-	public function __construct($template) {
-		parent::__construct($template);
+	public function __construct($file, $path = PATH_SNIPPET) {
+		parent::__construct($file, $path);
 	}
 
 	/**
@@ -49,7 +48,7 @@ class Core_Template extends Core_Cache
 	 * @access public
 	 * @param $variable string
 	 * @param $value string
-	 * @return Core_Template
+	 * @return Core_Snippet
 	 */
 	public function addVariable($variable, $value) {
 		$this->_variable[$variable] = $value;
@@ -57,33 +56,37 @@ class Core_Template extends Core_Cache
 	}
 
 	/**
-	 * Return the template with the variables replaced.
+	 * Return the snippet with the variables replaced.
 	 *
 	 * If we can use a cached version of the file then we will, otherwise we
-	 * will render the template fresh.
+	 * will render the snippet fresh.
 	 *
 	 * @access public
 	 * @return string
 	 */
 	public function render() {
-		// Can we use a cached template?
+		// Can we use a cached snippet?
 		if ($this->cachedFileAvailable()) {
 			// We can use a cached copy, mucho quick
 			return $this->getCachedFile();
 		}
 
-		// Nope, looks as though we are generating a fresh template
-		$content = file_get_contents(PATH_TEMPLATE . $this->_file);
+		// Start object buffering
+		ob_start();
 
-		// Start the replacements
-		foreach ($this->_variable as $variable => $value) {
-			// Replace all instances
-			$content = str_replace('{' . $variable . '}', $value, $content);
-		}
+		// Extract variables
+		extract($this->_variable);
+
+		// Include the snippet
+		include PATH_SNIPPET . $this->_file;
+
+		// Place the buffer contents into a string
+		$content = ob_get_contents();
+		ob_end_clean();
 
 		// Do we want to save this to the cache
 		if ($this->_enableCache) {
-			$this->saveFileToCache($content);
+			$this->saveFileToCache($content);	
 		}
 
 		// Rendering complete

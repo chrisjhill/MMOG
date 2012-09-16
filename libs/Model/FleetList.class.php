@@ -6,13 +6,13 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       13/09/2012
  */
-class Core_FleetList implements IteratorAggregate
+class Model_FleetList implements IteratorAggregate
 {
 	/**
 	 * An array of the fleets this country controls.
 	 *
 	 * @access private
-	 * @var array of Core_Fleet
+	 * @var array of Model_Fleet
 	 */
 	private $_fleet = array();
 
@@ -20,10 +20,10 @@ class Core_FleetList implements IteratorAggregate
 	 * Add a Fleet to this list.
 	 *
 	 * @access public
-	 * @param Core_Fleet $fleet
+	 * @param Model_Fleet $fleet
 	 */
 	public function add($fleet) {
-		if (get_class($fleet) == 'Core_Fleet') {
+		if (get_class($fleet) == 'Model_Fleet') {
 			$this->_fleet[$fleet->getInfo('fleet_id')] = $fleet;
 		}
 	}
@@ -44,7 +44,7 @@ class Core_FleetList implements IteratorAggregate
 	 *
 	 * @access public
 	 * @param int $fleetId
-	 * @return Core_Fleet
+	 * @return Model_Fleet
 	 */
 	public function get($fleetId) {
 		return $this->exists($fleetId)
@@ -56,7 +56,7 @@ class Core_FleetList implements IteratorAggregate
 	 * Allow scripts to iterate over the fleet list.
 	 * 
 	 * @access public
-	 * @return Core_Fleet
+	 * @return Model_Fleet
 	 */
 	public function getIterator() {
 		return new ArrayIterator($this->_fleet);

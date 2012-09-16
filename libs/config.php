@@ -1,10 +1,11 @@
 <?php
 // Game paths
+define('PATH_WEB',      '/');
 define('PATH_BASE',     '/Users/chris/Documents/Repo/Battle/');
-define('PATH_TEMPLATE', '/Users/chris/Documents/Repo/Battle/template/');
-define('PATH_CACHE',    '/Users/chris/Documents/Repo/Battle/cache/');
-define('PATH_VIEW',     '/Users/chris/Documents/Repo/Battle/libs/View/');
-define('PATH_LAYOUT',   '/Users/chris/Documents/Repo/Battle/libs/Layout/');
+define('PATH_VIEW',     PATH_BASE . 'libs/View/');
+define('PATH_SNIPPET',  PATH_BASE . 'libs/View/Snippet/');
+define('PATH_LAYOUT',   PATH_BASE . 'libs/Layout/');
+define('PATH_CACHE',    PATH_BASE . 'cache/');
 
 // Database details
 define('DB_LOCATION',   'localhost');

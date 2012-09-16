@@ -8,7 +8,7 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       13/09/2012
  */
-class Core_Country
+class Model_Country
 {
 	/**
 	 * Information on the country.
@@ -82,7 +82,7 @@ class Core_Country
 	 */
 	public function setFleet() {
 		// Set the FleetList
-		$this->_fleetList = new Core_FleetList();
+		$this->_fleetList = new Model_FleetList();
 
 		// Get the database connection
 		$database  = Core_Database::getInstance();
@@ -100,7 +100,7 @@ class Core_Country
 		// Yes, loop over them
 		while ($fleet = $statement->fetch()) {
 			// And add a new Fleet to the FleetList
-			$this->_fleetList->add(new Core_Fleet($fleet));
+			$this->_fleetList->add(new Model_Fleet($fleet));
 		}
 	}
 

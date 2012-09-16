@@ -6,7 +6,7 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       13/09/2012
  */
-class Core_Fleet
+class Model_Fleet
 {
 	/**
 	 * Information on this fleet.

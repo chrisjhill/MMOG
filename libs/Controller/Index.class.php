@@ -7,7 +7,7 @@ class Controller_Index extends Core_Controller
 	 * @access public
 	 * @var boolean
 	 */
-	public $enableCache = true;
+	// public $enableCache = true;
 
 	/**
 	 * Set the life of the cached file to 30 seconds.
@@ -15,7 +15,7 @@ class Controller_Index extends Core_Controller
 	 * @access public
 	 * @var int
 	 */
-	public $cacheLife = 30;
+	// public $cacheLife = 30;
 
 	/**
 	 * The index action
@@ -25,6 +25,12 @@ class Controller_Index extends Core_Controller
 	 * @access public
 	 */
 	public function indexAction() {
-		$this->view->addVariable('helloWorld', 'Hello World!');
+		// Disable the cache for this action
+		// If we forward to another action that wants caching then it will
+		// .. need to be re-enabled
+		// $this->view->cache->setCache(false);
+
+		// Add a variable to the view
+		$this->view->addVariable('title', 'Welcome to the Game');
 	}
 }

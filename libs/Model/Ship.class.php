@@ -6,7 +6,7 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       14/09/2012
  */
-class Core_Ship
+class Model_Ship
 {
 	/**
 	 * The ships that are available.

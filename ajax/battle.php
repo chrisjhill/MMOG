@@ -3,8 +3,9 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/libs/global.php';
 
 // New battle
-$battle = new Core_Battle();
+$battle = new Model_Battle();
 $battle->initiateWave();
 
 // Build the battle report
-echo Core_BattleReport::output($battle->getBattleId(), 1);
+$battleReport = new Model_BattleReport();
+echo $battleReport->output($battle->getBattleId(), 1);
