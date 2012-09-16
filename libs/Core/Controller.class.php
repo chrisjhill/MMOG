@@ -96,7 +96,7 @@ class Core_Controller
 			}
 
 			// Yes, it exists
-			$this->view->_action = $action;
+			$this->view->action = $action;
 			$this->child->{$action . 'Action'}();
 		} else {
 			// Controller redirect
