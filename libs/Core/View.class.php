@@ -1,4 +1,15 @@
 <?php
+/**
+ * Handles the main functionality of the view including the parsing,
+ * caching, variable storage.
+ *
+ * Also controls which layout will be shown and provides the means for
+ * View Helpers to be called.
+ *
+ * @copyright   2012 Christopher Hill <cjhill@gmail.com>
+ * @author      Christopher Hill <cjhill@gmail.com>
+ * @since       15/09/2012
+ */
 class Core_View extends Core_ViewHelper
 {
 	/**

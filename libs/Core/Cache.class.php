@@ -191,7 +191,7 @@ class Core_Cache
 	/**
 	 * Return whether the cache is enabled or not.
 	 *
-	 * @access pubic
+	 * @access public
 	 * @return boolean
 	 */
 	public function getCacheEnabled() {

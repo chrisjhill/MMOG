@@ -5,8 +5,6 @@
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       15/09/2012
- *
- * @todo Create a URL creator (like Zend Framework).
  */
 class Core_Url
 {

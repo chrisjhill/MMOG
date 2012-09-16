@@ -1,4 +1,11 @@
 <?php
+/**
+ * Connects the Controllers to the Views.
+ *
+ * @copyright   2012 Christopher Hill <cjhill@gmail.com>
+ * @author      Christopher Hill <cjhill@gmail.com>
+ * @since       15/09/2012
+ */
 class Core_Controller
 {
 	/**

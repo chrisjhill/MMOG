@@ -1,4 +1,12 @@
 <?php
+/**
+ * Dispatches requests to a controller and an action. Can be called by the
+ * controller live to forward to another controller.
+ *
+ * @copyright   2012 Christopher Hill <cjhill@gmail.com>
+ * @author      Christopher Hill <cjhill@gmail.com>
+ * @since       15/09/2012
+ */
 class Core_Router
 {
 	/**
@@ -60,7 +68,7 @@ class Core_Router
 			if ($action != '404') {
 				// There was an error with the action, and we were not running the 404 action
 				// Try and run the 404 action
-				$this->loadAction($controller, '404');
+				Core_Router::loadAction($controller, '404');
 
 				// No need to go any further
 				return false;
