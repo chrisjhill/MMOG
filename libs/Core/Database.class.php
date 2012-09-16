@@ -44,6 +44,9 @@ class Core_Database
 			// We want associate arrays returned by PDO, not the default objects
 			// Sorry if you prefer objects, but I prefer arrays :)
 			self::$connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+			// Show errors in SQL
+			// @todo Remove once no longer in development
+			self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 
 		// We have connected, return the instance

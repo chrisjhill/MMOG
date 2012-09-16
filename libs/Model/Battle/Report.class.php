@@ -42,7 +42,7 @@ class Model_Battle_Report
 	 * Information on the defending country.
 	 * 
 	 * @access private
-	 * @var Model_Planet_Country
+	 * @var Model_Country_Instance
 	 */
 	private $_defendingCountry;
 
@@ -93,7 +93,7 @@ class Model_Battle_Report
 		}
 
 		// Get the country that this battle report was for
-		$this->_defendingCountry = new Model_Planet_Country($this->_battle['country_id']);
+		$this->_defendingCountry = new Model_Country_Instance($this->_battle['country_id']);
 
 		// Get the ships
 		$this->_ship = Model_Fleet_Ship::getInstance();

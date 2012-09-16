@@ -16,6 +16,7 @@ define('DB_PASSWORD', 'root');
 // Generic game settings
 define('GAME_NAME',    'MMOG');
 define('GAME_VERSION', 'v0.6'); // We follow the major.minor.bugfix format
+define('GAME_ROUND',   1);
 
 // Battle settings
 define('BATTLE_ASTEROID_LIFE',     50);

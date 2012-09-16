@@ -130,7 +130,7 @@ class Model_Battle_Fight
      * Information on the defending country.
      * 
      * @access private
-     * @var Model_Planet_Country
+     * @var Model_Country_Instance
      */
     private $_defendingCountry = array();
     
@@ -199,10 +199,36 @@ class Model_Battle_Fight
      * for this example.
      *
      * @access public
+     * @param $defendingCountryId int
      */
-    public function __construct() {
+    public function __construct($defendingCountryId) {
+        // Set country informati_shipMatrixon
+        $this->setDefendingCountryInformation($defendingCountryId);
+
         // Set ship statictics
         $this->setShipStatistics();
+    }
+
+    /**
+     * Set the information about the defending country such as asteroid count.
+     * 
+     * @access private
+     * @param $defendingCountryId int
+     */
+    private function setDefendingCountryInformation($defendingCountryId) {
+        // Set information about the defending country
+        // These would normally be stored in a database, but for this example they are hard-coded 
+        $this->_defendingCountry = new Model_Country_Instance($defendingCountryId);
+
+        // Get all of the squadrons this country has
+        $squadronList = $this->_defendingCountry->getSquadron(0);
+
+        // Loop over them, and if they are currently docked add them to the defender list
+        foreach ($squadronList as $squadronId => $squadron) {
+            if ($squadron->getInfo('squadron_status') & FLEET_DOCKED) {
+                $this->_squadron['defending'][] = $squadron;
+            }
+        }
     }
 
     /**
@@ -247,9 +273,6 @@ class Model_Battle_Fight
      * @access public
      */
     public function initiateWave() {
-        // Set country informati_shipMatrixon
-        $this->setDefendingCountryInformation();
-        
         // Set attacker and defender information and their squadrons
         $battleStatus = $this->setSquadrons();
 
@@ -270,27 +293,6 @@ class Model_Battle_Fight
     }
 
     /**
-     * Set the information about the defending country such as asteroid count.
-     * 
-     * @access private
-     */
-    private function setDefendingCountryInformation() {
-        // Set information about the defending country
-        // These would normally be stored in a database, but for this example they are hard-coded 
-        $this->_defendingCountry = new Model_Planet_Country(1);
-
-        // Get all of the squadrons this country has
-        $squadronList = $this->_defendingCountry->getSquadron(0);
-
-        // Loop over them, and if they are currently docked add them to the defender list
-        foreach ($squadronList as $squadronId => $squadron) {
-            if ($squadron->getInfo('squadron_status') & FLEET_DOCKED) {
-                $this->_squadron['defending'][] = $squadron;
-            }
-        }
-    }
-
-    /**
      * Set the initial squadron stats for the attacking and defending countries.
      *
      * @todo Needs to grab data from a database.
@@ -303,7 +305,7 @@ class Model_Battle_Fight
         // Loop over each of the missions and set them
         foreach ($missions as $mission) {
             // Get the country information
-            $country = new Model_Planet_Country($mission['country_id']);
+            $country = new Model_Country_Instance($mission['country_id']);
 
             // Get the squadron this country has sent
             $squadron = $country->getSquadron($mission['squadron_id']);
@@ -548,7 +550,7 @@ class Model_Battle_Fight
      */
     private function doAsteroidStealing() {
         // What is the potential maximum asteroids we can steal?
-        $asteroidMaximumSteal = floor(($this->_defendingCountry->getInfo('asteroid_count') / 100) * BATTLE_ASTEROID_MAX_CAP);
+        $asteroidMaximumSteal = floor(($this->_defendingCountry->getInfo('country_asteroid_count') / 100) * BATTLE_ASTEROID_MAX_CAP);
 
         // How many asteroids can the attacking country actually steal?
         // Set the total attack variable
@@ -817,7 +819,7 @@ class Model_Battle_Fight
                 . $attacking['ship_destroyed'] . '|'
                 . $attacking['ship_frozen']    . '|'
                 . $attacking['ship_stolen']    . '|'
-                . $this->_defendingCountry->getInfo('asteroid_count') . '|'
+                . $this->_defendingCountry->getInfo('country_asteroid_count') . '|'
                 . $this->_asteroidsStolen      . "\n" .
             // Defender individual ship totals
             rtrim($battleStringDefending, ',') . "\n" .

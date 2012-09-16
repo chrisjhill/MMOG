@@ -3,7 +3,7 @@
 include $_SERVER['DOCUMENT_ROOT'] . '/libs/global.php';
 
 // New battle
-$battle = new Model_Battle_Fight();
+$battle = new Model_Battle_Fight(1);
 $battle->initiateWave();
 
 // Build the battle report

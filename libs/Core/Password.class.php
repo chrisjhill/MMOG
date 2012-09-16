@@ -27,13 +27,15 @@
 # MMOG:
 # Our implementation will be based upon the examples by Sunny Singh
 # http://sunnyis.me/blog/secure-passwords/
+# 
+# Note: We have changed the class name so it works with our autoloader.
 class Core_Password {
 	var $itoa64;
 	var $iteration_count_log2;
 	var $portable_hashes;
 	var $random_state;
 
-	function PasswordHash($iteration_count_log2, $portable_hashes)
+	function Core_Password($iteration_count_log2, $portable_hashes)
 	{
 		$this->itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 

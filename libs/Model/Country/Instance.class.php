@@ -8,7 +8,7 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       13/09/2012
  */
-class Model_Planet_Country
+class Model_Country_Instance
 {
 	/**
 	 * Information on the country.
@@ -16,7 +16,9 @@ class Model_Planet_Country
 	 * <code>
 	 * array(
 	 *     'country_id'                 => 12345,
-	 *     'alliance_id'                => 54321,
+	 *     'round_id'                   => 1,
+	 *     'user_id'                    => 54321
+	 *     'alliance_id'                => 24135,
 	 *     'country_x_coord'            => 1,
 	 *     'country_y_coord'            => 2,
 	 *     'country_z_coord'            => 3,
@@ -24,9 +26,10 @@ class Model_Planet_Country
 	 *     'country_ruler_name'         => 'Ruler',
 	 *     'country_name'               => 'The Land',
 	 *     'country_resource_primary'   => 12345,
-	 *     'country_resource_secondary' => 5432§,
-	 *     'asteroid_count'             => 100,
-	 *     'prism_count'                => 200,
+	 *     'country_resource_secondary' => 54321,
+	 *     'country_asteroid_count'     => 100,
+	 *     'country_prism_count'        => 200,
+	 *     'country_score'              => 1234567890,
 	 *     'country_created'            => 1234567890,
 	 *     'country_updated'            => 0,
 	 *     'country_removed'            => 0
@@ -70,19 +73,22 @@ class Model_Planet_Country
 		$database  = Core_Database::getInstance();
 		// Prepare the SQL
 		$statement = $database->prepare("
-			SELECT c.country_id, c.alliance_id,
+			SELECT c.country_id, c.round_id, c.user_id, c.alliance_id,
 			       c.country_x_coord, c.country_y_coord, c.country_z_coord,
 			       c.country_status, c.country_ruler_name, c.country_name,
 			       c.country_resource_primary, c.country_resource_secondary,
-			       c.asteroid_count, c.prism_count,
+			       c.country_asteroid_count, c.country_prism_count,
 			       c.country_created, c.country_updated, c.country_removed
 			FROM   `country` c
 			WHERE  c.country_id = :country_id
+			       AND 
+			       c.round_id   = :round_id
 			LIMIT  1
 		");
 		// Execute the query
 		$statement->execute(array(
-			':country_id' => $countryId
+			':country_id' => $countryId,
+			':round_id'   => GAME_ROUND
 		));
 
 		// Did we find the country?
