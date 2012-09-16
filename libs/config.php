@@ -1,7 +1,7 @@
 <?php
 // Game paths
 define('PATH_WEB',      '/');
-define('PATH_BASE',     '/Users/chris/Documents/Repo/Battle/');
+define('PATH_BASE',     '/Users/chris/Documents/Repo/MMOG/');
 define('PATH_VIEW',     PATH_BASE . 'libs/View/');
 define('PATH_SNIPPET',  PATH_BASE . 'libs/View/Snippet/');
 define('PATH_LAYOUT',   PATH_BASE . 'libs/Layout/');
@@ -14,8 +14,8 @@ define('DB_USERNAME',   'root');
 define('DB_PASSWORD',   'root');
 
 // Generic game settings
-define('GAME_NAME',     'MMOG Demonstration');
-define('GAME_VERSION',  'v0.5'); // We follow the major.minor.bugfix format
+define('GAME_NAME',     'MMOG');
+define('GAME_VERSION',  'v0.6'); // We follow the major.minor.bugfix format
 
 // Battle settings
 define('GAME_BASH_LIMIT',                    20); // Percent
