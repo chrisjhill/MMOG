@@ -18,6 +18,9 @@ class Core_Router
 		// Get the address the user navigated to
 		Core_Url::getUrlBreakdown();
 
+		// Inform the bootstrap a request has been initialised
+		Core_Bootstrap::initRequest($_GET['controller'], $_GET['action']);
+
 		// Try and instantiate the controller
 		$this->loadController($_GET['controller']);
 	}
@@ -37,7 +40,17 @@ class Core_Router
 		try {
 			// Instantiate
 			$controller = new $controller();
+
+			// We need to set the child to the parent so we can forward
 			$controller->child = $controller;
+
+			// Inform the bootstrap a controller has been initialised
+			Core_Bootstrap::initController($controller);
+
+			// Call the init method, if it exists
+			if (method_exists($controller, 'init')) {
+				$controller->init();
+			}
 		} catch (Exception $e) {
 			// Forward to the utilities 404
 			die('Sorry, we were unable to load the page your requested.');
@@ -48,9 +61,6 @@ class Core_Router
 
 		// Load the action
 		Core_Router::loadAction($controller, $action);
-
-		// And now render the view
-		$controller->render();
 	}
 
 	/**
@@ -65,14 +75,14 @@ class Core_Router
 		if (! method_exists($controller, $action . 'Action')) {
 			// Nope, doesn't exist
 			// Fall back to the 404
-			if ($action != '404') {
+			if ($action != 'error') {
 				// There was an error with the action, and we were not running the 404 action
 				// Try and run the 404 action
-				Core_Router::loadAction($controller, '404');
+				Core_Router::loadAction($controller, 'error');
 
 				// No need to go any further
 				return false;
-			} else if ($action == '404') {
+			} else if ($action == 'error') {
 				// Even the 404 action does not work
 				// Just die
 				die('Sorry, we were unable to load the action your requested.');
@@ -89,5 +99,8 @@ class Core_Router
 
 		// And call the action
 		$controller->{$action . 'Action'}();
+
+		// And now render the view
+		$controller->render();
 	}
 }

@@ -96,15 +96,8 @@ class Core_Controller
 		// Controller forward = A new controller
 		// Action redirect    = Same controller, different action
 		if ($controller == '' || $controller == str_replace('Controller_', '', get_called_class())) {
-			// Action redirect
-			// Does the method actually exist?
-			if (! method_exists($this->child, $action . 'Action')) {
-				throw new Exception('The action ' . $action . ' does not exist.');
-			}
-
-			// Yes, it exists
-			$this->view->action = $action;
-			$this->child->{$action . 'Action'}();
+			Core_Router::loadAction($this->child, $action);
+			$this->child->render();
 		} else {
 			// Controller redirect
 			// No longer render this controller, thank you
