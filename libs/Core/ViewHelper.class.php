@@ -60,7 +60,6 @@ class Core_ViewHelper
 
 		// However, we do not want the controller/action in the variable list
 		unset($defaults['variables']['controller'], $defaults['variables']['action']);
-		var_dump($defaults);
 
 		// Merge these in with the parameters
 		// Parameters will take precedence

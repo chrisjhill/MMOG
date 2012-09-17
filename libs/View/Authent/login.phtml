@@ -1,0 +1,17 @@
+<h2>Login to your account</h2>
+
+<?=$loginMessage?>
+
+<form action="<?=$this->url(array('controller' => 'authent', 'action' => 'login'))?>" method="post" class="form-inline">
+	<p>
+		<input type="text" class="input-long" placeholder="Email">
+
+		<input type="password" class="input-medium" placeholder="Password">
+
+		<label class="checkbox">
+			<input type="checkbox"> Remember me
+		</label>
+
+		<button type="submit" class="btn">Sign in</button>
+	</p>
+</form>
