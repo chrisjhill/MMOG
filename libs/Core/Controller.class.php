@@ -72,7 +72,7 @@ class Core_Controller
 	 */
 	public function setLayout($layout) {
 		// Does this layout exist?
-		if (! file_exists(PATH_LAYOUT . $layout)) {
+		if (! file_exists(PATH_LAYOUT . $layout . '.phtml')) {
 			throw new Exception('Layout does not exist.');
 		}
 

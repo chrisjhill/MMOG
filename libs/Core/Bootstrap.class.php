@@ -31,6 +31,10 @@ class Core_Bootstrap
 	 * @static
 	 */
 	public static function initController($controller) {
+		// Set the language we want to use
+		$controller->view->addVariable('lang', 'en');
+		// Set the layout
+		$controller->setLayout('default');
 		// Set the game name
 		$controller->view->addVariable('titlePostfix', 'MMOG v.' . GAME_VERSION);
 	}

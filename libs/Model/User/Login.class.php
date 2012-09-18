@@ -50,12 +50,11 @@ class Model_User_Login
 	 * @param $password string
 	 * @param $round int
 	 * @return boolean
-	 * @throws Exception
 	 */
-	public static function __construct($username, $email, $round) {
+	public function __construct($email, $password, $round) {
 		// Set variables
-		$this->_username = $username;
-		$this->_email    = $password;
+		$this->_email    = $email;
+		$this->_password = $password;
 		$this->_round    = $round;
 	}
 
@@ -67,12 +66,13 @@ class Model_User_Login
 	 * check the hashes side-by-side. Annoying, but far more secure.
 	 *
 	 * @access private
-	 * @return boolean
+	 * @return Model_User_Instance 
+	 * @throws Exception
 	 */
-	private function login() {
+	public function login() {
 		// Make sure the password is less than 72 characters
-		if (strlen($password) >= 72) {
-			throw new Exception('Password needs to be less than 72 characters.');
+		if (strlen($this->_password) <= 4 || strlen($this->_password) >= 72) {
+			throw new Exception('Password needs to be between 5 and less than 70 characters.');
 		}
 
 		// Get the database connection
@@ -94,8 +94,8 @@ class Model_User_Login
 
 		// Did we find the user?
 		if ($statement->rowCount() <= 0) {
-			// No, return false
-			return false;
+			// No user found
+			throw new Exception('Sorry, your username and password were incorrect');
 		}
 
 		// Set the user information
@@ -105,15 +105,16 @@ class Model_User_Login
 		$hashAlgorithm = new Core_Password(8, false);
 
 		// Is the supplied password allowed with the database password for this user?
-		if (! $hashAlgorithm->CheckPassword($this->_password, $user['user_password']) {
-			throw new Exception('The password is incorrect.');
+		if (! $hashAlgorithm->CheckPassword($this->_password, $user['user_password'])) {
+			// Password mismatch
+			throw new Exception('Sorry, your username and password were incorrect');
 		}
 
 		// We found the user, set them as logged in
 		$this->setLoggedInStatus($user);
 
 		// All went well
-		return true;
+		return $user;
 	}
 
 	/**

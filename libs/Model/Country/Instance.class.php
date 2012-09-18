@@ -63,7 +63,7 @@ class Model_Country_Instance
 	}
 
 	/**
-	 * Get the entities information from the database and set it locally.
+	 * Get the countries information from the database and set it locally.
 	 *
 	 * @access public
 	 * @param int $countryId

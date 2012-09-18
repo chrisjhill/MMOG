@@ -51,7 +51,7 @@ class Core_ViewHelper
 		// Set some defaults
 		$defaults = array(
 			'controller'      => $this->controller,
-			'action'          => $this->action,
+			'action'          => '',
 			'variables'       => isset($param['variable_retain']) && $param['variable_retain']
 									? $_GET
 									: array(),
@@ -93,5 +93,31 @@ class Core_ViewHelper
 	 */
 	public function safe($string) {
 		return Core_Format::safeHtml($string);
+	}
+
+	/**
+	 * Provides a nice interface to call view helpers.
+	 *
+	 * This is a magic function, so any calls to the view/view helper which do not
+	 * exist will end up here. We only pass through the first parameter to make for
+	 * a nicer implementation in each view helper. This is why it needs to be an array.
+	 *
+	 * @access public
+	 * @param $helperName string
+	 * @param $param array
+	 * @return string
+	 */
+	public function __call($helperName, $param) {
+		// Try and instantiate the helper
+		$viewHelperClassName = 'View_Helper_' . $helperName;
+		$viewHelper = new $viewHelperClassName();
+
+		// Call the init helper so they can set up any pre rendering settings
+		if (method_exists($viewHelper, 'init')) {
+			$viewHelper->initHelper($param[0]);
+		}
+
+		// Render and return
+		return $viewHelper->render($param[0]);
 	}
 }
