@@ -1,26 +1,15 @@
 <?php
+/**
+ * The index controller. Will display the main page.
+ *
+ * @copyright   2012 Christopher Hill <cjhill@gmail.com>
+ * @author      Christopher Hill <cjhill@gmail.com>
+ * @since       15/09/2012
+ */
 class Controller_Index extends Core_Controller
 {
 	/**
-	 * Yes, we want to enable the cache for this file.
-	 *
-	 * @access public
-	 * @var boolean
-	 */
-	// public $enableCache = true;
-
-	/**
-	 * Set the life of the cached file to 30 seconds.
-	 *
-	 * @access public
-	 * @var int
-	 */
-	// public $cacheLife = 30;
-
-	/**
-	 * The index action
-	 *
-	 * This action will call the /libs/View/Index/index.phtml.
+	 * Introduces the game.
 	 *
 	 * @access public
 	 */

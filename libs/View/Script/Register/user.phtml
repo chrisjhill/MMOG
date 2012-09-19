@@ -1,0 +1,11 @@
+<h2>Register an account</h2>
+
+<?=$registerMessage?>
+
+<form action="<?=$this->url(array('controller' => 'register', 'action' => 'user'))?>" method="post" />
+	<p>
+		<input type="text" name="user_email" class="input-long" placeholder="Email" />
+
+		<button type="submit" class="btn">Sign in</button>
+	</p>
+</form>

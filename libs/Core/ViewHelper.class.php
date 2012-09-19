@@ -114,7 +114,7 @@ class Core_ViewHelper
 
 		// Call the init helper so they can set up any pre rendering settings
 		if (method_exists($viewHelper, 'init')) {
-			$viewHelper->initHelper($param[0]);
+			$param[0] = $viewHelper->init($param[0]);
 		}
 
 		// Render and return

@@ -18,7 +18,7 @@ class Model_User_Auth
 	 * @return boolean
 	 */
 	public function hasIdentity() {
-		return isset($_SESSION['identity']) && $_SESSION['identity'];
+		return Core_Store::has('identity');
 	}
 
 	/**
@@ -29,12 +29,22 @@ class Model_User_Auth
 	 * 
 	 * @access public
 	 * @param $user Model_User_Instance
+	 * @param $stale int
+	 * @throws Exception
 	 */
 	public function putIdentity($user, $stale = 60) {
+		// Have we been passed a Model_User_Instance?
+		if (get_class($user) !== 'Model_User_Instance') {
+			throw new Exception('Incorrect identity passed, expected a Model_User_Instance.')
+		}
+
 		// Set the identity, serialized, and also when this data becomes stale
-		$_SESSION['identity'] = array(
-			'instance' => serialize($user),
-			'stale'    => $_SERVER['REQUEST_TIME'] + $stale
+		Core_Store::put(
+			'identity',
+			array(
+				'instance' => $user,
+				'stale'    => $_SERVER['REQUEST_TIME'] + $stale
+			)
 		);
 	}
 
@@ -45,25 +55,29 @@ class Model_User_Auth
 	 * 
 	 * @access public
 	 * @return Model_User_Instance
+	 * @throws Exception
 	 */
 	public function getIdentity() {
-		// Do we need to refresh the users information?
-		if ($_SERVER['REQUEST_TIME'] > $_SESSION['identity']['stale']) {
-			// Reload data
-			// Get the old data and unserialize it
-			$user = unserialize($_SESSION['identity']['instance']);
+		// Get the identity
+		$user = Core_Store::get('identity');
 
+		// Do we have an identity?
+		if (! $user) {
+			throw new Exception('No identity is currently stored.');
+		}
+
+		// Do we need to refresh the users information?
+		if ($_SERVER['REQUEST_TIME'] > $user['stale']) {
+			// Reload data
 			// Create a new user model
-			$user = new Model_User_Instance($user['user_id']);
+			$user = new Model_User_Instance($user['instance']['user_id']);
 
 			// Save this identity
 			Model_User_Auth::putIdentity($user);
 		}
 
-		// If we have refreshed stale data then return that, otherwise from the session
-		return isset($user)
-			? $user
-			: unserialize($_SESSION['identity']['instance']);
+		// Return the identity
+		return $user;
 	}
 
 	/**
@@ -72,8 +86,6 @@ class Model_User_Auth
 	 * @access public
 	 */
 	public function removeIdentity() {
-		// Reset the identity and also remove the session
-		$_SESSION['identity'] = null;
-		unset($_SESSION['identity']);
+		Core_Store::remove('identity');
 	}
 }

@@ -1,0 +1,13 @@
+<h2>Register a country</h2>
+
+<?=$registerMessage?>
+
+<form action="<?=$this->url(array('controller' => 'register', 'action' => 'country'))?>" method="post">
+	<p>
+		<input type="text" name="country_ruler_name" class="input-long" placeholder="Your rulers name" />
+
+		<input type="text" name="country_name" class="input-long" placeholder="Your countries name" />
+
+		<button type="submit" class="btn">Create country</button>
+	</p>
+</form>

@@ -41,7 +41,16 @@ class Controller_Authent extends Core_Controller
 				$user = $login->login();
 			} catch (Exception $e) {
 				// Something went wrong
-				$this->view->addVariable('loginMessage', $e->getMessage());
+				$this->view->addVariable(
+					'loginMessage',
+					$this->view->notice(array(
+						'status' => 'error',
+						'title'  => 'An error occurred',
+						'body'   => $e->getMessage()
+					))
+				);
+
+				// Render the page now, no need to continue
 				$this->view->render();
 			}
 
