@@ -35,7 +35,7 @@ class Model_User_Auth
 	public function putIdentity($user, $stale = 60) {
 		// Have we been passed a Model_User_Instance?
 		if (get_class($user) !== 'Model_User_Instance') {
-			throw new Exception('Incorrect identity passed, expected a Model_User_Instance.')
+			throw new Exception('Incorrect identity passed, expected a Model_User_Instance.');
 		}
 
 		// Set the identity, serialized, and also when this data becomes stale

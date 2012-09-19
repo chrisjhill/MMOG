@@ -19,7 +19,7 @@ class Core_Store
 	 * @var array
 	 * @static
 	 */
-	public statis $store;
+	public static $store;
 
 	/**
 	 * Returns true or false as to if the variable exists in the storage medium.
@@ -56,7 +56,7 @@ class Core_Store
 	public static function put($variable, $value, $persistence = 'session') {
 		// Do we need to store this variable in the session?
 		if ($persistence == 'session') {
-			$_SESSION['store'][$variable] = is_array($vale) || is_object($value)
+			$_SESSION['store'][$variable] = is_array($value) || is_object($value)
 				? serialize($value)
 				: $value;
 		}

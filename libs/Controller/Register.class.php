@@ -30,7 +30,7 @@ class Controller_Register extends Core_Controller
 		// Has the user submitted the form?
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Create register model
-			$register = new Model_User_Register($_POST['user_email'], GAME_ROUND);
+			$register = new Model_User_Create($_POST['user_email'], GAME_ROUND);
 
 			// Try and register
 			// Throws an Exception if there are any errors
@@ -60,7 +60,7 @@ class Controller_Register extends Core_Controller
 			$this->view->addVariable(
 				'registerMessage',
 				$this->view->notice(array(
-					'status' => 'error',
+					'status' => 'success',
 					'title'  => 'Your account is created!',
 					'body'   => 'What would you like your Ruler and Country to be named?'
 				))
