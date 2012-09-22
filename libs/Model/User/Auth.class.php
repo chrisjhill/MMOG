@@ -70,14 +70,17 @@ class Model_User_Auth
 		if ($_SERVER['REQUEST_TIME'] > $user['stale']) {
 			// Reload data
 			// Create a new user model
-			$user = new Model_User_Instance($user['instance']['user_id']);
+			$user = new Model_User_Instance($user['instance']->getInfo('user_id'));
 
 			// Save this identity
 			Model_User_Auth::putIdentity($user);
+
+			// And return it
+			return $user;
 		}
 
 		// Return the identity
-		return $user;
+		return $user['instance'];
 	}
 
 	/**

@@ -15,7 +15,6 @@ class Model_User_Instance
 	 * array(
 	 *     'user_id'         => 12345,
 	 *     'user_email'      => 'coyote@acme.com',
-	 *     'user_password'   => 'abc123',
 	 *     'user_created'    => 1234567890,
 	 *     'user_verified'   => 1234567890,
 	 *     'user_last_login' => 1234567890,
@@ -48,17 +47,20 @@ class Model_User_Instance
 	public function setInfo($userId) {
 		// Get the database connection
 		$database  = Core_Database::getInstance();
-		// Prepare the SQL
 		$statement = $database->prepare("
-			SELECT u.user_id, u.user_email, u.user_password,
-			       u.user_created, u.user_verified, u.user_last_login, u.user_updated, u.user_removed
+			SELECT u.user_id, u.user_email,
+			       u.user_created, u.user_verified, u.user_last_login, u.user_updated, u.user_removed,
+			       c.country_id
 			FROM   `user` u
+			           LEFT JOIN `country` c ON c.user_id = u.user_id AND c.round_id = :round_id
 			WHERE  u.user_id = :user_id
 			LIMIT  1
 		");
+
 		// Execute the query
 		$statement->execute(array(
-			':user_id' => $userId
+			':user_id'  => $userId,
+			':round_id' => GAME_ROUND
 		));
 
 		// Did we find the user?

@@ -123,13 +123,13 @@ class Model_Battle_Report
 	public function getBattleReport($battleId) {
 		// Get the database connection
 		$database  = Core_Database::getInstance();
-		// Prepare the SQL
 		$statement = $database->prepare("
 			SELECT b.battle_id, b.country_id, b.battle_string
 			FROM   `battle` b
 			WHERE  b.battle_id = :battle_id
 			LIMIT  1
 		");
+
 		// Execute the query
 		$statement->execute(array(
 			':battle_id' => $battleId

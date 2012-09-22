@@ -32,13 +32,13 @@ class Model_User_Create
 	}
 
 	/**
-	 * Tries to register the user.
+	 * Tries to create the user.
 	 *
 	 * @access public
 	 * @throws Exception
 	 * @return Model_User_Instance
 	 */
-	public function register() {
+	public function create() {
 		// Is the email valid?
 		if (! filter_var($this->_email, FILTER_VALIDATE_EMAIL)) {
 			throw new Exception('Please enter a valid email address.');
@@ -58,29 +58,47 @@ class Model_User_Create
 		}
 
 		// User does not exist
+		// Create a new hashing instance
+		$hashAlgorithm = new Core_Password(8, false);
+
+		// Create the users password
+		$password = substr(md5($_SERVER['REQUEST_TIME'] . mt_rand(0, 999999)), 0, 8);
+
+		// And create a hashed password
+		$passwordHash = $hashAlgorithm->HashPassword($password);
+
 		// Insert into user table
 		$statement = $database->prepare("
 			INSERT INTO `user`
 			(
 				`user_email`,
-				`user_password`,
-				`user_created`
+				`user_password`
 			)
 			VALUES
 			(
 				:user_email,
-				:user_password,
-				NOW()
+				:user_password
 			)
 		");
+
 		// Execute the query
-		$statement->execute(array(
+		$userId = $statement->execute(array(
 			':user_email'    => $this->_email,
-			':user_password' => 'abc'
+			':user_password' => $passwordHash
 		));
 
+		// Send the user an email
+		$email = new Core_EmailSend();
+		$email->setTemplate('welcome')
+		      ->addVariable('email',    $this->_email)
+		      ->addVariable('password', $password)
+		      ->setEmailTo($userId)
+		      ->setEmailFrom(0)
+		      ->setEmailSubject('Welcome to ' . GAME_NAME)
+		      ->send();
+
 		// Return a new user model
-		return new Model_User_Instance($database->lastInsertId());
+		return new Model_User_Instance($userId);
 	}
 
 	/**

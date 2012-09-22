@@ -23,20 +23,36 @@ class Controller_Register extends Core_Controller
 	 * @access public
 	 */
 	public function userAction() {
+		// Is the user logged in?
+		if (Model_User_Auth::hasIdentity()) {
+			// Get the user
+			$user = Model_User_Auth::getIdentity();
+
+			// Does the user already have a country for this round?
+			if ($user->getInfo('country_id')) {
+				// The user is already registered for this round
+				// Forward them to their overview page
+				$this->forward('index', 'CountryOverview');
+			}
+
+			// The user has an identity, but no country
+			$this->forward('country');
+		}
+
 		// Set some default variables
 		$this->view->addVariable('registerMessage', '');
 		$this->view->addVariable('title', 'Register an account');
 
 		// Has the user submitted the form?
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			// Create register model
+		if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_email'])) {
+			// Create a new user
 			$register = new Model_User_Create($_POST['user_email'], GAME_ROUND);
 
 			// Try and register
 			// Throws an Exception if there are any errors
 			try {
 				// Try and register
-				$user = $register->register();
+				$user = $register->create();
 			} catch (Exception $e) {
 				// Something went wrong
 				$this->view->addVariable(
@@ -56,16 +72,6 @@ class Controller_Register extends Core_Controller
 			// Set the identity of the user
 			Model_User_Auth::putIdentity($user);
 
-			// Set a success message
-			$this->view->addVariable(
-				'registerMessage',
-				$this->view->notice(array(
-					'status' => 'success',
-					'title'  => 'Your account is created!',
-					'body'   => 'What would you like your Ruler and Country to be named?'
-				))
-			);
-
 			// And forward onto the create country page
 			$this->forward('country');
 		}
@@ -77,13 +83,61 @@ class Controller_Register extends Core_Controller
 	 * @access public
 	 */
 	public function countryAction() {
+		// Is the user logged in?
+		if (! Model_User_Auth::hasIdentity()) {
+			$this->forward('user');
+		} else {
+			// Get the user
+			$user = Model_User_Auth::getIdentity();
+
+			// Does the user already have a country for this round?
+			if ($user->getInfo('country_id')) {
+				// The user is already registered for this round
+				// Forward them to their overview page
+				$this->forward('index', 'CountryOverview');
+			}
+		}
+
 		// Set some variables
+		$this->view->addVariable('registerMessage', '');
 		$this->view->addVariable('title', 'Register a country');
 
 		// Has the user submitted the form?
 		// Since we may have come from the previous action we need to also check a field exists
 		if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['country_name'])) {
-			// The user has submitted the country register form
+			// Create a new country
+			$country = new Model_Country_Create($_POST['country_ruler_name'], $_POST['country_name']);
+
+			// Do we want to create a private planet?
+			if (isset($_POST['planet_private']) && $_POST['planet_private'] = '1') {
+				$country->setPrivatePlanet();
+			}
+
+			// Try and register
+			// Throws an Exception if there are any errors
+			try {
+				// Try and register
+				$countryId = $country->create($user);
+			} catch (Exception $e) {
+				// Something went wrong
+				$this->view->addVariable(
+					'registerMessage',
+					$this->view->notice(array(
+						'status' => 'error',
+						'title'  => 'An error occurred',
+						'body'   => $e->getMessage()
+					))
+				);
+
+				// Render the page now, no need to continue
+				$this->view->render();
+			}
+
+			// Set the updated user object
+			Model_User_Auth::putIdentity(new Model_User_Instance($user->getInfo('user_id')));
+
+			// And forward onto the create country page
+			$this->forward('index', 'CountryOverview');
 		}
 	}
 }

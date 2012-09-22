@@ -39,7 +39,6 @@ class Model_Fleet_Squadron
 	public function setShips() {
 		// Get the database connection
 		$database  = Core_Database::getInstance();
-		// Prepare the SQL
 		$statement = $database->prepare("
 			SELECT s.ship_id, s.ship_quantity
 			FROM   `squadron` s
@@ -47,6 +46,7 @@ class Model_Fleet_Squadron
 			       AND
 			       s.squadron_id = :squadron_id
 		");
+
 		// Execute the query
 		$statement->execute(array(
 			':country_id'  => $this->_squadron['country_id'],

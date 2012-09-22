@@ -71,7 +71,6 @@ class Model_Country_Instance
 	public function setInfo($countryId) {
 		// Get the database connection
 		$database  = Core_Database::getInstance();
-		// Prepare the SQL
 		$statement = $database->prepare("
 			SELECT c.country_id, c.round_id, c.user_id, c.alliance_id,
 			       c.country_x_coord, c.country_y_coord, c.country_z_coord,
@@ -81,10 +80,11 @@ class Model_Country_Instance
 			       c.country_created, c.country_updated, c.country_removed
 			FROM   `country` c
 			WHERE  c.country_id = :country_id
-			       AND 
+			       AND
 			       c.round_id   = :round_id
 			LIMIT  1
 		");
+
 		// Execute the query
 		$statement->execute(array(
 			':country_id' => $countryId,
@@ -110,12 +110,12 @@ class Model_Country_Instance
 
 		// Get the database connection
 		$database  = Core_Database::getInstance();
-		// Prepare the SQL
 		$statement = $database->prepare("
 			SELECT f.country_id, f.squadron_id, f.squadron_status
 			FROM   `fleet` f
 			WHERE  f.country_id = :country_id
 		");
+
 		// Execute the query
 		$statement->execute(array(
 			':country_id' => $this->_info['country_id']
@@ -163,5 +163,35 @@ class Model_Country_Instance
 		return $this->_fleetList->exists($squadronId)
 			? $this->_fleetList->get($squadronId)
 			: false;
+	}
+
+	/**
+	 * Return the full country name.
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function getFullCountryName() {
+		return $this->getinfo('country_ruler_name') . ' of ' . $this->getInfo('country_name');
+	}
+
+	/**
+	 * Builds the coords of a country.
+	 *
+	 * @access public
+	 * @param $coords array
+	 * @return string
+	 */
+	public function getCoords($coords = array('x', 'y', 'z')) {
+		// Build output
+		$output = array();
+
+		// Start to build the coords
+		foreach ($coords as $coord) {
+			$output[] = $this->getInfo('country_' . $coord . '_coord');
+		}
+
+		// And return the output
+		return implode(':', $output);
 	}
 }

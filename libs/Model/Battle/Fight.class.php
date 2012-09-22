@@ -836,7 +836,6 @@ class Model_Battle_Fight
         // Save into the battle log
         // Get the database connection
         $database  = Core_Database::getInstance();
-        // Prepare the SQL
         $statement = $database->prepare("
             INSERT INTO `battle`
                 (
@@ -849,6 +848,7 @@ class Model_Battle_Fight
                     :battle_string
                 )
         ");
+
         // Execute the query
         $battleId = $statement->execute(array(
             ':country_id'    => $this->_defendingCountry->getInfo('country_id'),

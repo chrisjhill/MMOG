@@ -1,8 +1,10 @@
 <h2>Register an account</h2>
 
+<h4>Step 1: Your account</h4>
+
 <?=$registerMessage?>
 
-<form action="<?=$this->url(array('controller' => 'register', 'action' => 'user'))?>" method="post" />
+<form action="<?=$this->url(array('controller' => 'register', 'action' => 'user'))?>" method="post" class="form-inline">
 	<p>
 		<input type="text" name="user_email" class="input-long" placeholder="Email" />
 

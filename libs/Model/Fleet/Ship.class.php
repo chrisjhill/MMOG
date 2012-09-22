@@ -56,12 +56,12 @@ class Model_Fleet_Ship
 	public function setShip() {
 		// Get the database connection
 		$database  = Core_Database::getInstance();
-		// Prepare the SQL
 		$statement = $database->prepare("
 			SELECT   s.ship_id, s.ship_order_of_fire, s.ship_name, s.ship_type, s.ship_class, s.ship_target, s.ship_life, s.ship_attack, s.ship_primary_cost, s.ship_secondary_cost
 			FROM     `ship` s
 			ORDER BY s.ship_order_of_fire ASC
 		");
+
 		// Execute the query
 		$statement->execute();
 

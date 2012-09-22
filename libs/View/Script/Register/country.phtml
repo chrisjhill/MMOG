@@ -1,8 +1,10 @@
 <h2>Register a country</h2>
 
+<h4>Step 2. Your country information</h4>
+
 <?=$registerMessage?>
 
-<form action="<?=$this->url(array('controller' => 'register', 'action' => 'country'))?>" method="post">
+<form action="<?=$this->url(array('controller' => 'register', 'action' => 'country'))?>" method="post" class="form-inline">
 	<p>
 		<input type="text" name="country_ruler_name" class="input-long" placeholder="Your rulers name" />
 

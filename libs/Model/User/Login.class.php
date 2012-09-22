@@ -77,7 +77,6 @@ class Model_User_Login
 
 		// Get the database connection
 		$database  = Core_Database::getInstance();
-		// Prepare the SQL
 		$statement = $database->prepare("
 			SELECT u.user_id, u.user_email, u.user_password,
 			       u.user_created, u.user_verified, u.user_last_login, u.user_updated, u.user_removed,
@@ -87,6 +86,7 @@ class Model_User_Login
 			WHERE  u.user_email    = :user_email
 			LIMIT  1
 		");
+
 		// Execute the query
 		$statement->execute(array(
 			':user_email' => $this->_email

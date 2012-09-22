@@ -67,16 +67,60 @@ class Core_EmailSend
 	 * @access private
 	 * @var string
 	 */
-	private $_emailSendAfter;
+	private $_emailSendAfter = 1;
 
 	/**
 	 * Send the email to the user with the specified data.
 	 * 
 	 * @access private
 	 * @var string
+	 * @return mixed int on success, boolean false on error
 	 */
 	public function send() {
-		email_id	email_to	email_from	email_subject	email_body	email_attachment	email_created	email_send_after	email_delivered
+		// Fetch the template and set a local copy of the subject
+		$emailBody    = file_get_contents(PATH_EMAIL . $this->_emailTemplate . '.phtml');
+		$emailSubject = $this->_emailSubject;
+
+		// Perform variable replacements
+		foreach ($this->_emailVariables as $variable => $value) {
+			// Replace from body and subject
+			$emailBody    = str_replace('{' . $variable . '}', $value, $emailBody);
+			$emailSubject = str_replace('{' . $variable . '}', $value, $emailSubject);
+		}
+
+		// And insert into the queue
+		// Get the database connection
+		$database  = Core_Database::getInstance();
+		$statement = $database->prepare("
+			INSERT INTO `email`
+			(
+				`email_to`,
+				`email_from`,
+				`email_subject`,
+				`email_body`,
+				`email_attachment`,
+				`email_send_after`
+			)
+			VALUES
+			(
+				:email_to,
+				:email_from,
+				:email_subject,
+				:email_body,
+				:email_attachment,
+				:email_send_after
+			)
+		");
+
+		// Execute the query
+		return $statement->execute(array(
+			':email_to'         => $this->_emailTo,
+			':email_from'       => $this->_emailFrom,
+			':email_subject'    => $emailSubject,
+			':email_body'       => $emailBody,
+			':email_attachment' => $this->_emailAttachment,
+			':email_send_after' => $this->_emailSendAfter
+		));
 	}
 
 	/**
@@ -104,6 +148,10 @@ class Core_EmailSend
 
 	/**
 	 * Add a variable to this email.
+	 *
+	 * Variables have a opening and closing bracket surrounding them {variable}
+	 * in the template file, but you do you not need to pass them in, this
+	 * class handles that.
 	 *
 	 * Note: This function adds one variable. If you want to add multiple at once
 	 * then use the setVariables() method.
@@ -183,7 +231,7 @@ class Core_EmailSend
 	 * @param $subject string
 	 * @return Core_EmailSend
 	 */
-	public function setEmailTo($string) {
+	public function setEmailSubject($subject) {
 		// Set the user ID this emaiil is going to
 		$this->_emailSubject = $subject;
 
@@ -223,7 +271,7 @@ class Core_EmailSend
 	 * @return Core_EmailSend
 	 * @throws Exception
 	 */
-	public function setEmailAttachment($date) {
+	public function setEmailSendAfter($date) {
 		// Is the date in the past?
 		if ($date < $_SERVER['REQUEST_TIME']) {
 			throw new Exception('The date to send the email after is invalid.');

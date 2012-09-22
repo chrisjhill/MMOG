@@ -58,7 +58,7 @@ class Controller_Authent extends Core_Controller
 			Model_User_Auth::putIdentity($user);
 
 			// And forward onto the main overview main
-			$this->forward('index', 'overview');
+			$this->forward('index', 'CountryOverview');
 		}
 	}
 }
