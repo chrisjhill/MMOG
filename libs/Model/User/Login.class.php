@@ -110,36 +110,7 @@ class Model_User_Login
 			throw new Exception('Sorry, your username and password were incorrect');
 		}
 
-		// We found the user, set them as logged in
-		$this->setLoggedInStatus($user);
-
 		// All went well
-		return $user;
-	}
-
-	/**
-	 * Set the user as logged in.
-	 *
-	 * Note: The user might not yet have a country created. If that is the case then
-	 * we need to create them one.
-	 *
-	 * @access private
-	 * @param $user array
-	 * @return boolean
-	 */
-	private function setLoggedInStatus($user) {
-		// Set the session information
-		$_SESSION['user_id'] = $user['user_id'];
-
-		// Does the user have a country?
-		if (! $user['country_id']) {
-			// The user already exists, so create them a country
-			$country = new Model_Country_Create($this->_round, $user['user_id'], 'Ruler', 'The Land');
-			// Assign the new country ID to the user array
-			$user['country_id'] = $country->create();
-		}
-
-		// Set the country ID
-		$_SESSION['country_id'] = $user['country_id'];
+		return new Model_User_Instance($user['user_id']);
 	}
 }
