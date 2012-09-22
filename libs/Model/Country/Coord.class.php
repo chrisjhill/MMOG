@@ -64,15 +64,15 @@ class Model_Country_Coord
 
 		// Do we need to create a new planet?
 		// Even if we tried to join a planet there is no guarentee we found one
-		if (! $planet) {
-			$planet = Model_Planet_Create();
+		if (! isset($planet) || ! $planet) {
+			$planet = new Model_Planet_Create($this->_planetPrivate);
 			$planet = $planet->create();
 		}
 
 		// Set coord information
 		$this->_countryXCoord = $planet->getInfo('planet_x_coord');
 		$this->_countryYCoord = $planet->getInfo('planet_y_coord');
-		$this->_countryZCoord = $planet->getNextAvailableSlot();
+		$this->_countryZCoord = $planet->getNextAvailableZCoord();
 	}
 
 	/**

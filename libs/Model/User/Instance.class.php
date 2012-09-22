@@ -6,28 +6,8 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       18/09/2012
  */
-class Model_User_Instance
+class Model_User_Instance extends Core_Instance
 {
-	/**
-	 * Information on the user.
-	 *
-	 * <code>
-	 * array(
-	 *     'user_id'         => 12345,
-	 *     'user_email'      => 'coyote@acme.com',
-	 *     'user_created'    => 1234567890,
-	 *     'user_verified'   => 1234567890,
-	 *     'user_last_login' => 1234567890,
-	 *     'user_updated'    => 1234567890,
-	 *     'user_removed'    => 1234567890
-	 * )
-	 * </code>
-	 *
-	 * @access private
-	 * @var array
-	 */
-	private $_info = array();
-
 	/**
 	 * Class constructor. Requires an ID.
 	 *
@@ -41,10 +21,10 @@ class Model_User_Instance
 	/**
 	 * Get the user information from the database and set it locally.
 	 *
-	 * @access public
+	 * @access protected
 	 * @param int $userId
 	 */
-	public function setInfo($userId) {
+	protected function setInfo($userId) {
 		// Get the database connection
 		$database  = Core_Database::getInstance();
 		$statement = $database->prepare("
@@ -68,18 +48,5 @@ class Model_User_Instance
 			// Yes, set the information
 			$this->_info = $statement->fetch();
 		}
-	}
-
-	/**
-	 * Return a peice of information on the user.
-	 *
-	 * @access public
-	 * @param string $index
-	 * @return string
-	 */
-	public function getInfo($index) {
-		return isset($this->_info[$index])
-			? $this->_info[$index]
-			: false;
 	}
 }

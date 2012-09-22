@@ -18,6 +18,9 @@ class Controller_CountryOverview extends Core_Controller
 		$user    = Model_User_Auth::getIdentity();
 		$country = new Model_Country_Instance($user->getInfo('country_id'));
 
+		// var_dump($user);
+		// var_dump($country);
+
 		// Set some default variables
 		$this->view->addVariable('title',   'Your account');
 		$this->view->addVariable('user',    $user);

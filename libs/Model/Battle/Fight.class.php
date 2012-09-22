@@ -850,7 +850,7 @@ class Model_Battle_Fight
         ");
 
         // Execute the query
-        $battleId = $statement->execute(array(
+        $statement->execute(array(
             ':country_id'    => $this->_defendingCountry->getInfo('country_id'),
             ':battle_string' => $battleString
         ));

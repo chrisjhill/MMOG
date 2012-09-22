@@ -82,7 +82,7 @@ class Model_Country_Create extends Model_Country_Coord
 		");
 
 		// Execute the query
-		$userId = $statement->execute(array(
+		$statement->execute(array(
 			':round_id'           => GAME_ROUND,
 			':user_id'            => $user->getInfo('user_id'),
 			':country_x_coord'    => $this->getCoord('x'),
@@ -92,5 +92,8 @@ class Model_Country_Create extends Model_Country_Coord
 			':country_ruler_name' => $this->_countryRulerName,
 			':country_name'       => $this->_countryName
 		));
+
+		// Return the user ID
+		return $database->lastInsertId();
 	}
 }

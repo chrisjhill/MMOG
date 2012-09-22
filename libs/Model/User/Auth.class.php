@@ -6,8 +6,6 @@
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       18/09/2012
- *
- * @todo Move the identity storage to a Model_Storage?
  */
 class Model_User_Auth
 {

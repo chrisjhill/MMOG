@@ -82,10 +82,13 @@ class Model_User_Create
 		");
 
 		// Execute the query
-		$userId = $statement->execute(array(
+		$statement->execute(array(
 			':user_email'    => $this->_email,
 			':user_password' => $passwordHash
 		));
+
+		// Get the user ID
+		$userId = $database->lastInsertId();
 
 		// Send the user an email
 		$email = new Core_EmailSend();
@@ -109,6 +112,28 @@ class Model_User_Create
 	 * @return boolean
 	 */
 	public function emailExists($database) {
+		// Get the database connection
+		$database  = Core_Database::getInstance();
+		$statement = $database->prepare("
+			SELECT u.user_id
+			FROM   `user` u
+			WHERE  u.user_email = :user_email
+			LIMIT  1
+		");
+
+		// Execute the query
+		$statement->execute(array(
+			':user_email' => $this->_email,
+		));
+
+		// Did we find anyone?
+		if ($statement->rowCount() >= 1) {
+			// Yes, this email already exists
+			$data = $statement->fetch();
+			return $data['user_id'];
+		}
+
+		// No, this is a new email address
 		return false;
 	}
 }

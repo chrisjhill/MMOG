@@ -22,13 +22,18 @@ class Model_Planet_Random
 		$statement = $database->prepare("
 			SELECT   p.planet_id, p.planet_x_coord, p.planet_y_coord
 			FROM     `planet` p
-			WHERE    p.planet_country_count < :planet_country_count
+			WHERE    p.round_id             = :round_id
+			         AND
+			         p.planet_country_count < :planet_country_count
+			         AND
+			         p.planet_password      IS NULL
 			ORDER BY RAND()
 			LIMIT    1
 		");
 
 		// Execute the query
 		$statement->execute(array(
+			':round_id'             => GAME_ROUND,
 			':planet_country_count' => PLANET_MAX_SIZE
 		));
 
@@ -38,7 +43,7 @@ class Model_Planet_Random
 			$planet = $statement->fetch();
 
 			// Return a Model_Planet_Instance object
-			return new Model_Planet_Instance($planet['planet_id']);
+			return new Model_Planet_Instance($planet['planet_id'], true);
 		}
 
 		// We could not find any random planet

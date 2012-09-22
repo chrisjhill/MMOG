@@ -45,7 +45,7 @@ class Model_Country_Utilities
 		");
 
 		// Execute the query
-		$userId = $statement->execute(array(
+		$statement->execute(array(
 			':country_ruler_name' => $countryRulerName,
 			':country_name'       => $countryName,
 			':round_id'           => GAME_ROUND,
