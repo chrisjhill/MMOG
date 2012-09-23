@@ -41,7 +41,7 @@ class Model_User_Create
 	public function create() {
 		// Is the email valid?
 		if (! filter_var($this->_email, FILTER_VALIDATE_EMAIL)) {
-			throw new Exception('Please enter a valid email address.');
+			throw new Exception('register-error-invalid-email');
 		}
 
 		// Get the database connection

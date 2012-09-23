@@ -39,9 +39,13 @@ class Controller_Register extends Core_Controller
 			$this->forward('country');
 		}
 
+		// Load language file
+		Core_Language::load('page-register-user');
+		$lang = Core_Language::getLanguage();
+
 		// Set some default variables
 		$this->view->addVariable('registerMessage', '');
-		$this->view->addVariable('title', 'Register an account');
+		$this->view->addVariable('title', $lang['register-title']);
 
 		// Has the user submitted the form?
 		if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_email'])) {
@@ -59,8 +63,8 @@ class Controller_Register extends Core_Controller
 					'registerMessage',
 					$this->view->notice(array(
 						'status' => 'error',
-						'title'  => 'An error occurred',
-						'body'   => $e->getMessage()
+						'title'  => $lang['error-title'],
+						'body'   => $lang[$e->getMessage()]
 					))
 				);
 
@@ -98,9 +102,13 @@ class Controller_Register extends Core_Controller
 			}
 		}
 
+		// Load language file
+		Core_Language::load('page-register-country');
+		$lang = Core_Language::getLanguage();
+
 		// Set some variables
 		$this->view->addVariable('registerMessage', '');
-		$this->view->addVariable('title', 'Register a country');
+		$this->view->addVariable('title', $lang['register-create-country']);
 
 		// Has the user submitted the form?
 		// Since we may have come from the previous action we need to also check a field exists
@@ -124,8 +132,8 @@ class Controller_Register extends Core_Controller
 					'registerMessage',
 					$this->view->notice(array(
 						'status' => 'error',
-						'title'  => 'An error occurred',
-						'body'   => $e->getMessage()
+						'title'  => $lang['error-title'],
+						'body'   => $lang[$e->getMessage()]
 					))
 				);
 

@@ -1,15 +1,15 @@
-<h2>Register a country</h2>
+<h2><?=$lang['register-title']?></h2>
 
-<h4>Step 2. Your country information</h4>
+<h4><?=$lang['register-step-2']?></h4>
 
 <?=$registerMessage?>
 
 <form action="<?=$this->url(array('controller' => 'register', 'action' => 'country'))?>" method="post" class="form-inline">
 	<p>
-		<input type="text" name="country_ruler_name" class="input-long" placeholder="Your rulers name" />
+		<input type="text" name="country_ruler_name" class="input-long" placeholder="<?=$lang['register-ruler-name']?>" />
 
-		<input type="text" name="country_name" class="input-long" placeholder="Your countries name" />
+		<input type="text" name="country_name" class="input-long" placeholder="<?=$lang['register-country-name']?>" />
 
-		<button type="submit" class="btn">Create country</button>
+		<button type="submit" class="btn"><?=$lang['register-create-country']?></button>
 	</p>
 </form>

@@ -32,8 +32,8 @@ class Model_Country_Create extends Model_Country_Coord
 	 * @param $countryName string
 	 */
 	public function __construct($countryRulerName, $countryName) {
-		$this->_countryRulerName = $countryRulerName;
-		$this->_countryName      = $countryName;
+		$this->_countryRulerName = trim($countryRulerName);
+		$this->_countryName      = trim($countryName);
 	}
 
 	/**
@@ -45,9 +45,14 @@ class Model_Country_Create extends Model_Country_Coord
 	 * @throws Exception
 	 */
 	public function create($user) {
+		// Has the user actually entered a ruler and a country name?
+		if (empty($this->_countryRulerName) || empty($this->_countryName)) {
+			throw new Exception('register-error-empty');
+		}
+
 		// Does the ruler name and country name combination already exist?
 		if (Model_Country_Utilities::countryNameCombinationAlreadyExists($this->_countryRulerName, $this->_countryName)) {
-			throw new Exception('Ruler and country name combination already exists, please chose another.');
+			throw new Exception('register-error-name-combo-taken');
 		}
 
 		// Generate coords

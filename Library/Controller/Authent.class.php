@@ -49,7 +49,7 @@ class Controller_Authent extends Core_Controller
 					'loginMessage',
 					$this->view->notice(array(
 						'status' => 'error',
-						'title'  => $lang['login-error-title'],
+						'title'  => $lang['error-title'],
 						'body'   => $lang[$e->getMessage()]
 					))
 				);
