@@ -72,7 +72,7 @@ class Model_User_Login
 	public function login() {
 		// Make sure the password is less than 72 characters
 		if (strlen($this->_password) <= 4 || strlen($this->_password) >= 72) {
-			throw new Exception('Password needs to be between 5 and less than 70 characters.');
+			throw new Exception('login-error-incorrect-format');
 		}
 
 		// Get the database connection
@@ -95,7 +95,7 @@ class Model_User_Login
 		// Did we find the user?
 		if ($statement->rowCount() <= 0) {
 			// No user found
-			throw new Exception('Sorry, your username and password were incorrect');
+			throw new Exception('login-error-incorrect-combo');
 		}
 
 		// Set the user information
@@ -107,7 +107,7 @@ class Model_User_Login
 		// Is the supplied password allowed with the database password for this user?
 		if (! $hashAlgorithm->CheckPassword($this->_password, $user['user_password'])) {
 			// Password mismatch
-			throw new Exception('Sorry, your username and password were incorrect');
+			throw new Exception('login-error-incorrect-combo');
 		}
 
 		// All went well

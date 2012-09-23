@@ -9,12 +9,7 @@ header('Content-type: text/html; charset=UTF-8');
 // Include autoloader and config
 include $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR
                                   . 'config.php';
-include $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR
-                                  . '..'
-                                  . DIRECTORY_SEPARATOR
-                                  . 'Library'
-                                  . DIRECTORY_SEPARATOR
-                                  . 'autoloader.php';
+include $_SERVER['DOCUMENT_ROOT'] . DS . '..' . DS . 'Library' . DS . 'autoloader.php';
 
 // Start the database sessions
 $session = new Core_Session();

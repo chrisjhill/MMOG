@@ -25,9 +25,13 @@ class Controller_Authent extends Core_Controller
 	 * @return string
 	 */
 	public function loginAction() {
+		// Load language file
+		Core_Language::load('page-login');
+		$lang = Core_Language::getLanguage();
+
 		// Set some default variables
 		$this->view->addVariable('loginMessage', '');
-		$this->view->addVariable('title', 'Login to your account');
+		$this->view->addVariable('title', $lang['login-title']);
 
 		// Has the user submitted the form?
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -45,8 +49,8 @@ class Controller_Authent extends Core_Controller
 					'loginMessage',
 					$this->view->notice(array(
 						'status' => 'error',
-						'title'  => 'An error occurred',
-						'body'   => $e->getMessage()
+						'title'  => $lang['login-error-title'],
+						'body'   => $lang[$e->getMessage()]
 					))
 				);
 
@@ -56,6 +60,9 @@ class Controller_Authent extends Core_Controller
 
 			// Set the identity of the user
 			Model_User_Auth::putIdentity($user);
+
+			// Set the language the user wants to use
+			Core_Store::put('language', $user->getInfo('user_language'));
 
 			// And forward onto the main overview main
 			$this->redirect(array('controller' => 'CountryOverview'));

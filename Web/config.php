@@ -1,4 +1,7 @@
 <?php
+// Directory separator quick access
+define('DS', DIRECTORY_SEPARATOR);
+
 // Game paths
 define('PATH_WEB',      '/');
 define('PATH_BASE',     '/Users/chris/Documents/Repo/MMOG/');
@@ -7,6 +10,7 @@ define('PATH_VIEW',     PATH_LIBRARY . 'View/');
 define('PATH_SNIPPET',  PATH_LIBRARY . 'View/Snippet/');
 define('PATH_EMAIL',    PATH_LIBRARY . 'View/Email/');
 define('PATH_LAYOUT',   PATH_LIBRARY . 'Layout/');
+define('PATH_LANGUAGE', PATH_LIBRARY . 'Language/');
 define('PATH_CACHE',    PATH_BASE . '/Web/cache/');
 
 // Database details

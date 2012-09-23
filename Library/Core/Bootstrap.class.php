@@ -21,7 +21,13 @@ class Core_Bootstrap
 	 * @static
 	 */
 	public static function initRequest($controllerName, $actionName) {
-		// Do nothing
+		// Has the user specified a new language?
+		if (isset($_GET['language'])) {
+			Core_Store::put('language', $_GET['language']);
+		}
+
+		// Include the generic words that all pages have
+		Core_Language::load('general');
 	}
 
 	/**
@@ -33,7 +39,7 @@ class Core_Bootstrap
 	 */
 	public static function initController($controller) {
 		// Is this a country controller?
-		if (isset($controller->setDefaultCountryClasses) && $controller->setDefaultCountryClasses) {
+		if (Model_User_Auth::hasIdentity()) {
 			// Create instance
 			$user    = Model_User_Auth::getIdentity();
 			$country = new Model_Country_Instance($user->getInfo('country_id'));
@@ -45,7 +51,6 @@ class Core_Bootstrap
 			$controller->view->addVariable('planet',  $planet);
 		}
 
-		// Set the language we want to use
 		$controller->view->addVariable('lang', isset($user) ? $user->getInfo('user_language') : 'en');
 		// Set the layout
 		$controller->setLayout('default');

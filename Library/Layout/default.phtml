@@ -53,9 +53,9 @@
                     </ul>
 
                     <form action="<?=$this->url(array('controller' => 'authent', 'action' => 'login'))?>" method="post" class="navbar-form pull-right">
-                        <input class="span2" type="text" placeholder="Email" name="user_email" />
-                        <input class="span2" type="password" placeholder="Password" name="user_password" />
-                        <button type="submit" class="btn">Sign in</button>
+                        <input class="span2" type="text" placeholder="<?=$lang['email']?>" name="user_email" />
+                        <input class="span2" type="password" placeholder="<?=$lang['password']?>" name="user_password" />
+                        <button type="submit" class="btn"><?=$lang['sign-in']?></button>
                     </form>
                 </div>
             </div>

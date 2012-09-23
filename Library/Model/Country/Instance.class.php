@@ -133,8 +133,8 @@ class Model_Country_Instance extends Core_Instance
 	 * @access public
 	 * @return string
 	 */
-	public function getFullCountryName() {
-		return $this->getinfo('country_ruler_name') . ' of ' . $this->getInfo('country_name');
+	public function getFullCountryName($separator) {
+		return $this->getinfo('country_ruler_name') . ' ' . $separator .' ' . $this->getInfo('country_name');
 	}
 
 	/**

@@ -1,5 +1,5 @@
 <h1>
-	<?=$this->safe($country->getFullCountryName())?>
+	<?=$this->safe($country->getFullCountryName($lang['of']))?>
 	[<?=$this->safe($country->getCoords(array('x', 'y', 'z')))?>]
 </h1>
 
@@ -8,10 +8,10 @@
 <table class="table table-hover table-striped">
 	<thead>
 		<tr>
-			<th><?=_('Hello World')?></th>
-			<th>Ruler and  Country</th>
-			<th>Size</th>
-			<th>Score</th>
+			<th><?=$lang['coords']?></th>
+			<th><?=$lang['ruler']?> <?=$lang['and']?> <?=$lang['country-name']?></th>
+			<th><?=$lang['size']?></th>
+			<th><?=$lang['score']?></th>
 		</tr>
 	</thead>
 	<tbody>

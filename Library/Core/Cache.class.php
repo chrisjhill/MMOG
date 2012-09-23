@@ -136,7 +136,7 @@ class Core_Cache
 		}
 
 		// And set the non-unique file name section
-		$this->_cacheLocation = str_replace(DIRECTORY_SEPARATOR, '_', $this->_file);
+		$this->_cacheLocation = str_replace(DS, '_', $this->_file);
 	}
 
 	/**

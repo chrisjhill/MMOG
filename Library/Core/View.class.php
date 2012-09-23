@@ -80,8 +80,8 @@ class Core_View extends Core_ViewHelper
 		// Nope, there is no cache
 		else {
 			// Does the view file exist?
-			if (! file_exists(PATH_VIEW . 'Script' . DIRECTORY_SEPARATOR . $this->controller . DIRECTORY_SEPARATOR . $this->action . '.phtml')) {
-				throw new Exception('The view ' . $this->action . ' does not exist in ' . $this->controller . '.');
+			if (! file_exists(PATH_VIEW . 'Script' . DS . $this->controller . DS . $this->action . '.phtml')) {
+				throw new Exception('The view ' . $this->action . ' does not exist in ' . $this->controller);
 			}
 
 			// The view exists
@@ -90,11 +90,14 @@ class Core_View extends Core_ViewHelper
 				extract($this->_variables);
 			}
 
+			// Get the language items
+			$lang = Core_Language::getLanguage();
+
 			// Enable object buffering
 			ob_start();
 
 			// And include the file for parsing
-			include PATH_VIEW . 'Script' . DIRECTORY_SEPARATOR . $this->controller . DIRECTORY_SEPARATOR . $this->action . '.phtml';
+			include PATH_VIEW . 'Script' . DS . $this->controller . DS . $this->action . '.phtml';
 
 			// Get the content of the view after parsing, and dispose of the buffer
 			$viewContent = ob_get_contents();
