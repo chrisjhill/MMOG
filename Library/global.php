@@ -3,15 +3,18 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Automatically set some session variables
-// @todo Remove this when we have a login system.
-$_SESSION['user_id']    = 1;
-$_SESSION['round_id']   = 1;
-$_SESSION['country_id'] = 1;
+// We want to work with UTF8
+header('Content-type: text/html; charset=UTF-8');
 
 // Include autoloader and config
-include $_SERVER['DOCUMENT_ROOT'] . '/libs/config.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/libs/autoloader.php';
+include $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR
+                                  . 'config.php';
+include $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR
+                                  . '..'
+                                  . DIRECTORY_SEPARATOR
+                                  . 'Library'
+                                  . DIRECTORY_SEPARATOR
+                                  . 'autoloader.php';
 
 // Start the database sessions
 $session = new Core_Session();

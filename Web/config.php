@@ -2,11 +2,12 @@
 // Game paths
 define('PATH_WEB',      '/');
 define('PATH_BASE',     '/Users/chris/Documents/Repo/MMOG/');
-define('PATH_VIEW',     PATH_BASE . 'libs/View/');
-define('PATH_SNIPPET',  PATH_BASE . 'libs/View/Snippet/');
-define('PATH_EMAIL',    PATH_BASE . 'libs/View/Email/');
-define('PATH_LAYOUT',   PATH_BASE . 'libs/Layout/');
-define('PATH_CACHE',    PATH_BASE . 'cache/');
+define('PATH_LIBRARY',  PATH_BASE . 'Library/');
+define('PATH_VIEW',     PATH_LIBRARY . 'View/');
+define('PATH_SNIPPET',  PATH_LIBRARY . 'View/Snippet/');
+define('PATH_EMAIL',    PATH_LIBRARY . 'View/Email/');
+define('PATH_LAYOUT',   PATH_LIBRARY . 'Layout/');
+define('PATH_CACHE',    PATH_BASE . '/Web/cache/');
 
 // Database details
 define('DB_LOCATION', 'localhost');
