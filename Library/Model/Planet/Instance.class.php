@@ -37,7 +37,7 @@ class Model_Planet_Instance extends Core_Instance implements IteratorAggregate
 		$statement = $database->prepare("
 			SELECT p.planet_id, p.round_id,
 			       p.planet_x_coord, p.planet_y_coord,
-			       p.planet_country_count, p.planet_name, p.planet_password,
+			       p.planet_country_count, p.planet_name, p.planet_image_url, p.planet_password,
 			       p.planet_created
 			FROM   `planet` p
 			WHERE  p.planet_id = :planet_id

@@ -1,0 +1,26 @@
+<h2><?=$lang['planet-title']?></h2>
+
+<h4><?=$this->safe($planetExplore->getInfo('planet_name'))?></h4>
+
+<p><img src="<?=$this->safe($planetExplore->getInfo('planet_image_url'))?>" alt="Plaet image" /></p>
+
+<table class="table table-hover table-striped">
+	<thead>
+		<tr>
+			<th><?=$lang['coords']?></th>
+			<th><?=$lang['ruler']?> <?=$lang['and']?> <?=$lang['country-name']?></th>
+			<th><?=$lang['size']?></th>
+			<th><?=$lang['score']?></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($planetExplore->getIterator() as $countryExplore) { ?>
+			<tr>
+				<td><?=$countryExplore->getCoords(array('x', 'y', 'z'))?></td>
+				<td><?=$countryExplore->getInfo('country_ruler_name')?> of <?=$countryExplore->getInfo('country_name')?></td>
+				<td><?=$countryExplore->getInfo('country_asteroid_count')?></td>
+				<td><?=Core_Format::number($countryExplore->getInfo('country_score'))?></td>
+			</tr>
+		<?php } ?>
+	</tbody>
+</table>

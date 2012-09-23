@@ -65,7 +65,7 @@ class Controller_Authent extends Core_Controller
 			Core_Store::put('language', $user->getInfo('user_language'));
 
 			// And forward onto the main overview main
-			$this->redirect(array('controller' => 'CountryOverview'));
+			$this->redirect(array('controller' => 'headquaters'));
 		}
 	}
 

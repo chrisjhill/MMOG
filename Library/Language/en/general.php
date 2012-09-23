@@ -1,5 +1,4 @@
 <?php
-// Standard words through the game
 self::$lang['user']         = 'User';
 self::$lang['country']      = 'Country';
 self::$lang['planet']       = 'Planet';
