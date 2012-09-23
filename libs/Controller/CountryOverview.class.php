@@ -9,21 +9,25 @@
 class Controller_CountryOverview extends Core_Controller
 {
 	/**
+	 * Set whether we want the bootstrap to automatically fetch us the base classes.
+	 *
+	 * @access public
+	 * @var boolean
+	 */
+	public $setDefaultCountryClasses = true;
+
+	/**
 	 * Display the generic overview page.
 	 *
 	 * @access public
 	 */
 	public function indexAction() {
-		// Get the user and country
-		$user    = Model_User_Auth::getIdentity();
-		$country = new Model_Country_Instance($user->getInfo('country_id'));
+		// Set default variables
+		$this->view->addVariable('title', 'Country Overview');
 
-		// var_dump($user);
-		// var_dump($country);
-
-		// Set some default variables
-		$this->view->addVariable('title',   'Your account');
-		$this->view->addVariable('user',    $user);
-		$this->view->addVariable('country', $country);
+		// Tell the planet to fetch the countries
+		$planet = $this->view->getVariable('planet');
+		$planet->setPlanetCountries();
+		$this->view->addVariable('planet', $planet);
 	}
 }

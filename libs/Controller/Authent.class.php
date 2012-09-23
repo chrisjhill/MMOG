@@ -58,7 +58,21 @@ class Controller_Authent extends Core_Controller
 			Model_User_Auth::putIdentity($user);
 
 			// And forward onto the main overview main
-			$this->forward('index', 'CountryOverview');
+			$this->redirect(array('controller' => 'CountryOverview'));
 		}
+	}
+
+	/**
+	 * Log the user out of the site.
+	 * 
+	 * @access public
+	 */
+	public function logoutAction() {
+		// Remove the session
+		session_unset();
+		session_destroy();
+
+		// And redirect them back to the index page
+		$this->redirect(array('controller' => 'index', 'action' => 'index', 'variables' => array('goodbye' => true)));
 	}
 }

@@ -51,6 +51,19 @@ class Core_View extends Core_ViewHelper
 	}
 
 	/**
+	 * Returns a set variable if it exists.
+	 *
+	 * @access public
+	 * @param $variable string
+	 * @return mixed
+	 */
+	public function getVariable($variable) {
+		return isset($this->_variables[$variable])
+			? $this->_variables[$variable]
+			: false;
+	}
+
+	/**
 	 * Render the page.
 	 *
 	 * @access public

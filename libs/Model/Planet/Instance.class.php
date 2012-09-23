@@ -62,9 +62,9 @@ class Model_Planet_Instance extends Core_Instance implements IteratorAggregate
 	/**
 	 * Set the countries that like on this planet.
 	 *
-	 * @access private
+	 * @access public
 	 */
-	private function setPlanetCountries() {
+	public function setPlanetCountries() {
 		// Get the database connection
 		$database  = Core_Database::getInstance();
 		$statement = $database->prepare("

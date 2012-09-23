@@ -19,4 +19,15 @@ class Core_Format
 	public static function safeHtml($string) {
 		return htmlentities($string, ENT_QUOTES, 'UTF-8');
 	}
+
+	/**
+	 * Provides a single access point for numbers.
+	 *
+	 * @access public
+	 * @param $number int
+	 * @return string
+	 */
+	public function number($number, $decimals = 0, $decimalPoint = '.', $thousandsSearator = ',') {
+		return number_format($number, $decimals, $decimalPoint, $thousandsSearator);
+	}
 }

@@ -29,6 +29,7 @@ class Model_User_Instance extends Core_Instance
 		$database  = Core_Database::getInstance();
 		$statement = $database->prepare("
 			SELECT u.user_id, u.user_email,
+			       u.user_language,
 			       u.user_created, u.user_verified, u.user_last_login, u.user_updated, u.user_removed,
 			       c.country_id
 			FROM   `user` u

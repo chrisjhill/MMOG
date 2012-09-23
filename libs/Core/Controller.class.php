@@ -86,6 +86,8 @@ class Core_Controller
 	 * Since we no longer want to render this controller we set it as void. Then, when
 	 * the rendering is called it will be ignored.
 	 *
+	 * This function will keep the same URL, that will not be changed between forwards.
+	 *
 	 * @access public
 	 * @param $controller string
 	 * @param $action string
@@ -106,6 +108,19 @@ class Core_Controller
 			// And start a new router to the desired controller/action
 			Core_Router::loadController($controller, $action);
 		}
+	}
+
+	/**
+	 * Redirect the user to a new page.
+	 *
+	 * This will perform a header redirect, so we will change the URL, and we can also
+	 * pass variables.
+	 * 
+	 * @access public
+	 * @param $param array
+	 */
+	public function redirect($param) {
+		header('Location: ' . $this->view->url($param)); exit();
 	}
 
 	/**

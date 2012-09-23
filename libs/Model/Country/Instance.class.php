@@ -46,8 +46,14 @@ class Model_Country_Instance extends Core_Instance
 			       c.country_status, c.country_ruler_name, c.country_name,
 			       c.country_resource_primary, c.country_resource_secondary,
 			       c.country_asteroid_count, c.country_prism_count,
-			       c.country_created, c.country_updated, c.country_removed
+			       c.country_created, c.country_updated, c.country_removed,
+			       p.planet_id
 			FROM   `country` c
+			           LEFT JOIN `planet` p ON p.round_id = :round_id
+			                                   AND
+			                                   p.planet_x_coord = c.country_x_coord
+			                                   AND
+			                                   p.planet_y_coord = c.country_y_coord
 			WHERE  c.country_id = :country_id
 			       AND
 			       c.round_id   = :round_id

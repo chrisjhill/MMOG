@@ -21,6 +21,7 @@ class Core_Bootstrap
 	 * @static
 	 */
 	public static function initRequest($controllerName, $actionName) {
+		// Do nothing
 	}
 
 	/**
@@ -31,8 +32,21 @@ class Core_Bootstrap
 	 * @static
 	 */
 	public static function initController($controller) {
+		// Is this a country controller?
+		if (isset($controller->setDefaultCountryClasses) && $controller->setDefaultCountryClasses) {
+			// Create instance
+			$user    = Model_User_Auth::getIdentity();
+			$country = new Model_Country_Instance($user->getInfo('country_id'));
+			$planet  = new Model_Planet_Instance($country->getInfo('planet_id'));
+
+			// And add to the view
+			$controller->view->addVariable('user',    $user);
+			$controller->view->addVariable('country', $country);
+			$controller->view->addVariable('planet',  $planet);
+		}
+
 		// Set the language we want to use
-		$controller->view->addVariable('lang', 'en');
+		$controller->view->addVariable('lang', isset($user) ? $user->getInfo('user_language') : 'en');
 		// Set the layout
 		$controller->setLayout('default');
 		// Set the game name
@@ -48,5 +62,6 @@ class Core_Bootstrap
 	 * @static
 	 */
 	public static function initShutdown($controllerName, $actionName) {
+		// Do nothing
 	}
 }

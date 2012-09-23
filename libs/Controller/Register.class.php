@@ -137,7 +137,7 @@ class Controller_Register extends Core_Controller
 			Model_User_Auth::putIdentity(new Model_User_Instance($user->getInfo('user_id')));
 
 			// And forward onto the create country page
-			$this->forward('index', 'CountryOverview');
+			$this->redirect(array('controller' => 'CountryOverview', 'action' => 'index'));
 		}
 	}
 }

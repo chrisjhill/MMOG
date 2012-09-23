@@ -66,8 +66,8 @@ class Core_ViewHelper
 		$param = array_merge($defaults, $param);
 
 		// Start to build URL
-		// The basics
-		$url = '/' . $param['controller'] . '/' . $param['action'];
+		// The controller
+		$url = PATH_WEB . $param['controller'] . '/' . $param['action'];
 
 		// Any variables
 		if ($param['variables']) {
