@@ -250,7 +250,6 @@ class Model_Battle_Fight
      */
     private function setShipStatistics() {
         // These are the ship statistics
-        // @todo These would normally be stored in a database, but for this example they are hard-coded.
         $this->_ship = Model_Fleet_Ship::getInstance();
         
         // Set the ship classes
@@ -295,7 +294,6 @@ class Model_Battle_Fight
     /**
      * Set the initial squadron stats for the attacking and defending countries.
      *
-     * @todo Needs to grab data from a database.
      * @access private
      */
     private function setSquadrons() {

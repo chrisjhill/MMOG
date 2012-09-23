@@ -5,8 +5,6 @@
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       15/09/2012
- *
- * @todo A way to merge a group of snippets into one cache (e.g., a battle report).
  */
 class Core_Snippet extends Core_Cache
 {

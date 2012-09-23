@@ -129,18 +129,19 @@ class Core_EmailSend
 	 * Note: This refers to a HTML file as defined the in the PATH_EMAIL variable.
 	 * 
 	 * @access private
-	 * @var string
+	 * @param $template string
+	 * @param $language string
 	 * @return Core_EmailSend
 	 * @throws Exception
 	 */
-	public function setTemplate($template) {
+	public function setTemplate($template, $language = 'en') {
 		// Does the template exist?
-		if (! file_exists(PATH_EMAIL . $template . '.phtml')) {
+		if (! file_exists(PATH_EMAIL . $language . DS . $template . '.phtml')) {
 			throw new Exception('Unable to locate the email template.');
 		}
 
 		// Seems fine
-		$this->_emailTemplate = $template;
+		$this->_emailTemplate = $language . DS . $template;
 
 		// Return this for chainability
 		return $this;

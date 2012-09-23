@@ -5,8 +5,6 @@
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       16/09/2012
- *
- * @todo Allow custom helpers. Catch all failed method calls and try and load from the View/Helper directory.
  */
 class Core_ViewHelper
 {

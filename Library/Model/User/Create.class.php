@@ -5,11 +5,6 @@
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       19/09/2012
- *
- * @todo Create a temporary password and email it to the user.
- * @todo Create the guts of the emailExists() method.
- * @todo Create a random string class.
- * @todo Create an Email class.
  */
 class Model_User_Create
 {
@@ -90,9 +85,12 @@ class Model_User_Create
 		// Get the user ID
 		$userId = $database->lastInsertId();
 
+		// Create a user instance
+		$user = new Model_User_Instance($userId);
+
 		// Send the user an email
 		$email = new Core_EmailSend();
-		$email->setTemplate('welcome')
+		$email->setTemplate('welcome',  $user->getInfo('user_language'))
 		      ->addVariable('email',    $this->_email)
 		      ->addVariable('password', $password)
 		      ->setEmailTo($userId)
@@ -101,7 +99,7 @@ class Model_User_Create
 		      ->send();
 
 		// Return a new user model
-		return new Model_User_Instance($userId);
+		return $user;
 	}
 
 	/**
