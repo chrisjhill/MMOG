@@ -16,7 +16,11 @@ class Controller_Planet extends Core_Controller
 	 * @access public
 	 */
 	public function init() {
+		// Set the layout
+		$this->setLayout('ingame');
+
 		// Load language file
+		Core_Language::load('navigation-private');
 		Core_Language::load('page-planet');
 		$lang = Core_Language::getLanguage();
 

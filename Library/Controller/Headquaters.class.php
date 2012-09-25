@@ -9,6 +9,21 @@
 class Controller_Headquaters extends Core_Controller
 {
 	/**
+	 * Controller initiated.
+	 * 
+	 * @access public
+	 */
+	public function init() {
+		// Set the layout
+		$this->setLayout('ingame');
+
+		// Load language file
+		Core_Language::load('navigation-private');
+		Core_Language::load('page-headquaters');
+		$lang = Core_Language::getLanguage();
+	}
+
+	/**
 	 * Set whether we want the bootstrap to automatically fetch us the base classes.
 	 *
 	 * @access public
@@ -23,7 +38,6 @@ class Controller_Headquaters extends Core_Controller
 	 */
 	public function indexAction() {
 		// Load language file
-		Core_Language::load('page-headquaters');
 		$lang = Core_Language::getLanguage();
 
 		// Set default variables

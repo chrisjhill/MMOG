@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta http-equiv="Content-Language" content="en-gb" />
+    <title><?=$this->safe($title . ' | ' . $titlePostfix)?></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <!-- CSS //-->
+    <link type="text/css" href="<?=PATH_WEB?>assets/css/bootstrap.css" rel="stylesheet" media="screen" />
+    <link type="text/css" href="<?=PATH_WEB?>assets/css/styles.css" rel="stylesheet" media="screen" />
+
+    <!-- Scripts //-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="<?=PATH_WEB?>assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="<?=PATH_WEB?>assets/js/scripts.js"></script>
+
+    <!-- Conditional scripts //-->
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="<?=$this->url(array('controller' => 'headquaters'))?>"><?=$this->safe(GAME_NAME)?></a>
+
+                <div class="nav-collapse collapse pull-right">
+                    <ul class="nav">
+                        <li><a href="<?=$this->url(array('controller' => 'help', 'action' => 'index'))?>"><?=$lang['nav-private-help']?></a></li>
+                        <li><a href="<?=$this->url(array('controller' => 'authent', 'action' => 'logout'))?>"><?=$lang['nav-private-sign-out']?></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <ul class="nav nav-tabs nav-stacked">
+                    <li class="active"><a href="<?=$this->url(array('controller' => 'headquaters'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-headquaters']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'transmission'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-transmission']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'news'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-news']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'democracy'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-democracy']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'conference'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-conference']?></a></li>
+                </ul>
+
+                <ul class="nav nav-tabs nav-stacked">
+                    <li><a href="<?=$this->url(array('controller' => 'resources'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-resources']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'iun'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-iun']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'research'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-research']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'construction'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-construction']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'production'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-production']?></a></li>
+                </ul>
+
+                <ul class="nav nav-tabs nav-stacked">
+                    <li><a href="<?=$this->url(array('controller' => 'dock'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-dock']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'espionage'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-espionage']?></a></li>
+                </ul>
+
+                <ul class="nav nav-tabs nav-stacked">
+                    <li><a href="<?=$this->url(array('controller' => 'planet'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-planet']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'galaxy'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-galaxy']?></a></li>
+                </ul>
+
+                <ul class="nav nav-tabs nav-stacked">
+                    <li><a href="<?=$this->url(array('controller' => 'preferences'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-preferences']?></a></li>
+                    <li><a href="<?=$this->url(array('controller' => 'statistics'))?>"><i class="icon-chevron-right"></i> <?=$lang['nav-private-statistics']?></a></li>
+                </ul>
+            </div>
+
+            <div class="span9">
+                <?=$viewContent?>
+            </div>
+        </div>
+
+        <hr />
+
+        <footer>
+            <p>This project is in active development, <?=GAME_VERSION?>, Last updated <?=GAME_UPDATED?>. <a href="https://github.com/chrisjhill/MMOG">View its Github page</a>.</p>
+        </footer>
+    </div>
+</body>
+</html>

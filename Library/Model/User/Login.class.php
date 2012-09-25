@@ -111,6 +111,16 @@ class Model_User_Login
 		}
 
 		// All went well
+		// Log this event
+		Core_Log::add(array(
+			'user_id'     => $user['user_id'],
+			'country_id'  => $user['country_id'],
+			'log_action'  => 'sign-in',
+			'log_status'  => 'success',
+			'log_message' => 'User successfully signed in.'
+		));
+
+		// Return a new user instance
 		return new Model_User_Instance($user['user_id']);
 	}
 }
