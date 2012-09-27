@@ -98,7 +98,19 @@ class Model_Country_Create extends Model_Country_Coord
 			':country_name'       => $this->_countryName
 		));
 
+        // Get the country ID
+        $countryId = $database->lastInsertId();
+
+        // Log this event
+        Core_Log::add(array(
+            'user_id'     => $user->getInfo('user_id'),
+            'country_id'  => $countryId,
+            'log_action'  => 'country-create',
+            'log_status'  => 'success',
+            'log_message' => 'User successfully created their country.'
+        ));
+
 		// Return the user ID
-		return $database->lastInsertId();
+		return $countryId;
 	}
 }
