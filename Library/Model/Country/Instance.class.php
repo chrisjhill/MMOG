@@ -131,6 +131,7 @@ class Model_Country_Instance extends Core_Instance
 	 * Return the full country name.
 	 *
 	 * @access public
+     * @param $separator string
 	 * @return string
 	 */
 	public function getFullCountryName($separator) {

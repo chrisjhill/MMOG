@@ -12,13 +12,13 @@
     <link type="text/css" href="<?=PATH_WEB?>assets/css/styles.css" rel="stylesheet" media="screen" />
 
     <!-- Scripts //-->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="<?=PATH_WEB?>assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="<?=PATH_WEB?>assets/js/bootstrap.js"></script>
     <script type="text/javascript" src="<?=PATH_WEB?>assets/js/scripts.js"></script>
 
     <!-- Conditional scripts //-->
     <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="<?=PATH_WEB?>assets/js/html5.js"></script>
     <![endif]-->
 </head>
 <body>
@@ -30,8 +30,8 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -61,9 +61,9 @@
 
         <hr />
 
-        <footer>
+        <div id="footer">
             <p>This project is in active development, <?=GAME_VERSION?>, Last updated <?=GAME_UPDATED?>. <a href="https://github.com/chrisjhill/MMOG">View its Github page</a>.</p>
-        </footer>
+        </div>
     </div>
 </body>
 </html>

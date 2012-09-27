@@ -14,8 +14,9 @@ class Model_User_Auth
 	 * 
 	 * @access public
 	 * @return boolean
+     * @static
 	 */
-	public function hasIdentity() {
+	public static function hasIdentity() {
 		return Core_Store::has('identity');
 	}
 
@@ -28,9 +29,10 @@ class Model_User_Auth
 	 * @access public
 	 * @param $user Model_User_Instance
 	 * @param $stale int
+     * @static
 	 * @throws Exception
 	 */
-	public function putIdentity($user, $stale = 60) {
+	public static function putIdentity($user, $stale = 60) {
 		// Have we been passed a Model_User_Instance?
 		if (get_class($user) !== 'Model_User_Instance') {
 			throw new Exception('Incorrect identity passed, expected a Model_User_Instance.');
@@ -53,9 +55,10 @@ class Model_User_Auth
 	 * 
 	 * @access public
 	 * @return Model_User_Instance
+     * @static
 	 * @throws Exception
 	 */
-	public function getIdentity() {
+	public static function getIdentity() {
 		// Get the identity
 		$user = Core_Store::get('identity');
 
@@ -85,8 +88,9 @@ class Model_User_Auth
 	 * Remove the identity, logging the user out.
 	 * 
 	 * @access public
+     * @static
 	 */
-	public function removeIdentity() {
+	public static function removeIdentity() {
 		Core_Store::remove('identity');
 	}
 }

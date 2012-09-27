@@ -19,13 +19,14 @@ class Core_Database
 	public static $connection;
 
 	/**
-	 * Returns the database conenction, or connects if doesn't exist.
+	 * Returns the database connection, or connects if does not exist.
 	 *
 	 * @access public
 	 * @return PDO
+     * @static
 	 */
-	public function getInstance() {
-		// Have we already connecteD?
+	public static function getInstance() {
+		// Have we already connected?
 		if (! self::$connection) {
 			// No, try and connect
 			try {

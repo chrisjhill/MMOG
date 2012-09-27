@@ -21,7 +21,6 @@ class Controller_Authent extends Core_Controller
 	 * Allows the user 
 	 *
 	 * @access public
-	 * @param $string string
 	 * @return string
 	 */
 	public function loginAction() {
@@ -40,6 +39,7 @@ class Controller_Authent extends Core_Controller
 
 			// Try and login
 			// Throws an Exception if the password is formatted incorrectly
+            $user = null;
 			try {
 				// Try and login
 				$user = $login->login();
@@ -65,7 +65,7 @@ class Controller_Authent extends Core_Controller
 			Core_Store::put('language', $user->getInfo('user_language'));
 
 			// And forward onto the main overview main
-			$this->redirect(array('controller' => 'headquaters'));
+			$this->redirect(array('controller' => 'headquarters'));
 		}
 	}
 

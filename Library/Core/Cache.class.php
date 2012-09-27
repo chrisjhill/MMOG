@@ -19,7 +19,7 @@ class Core_Cache
 	/**
 	 * Whether we can actually use the cache.
 	 *
-	 * Set to false by default as we shouldn't need to use it.
+	 * Set to false by default as we should not need to use it.
 	 *
 	 * @access protected
 	 * @var boolean

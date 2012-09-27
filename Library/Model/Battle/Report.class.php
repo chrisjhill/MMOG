@@ -251,6 +251,7 @@ class Model_Battle_Report
 	public function parseBattleString($battleString) {
 		// First, explode on new lines
 		$battleString = explode("\n", $battleString);
+        $battleStringReturn = null;
 
 		// Loop over the battle string
 		foreach ($battleString as $lineIndex => $lineString) {
@@ -276,7 +277,7 @@ class Model_Battle_Report
 
 				// Now we have only ships
 				// Loop over each one
-				foreach ($lineString as $index => $shipString) {
+				foreach ($lineString as $shipString) {
 					// Explode the string on colon so we have ship ID and total apart
 					$shipString = explode(':', $shipString);
 
@@ -286,7 +287,7 @@ class Model_Battle_Report
 			}
 		}
 
-		// Parsting complete
+		// Parsing complete
 		return $battleStringReturn;
 	}
 }

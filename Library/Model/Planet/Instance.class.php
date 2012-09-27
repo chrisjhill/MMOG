@@ -14,6 +14,7 @@ class Model_Planet_Instance extends Core_Instance implements IteratorAggregate
 	 *
 	 * @access public
 	 * @param $planetId int
+     * @param $autoloadCountries boolean
 	 */
 	public function __construct($planetId, $autoloadCountries = false) {
 		// Set planet information
@@ -125,10 +126,10 @@ class Model_Planet_Instance extends Core_Instance implements IteratorAggregate
 	}
 
 	/**
-	 * Allow scripts to iterate over the squadrons.
+	 * Allow scripts to iterate over the countries in this planet.
 	 * 
 	 * @access public
-	 * @return Model_Fleet
+	 * @return Model_Country_Instance
 	 */
 	public function getIterator() {
 		return new ArrayIterator($this->_inhabitants);

@@ -52,12 +52,12 @@ class Model_Planet_Create
 		// Execute the query
 		$statement->execute(array(
 			':round_id'        => GAME_ROUND,
-			':planet_x_coord'  => $xCoord,
-			':planet_y_coord'  => $yCoord,
+			':planet_x_coord'  => $coords['x'],
+			':planet_y_coord'  => $coords['y'],
 			':planet_password' => $planetPrivate ? substr(md5($_SERVER['REQUEST_TIME'] . mt_rand(0, 9999)), 0, 8) : null
 		));
 
-		// Return a new Model_Planet_Instance obejct
+		// Return a new Model_Planet_Instance object
 		return new Model_Planet_Instance($database->lastInsertId(), true);
 	}
 

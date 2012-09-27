@@ -13,8 +13,9 @@ class Core_Url
 	 *
 	 * @access public
 	 * @return array
+     * @static
 	 */
-	public function getUrlBreakdown() {
+	public static function getUrlBreakdown() {
 		// Set the URL
 		// We do not want the start and the end slash, explode on separators, and filter
 		$urlBreakdown = trim($_SERVER['REQUEST_URI'], '/');

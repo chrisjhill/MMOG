@@ -27,7 +27,7 @@ abstract class Core_Instance
 	abstract protected function setInfo($abstractId);
 
 	/**
-	 * Return a peice of information on the country.
+	 * Return a piece of information on the country.
 	 *
 	 * @access public
 	 * @param string $index

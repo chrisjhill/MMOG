@@ -65,7 +65,7 @@ class Model_Battle_Fight
      * We set this information once for speed, so we do not have to loop over
      * over each ship every time when we only need a couple.
      *
-     * Also contains informaton on attacking and defending ship class totals so
+     * Also contains information on attacking and defending ship class totals so
      * we can work out how to spread the total attack power.
      *
      * Note: Ship classes are stored as bitwise operators, so although the docs
@@ -202,10 +202,10 @@ class Model_Battle_Fight
      * @param $defendingCountryId int
      */
     public function __construct($defendingCountryId) {
-        // Set country informati_shipMatrixon
+        // Set country information
         $this->setDefendingCountryInformation($defendingCountryId);
 
-        // Set ship statictics
+        // Set ship statistics
         $this->setShipStatistics();
     }
 
@@ -224,7 +224,7 @@ class Model_Battle_Fight
         $squadronList = $this->_defendingCountry->getSquadron(0);
 
         // Loop over them, and if they are currently docked add them to the defender list
-        foreach ($squadronList as $squadronId => $squadron) {
+        foreach ($squadronList as $squadron) {
             if ($squadron->getInfo('squadron_status') & FLEET_DOCKED) {
                 $this->_squadron['defending'][] = $squadron;
             }
@@ -327,7 +327,7 @@ class Model_Battle_Fight
         // Loop over each of the attackers and defenders
         foreach ($this->_squadron as $status => $squadrons) {
             // Loop over each squadron
-            foreach ($squadrons as $index => $squadron) {
+            foreach ($squadrons as $squadron) {
                 // And loop over each ship that this squadron can contain
                 foreach ($this->_ship as $shipId => $ship) {
                     // First things first, add to squadron stats
@@ -397,7 +397,7 @@ class Model_Battle_Fight
      * against 500 ships with 1 life.
      * 
      * Now we know what percentage of the attack to use against this ship we can
-     * then work out how many it will kill and make sure that doesn't exceed the
+     * then work out how many it will kill and make sure that does not exceed the
      * amount that have already been destroyed/frozen/stolen, and then document
      * that in the attacking and defending entities ship information.
      * 
@@ -444,7 +444,7 @@ class Model_Battle_Fight
             }
             
             // Loop over each ship in the target class
-            foreach ($this->_shipMatrix['ship_class'][$shipInformation['ship_target']] as $void => $shipIdTargeted) {
+            foreach ($this->_shipMatrix['ship_class'][$shipInformation['ship_target']] as $shipIdTargeted) {
                 // What percentage is this ship in relation to the rest of the class?
                 // We want to get it at the start of the wave to apply the percentage evenly
                 $defendingLifePercentage = 0;
@@ -509,12 +509,12 @@ class Model_Battle_Fight
      * Get the number of ships based on several factors.
      * 
      * The benefit of this class is that we are not continually adding/subtracting
-     * in the main battle function with potential for errros. This function will
+     * in the main battle function with potential for errors. This function will
      * give consistent results far better and make the code neater overall.
      *
-     * @param $attackerOrDefender Which ship number do we need?
-     * @param $shipId Which ships are we referring to?
-     * @param $shipsToDeduct Do we want to deduct frozen/stolen/destroyed from the total?
+     * @param $attackerOrDefender string Which ship number do we need?
+     * @param $shipId int Which ships are we referring to?
+     * @param $shipsToDeduct array Do we want to deduct frozen/stolen/destroyed from the total?
      * @access private
      * @return int
      */
@@ -526,7 +526,7 @@ class Model_Battle_Fight
         $shipCount = $this->{$attackerOrDefender}[$shipId]['ship_total'];
 
         // And then deduct as necessary
-        foreach ($shipsToDeduct as $index => $typeToDeduct) {
+        foreach ($shipsToDeduct as $typeToDeduct) {
             $shipCount = $shipCount - $this->{$attackerOrDefender}[$shipId]['ship_' . $typeToDeduct];
         }
 
@@ -666,8 +666,6 @@ class Model_Battle_Fight
 
                 // Totals for this status ship
                 $shipDestroyedTally = 0;
-                $shipFrozenTally    = 0;
-                $shipStolenTally    = 0;
 
                 // And work out the stats for each squadron
                 // Remember, each country might have multiple squadrons
@@ -735,7 +733,6 @@ class Model_Battle_Fight
     private function produceBattleReport() {
         // Set variables
         // The battle string
-        $battleString          = '';
         $battleStringDefending = '';
         $battleStringAttacking = '';
         // Defending and attacking totals
@@ -763,8 +760,8 @@ class Model_Battle_Fight
 
             // Individual squadrons
             // Loop over the squadrons
-            foreach ($this->_squadron as $status => $squadrons) {
-                foreach ($squadrons as $index => $squadron) {
+            foreach ($this->_squadron as $squadrons) {
+                foreach ($squadrons as $squadron) {
                     // Does this squadron actually contain any of this ship?
                     // Shorthand
                     $stats = $this->_squadronStats[$squadron->getInfo('country_id')][$squadron->getInfo('squadron_id')];

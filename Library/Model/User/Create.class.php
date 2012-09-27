@@ -17,7 +17,7 @@ class Model_User_Create
 	private $_email;
 
 	/**
-	 * Sets the email addres the users wishes to use.
+	 * Sets the email address the users wishes to use.
 	 *
 	 * @access public
 	 * @param $email string

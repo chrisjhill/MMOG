@@ -1,6 +1,6 @@
 <?php
 // Navigation
-self::$lang['nav-private-headquaters']  = 'Headquaters';
+self::$lang['nav-private-headquarters'] = 'Headquarters';
 self::$lang['nav-private-transmission'] = 'Transmission';
 self::$lang['nav-private-news']         = 'News';
 self::$lang['nav-private-democracy']    = 'Democracy';

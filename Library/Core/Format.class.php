@@ -25,9 +25,13 @@ class Core_Format
 	 *
 	 * @access public
 	 * @param $number int
+     * @param $decimals int
+     * @param $decimalPoint string
+     * @param $thousandsSeparator string
 	 * @return string
+     * @static
 	 */
-	public function number($number, $decimals = 0, $decimalPoint = '.', $thousandsSearator = ',') {
-		return number_format($number, $decimals, $decimalPoint, $thousandsSearator);
+	public static function number($number, $decimals = 0, $decimalPoint = '.', $thousandsSeparator = ',') {
+		return number_format($number, $decimals, $decimalPoint, $thousandsSeparator);
 	}
 }

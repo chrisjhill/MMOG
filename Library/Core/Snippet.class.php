@@ -31,7 +31,7 @@ class Core_Snippet extends Core_Cache
 	 *
 	 * @access public
 	 * @param $file string
-	 * @param $path srring
+	 * @param $path string
 	 * @throws Exception
 	 */
 	public function __construct($file, $path = PATH_SNIPPET) {
@@ -65,7 +65,7 @@ class Core_Snippet extends Core_Cache
 	public function render() {
 		// Can we use a cached snippet?
 		if ($this->cachedFileAvailable()) {
-			// We can use a cached copy, mucho quick
+			// We can use a cached copy, much quick
 			return $this->getCachedFile();
 		}
 

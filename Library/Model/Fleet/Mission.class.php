@@ -14,6 +14,7 @@ class Model_Fleet_Mission
 	 * @access public
 	 * @param int $countryId
 	 * @param int $squadronId
+     * @return array
 	 */
 	public function getSquadron($countryId, $squadronId) {
         // Get the missions that are due to wage battle on this country
@@ -46,6 +47,7 @@ class Model_Fleet_Mission
 	 *
 	 * @access public
 	 * @param int $countryId
+     * @return array
 	 */
 	public function getCountry($countryId) {
         // Get the missions that are due to wage battle on this country
@@ -77,8 +79,9 @@ class Model_Fleet_Mission
 	 * @access public
 	 * @param int $countryId
 	 * @return array
+     * @static
 	 */
-	public function getBattle($countryId) {
+	public static function getBattle($countryId) {
         // Get the missions that are due to wage battle on this country
         // They need to have arrived (ETA 0), have waves remaining, and not have a status of Returning
         $database  = Core_Database::getInstance();
@@ -109,7 +112,7 @@ class Model_Fleet_Mission
 	 * Standardise the missions that are returned.
 	 *
 	 * @access public
-	 * @param $statement PDO
+	 * @param $statement object
 	 * @return array
 	 */
 	public function prepareMissions($statement) {

@@ -15,9 +15,10 @@ class Model_Planet_CoordsToPlanetId
 	 * @param $xCoord int
 	 * @param $yCoord int
 	 * @return int
+     * @static
 	 * @throws Exception
 	 */
-	public function get($xCoord, $yCoord) {
+	public static function get($xCoord, $yCoord) {
 		// Get the database connection
 		$database  = Core_Database::getInstance();
 		$statement = $database->prepare("

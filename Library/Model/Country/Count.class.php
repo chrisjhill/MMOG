@@ -12,9 +12,11 @@ class Model_Country_Count
 	 * Returns how many countries there are in the round.
 	 * 
 	 * @access public
+     * @param $roundId int
 	 * @return int
+     * @static
 	 */
-	public function generate($roundId) {
+	public static function generate($roundId) {
 		// Get the database connection
 		$database  = Core_Database::getInstance();
 		$statement = $database->prepare("

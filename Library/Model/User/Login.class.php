@@ -49,7 +49,6 @@ class Model_User_Login
 	 * @param $email string
 	 * @param $password string
 	 * @param $round int
-	 * @return boolean
 	 */
 	public function __construct($email, $password, $round) {
 		// Set variables
@@ -62,7 +61,7 @@ class Model_User_Login
 	 * Try and find the user.
 	 *
 	 * Unlike most login systems we are using PHPass which you can't simply compare
-	 * hashes. So we need to get the users account via their email adress and then
+	 * hashes. So we need to get the users account via their email address and then
 	 * check the hashes side-by-side. Annoying, but far more secure.
 	 *
 	 * @access private

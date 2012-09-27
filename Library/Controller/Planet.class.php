@@ -35,6 +35,7 @@ class Controller_Planet extends Core_Controller
 		$yCoord = isset($_GET['y']) ? $_GET['y'] : $country->getInfo('country_y_coord');
 
 		// Is this our country, or are we trying to explode?
+        $planetExplore = null;
 		if (
 			$country->getInfo('country_x_coord') == $xCoord &&
 			$country->getInfo('country_y_coord') == $yCoord) {
@@ -54,7 +55,7 @@ class Controller_Planet extends Core_Controller
 				$planetExplore = new Model_Planet_Instance(Model_Planet_CoordsToPlanetId::get($xCoord, $yCoord));
 			} catch(Exception $e) {
 				// Planet does not exist
-				// Forward onto the non existant planet
+				// Forward onto the non existent planet
 				$this->forward('uninhabited');
 			}
 		}

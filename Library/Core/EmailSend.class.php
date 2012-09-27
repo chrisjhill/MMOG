@@ -20,7 +20,7 @@ class Core_EmailSend
 	private $_emailTemplate;
 
 	/**
-	 * Variables that we want to replae in the template.
+	 * Variables that we want to replace in the template.
 	 * 
 	 * @access private
 	 * @var array
@@ -203,7 +203,7 @@ class Core_EmailSend
 	 * @return Core_EmailSend
 	 */
 	public function setEmailTo($userId) {
-		// Set the user ID this emaiil is going to
+		// Set the user ID this email is going to
 		$this->_emailTo = $userId;
 
 		// Return this for chainability
@@ -218,7 +218,7 @@ class Core_EmailSend
 	 * @return Core_EmailSend
 	 */
 	public function setEmailFrom($userId) {
-		// Set the user ID this emaiil is coming from
+		// Set the user ID this email is coming from
 		$this->_emailFrom = $userId;
 
 		// Return this for chainability
@@ -233,7 +233,7 @@ class Core_EmailSend
 	 * @return Core_EmailSend
 	 */
 	public function setEmailSubject($subject) {
-		// Set the user ID this emaiil is going to
+		// Set the user ID this email is going to
 		$this->_emailSubject = $subject;
 
 		// Return this for chainability
@@ -257,7 +257,7 @@ class Core_EmailSend
 			throw new Exception('Attachment could not be located.');
 		}
 
-		// Set the user ID this emaiil is going to
+		// Set the user ID this email is going to
 		$this->_emailAttachment = $file;
 
 		// Return this for chainability
@@ -278,7 +278,7 @@ class Core_EmailSend
 			throw new Exception('The date to send the email after is invalid.');
 		}
 
-		// Set the user ID this emaiil is going to
+		// Set the user ID this email is going to
 		$this->_emailSendAfter = $date;
 
 		// Return this for chainability

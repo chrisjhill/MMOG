@@ -25,7 +25,7 @@ class Model_Country_Create extends Model_Country_Coord
 	private $_countryName;
 
 	/**
-	 * Class constructor, set the variabes.
+	 * Class constructor, set the variables.
 	 *
 	 * @access public
 	 * @param $countryRulerName string
@@ -58,7 +58,7 @@ class Model_Country_Create extends Model_Country_Coord
 		// Generate coords
 		$this->generateCoords();
 
-		// Insert the country into the darabase
+		// Insert the country into the database
 		// Get the database connection
 		$database  = Core_Database::getInstance();
 		$statement = $database->prepare("

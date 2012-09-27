@@ -22,7 +22,7 @@ class Model_Fleet_List implements IteratorAggregate
 	 * Add a Model_Fleet_Squadron to this list.
 	 *
 	 * @access public
-	 * @param Model_Fleet_Squadron $fleet
+	 * @param Model_Fleet_Squadron $squadron
 	 */
 	public function add($squadron) {
 		if (get_class($squadron) == 'Model_Fleet_Squadron') {
@@ -58,7 +58,7 @@ class Model_Fleet_List implements IteratorAggregate
 	 * Allow scripts to iterate over the squadrons.
 	 * 
 	 * @access public
-	 * @return Model_Fleet
+	 * @return Model_Fleet_Squadron
 	 */
 	public function getIterator() {
 		return new ArrayIterator($this->_fleet);

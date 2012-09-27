@@ -32,7 +32,7 @@ class Controller_Register extends Core_Controller
 			if ($user->getInfo('country_id')) {
 				// The user is already registered for this round
 				// Forward them to their overview page
-				$this->forward('index', 'headquaters');
+				$this->forward('index', 'headquarters');
 			}
 
 			// The user has an identity, but no country
@@ -54,6 +54,7 @@ class Controller_Register extends Core_Controller
 
 			// Try and register
 			// Throws an Exception if there are any errors
+            $user = null;
 			try {
 				// Try and register
 				$user = $register->create();
@@ -98,7 +99,7 @@ class Controller_Register extends Core_Controller
 			if ($user->getInfo('country_id')) {
 				// The user is already registered for this round
 				// Forward them to their overview page
-				$this->forward('index', 'headquaters');
+				$this->forward('index', 'headquarters');
 			}
 		}
 
@@ -123,9 +124,10 @@ class Controller_Register extends Core_Controller
 
 			// Try and register
 			// Throws an Exception if there are any errors
+            $user = null;
 			try {
 				// Try and register
-				$countryId = $country->create($user);
+				$country->create($user);
 			} catch (Exception $e) {
 				// Something went wrong
 				$this->view->addVariable(
@@ -145,7 +147,7 @@ class Controller_Register extends Core_Controller
 			Model_User_Auth::putIdentity(new Model_User_Instance($user->getInfo('user_id')));
 
 			// And forward onto the create country page
-			$this->redirect(array('controller' => 'headquaters', 'action' => 'index'));
+			$this->redirect(array('controller' => 'headquarters', 'action' => 'index'));
 		}
 	}
 }

@@ -32,12 +32,13 @@ class Model_Fleet_Ship
 	public static $_ship;
 
 	/**
-	 * Returns the ship information, or sets them if it doesn't exist.
+	 * Returns the ship information, or sets them if it does not exist.
 	 *
 	 * @access public
 	 * @return array
+     * @static
 	 */
-	public function getInstance() {
+	public static function getInstance() {
 		// Have we already got the ship information?
 		if (! self::$_ship) {
 			// No, go and get them

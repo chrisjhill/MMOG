@@ -17,9 +17,10 @@ class Model_Country_Utilities
 	 * @param $countryRulerName string
 	 * @param $countryName string
 	 * @return boolean
+     * @static
 	 * @throws Exception
 	 */
-	public function countryNameCombinationAlreadyExists($countryRulerName, $countryName) {
+	public static function countryNameCombinationAlreadyExists($countryRulerName, $countryName) {
 		// Make sure the user is logged in
 		if (! Model_User_Auth::hasIdentity()) {
 			throw new Exception('Unable to locate a user to check.');

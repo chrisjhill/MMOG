@@ -31,8 +31,9 @@ class Core_Router
 	 * @access public
 	 * @param $controller string
 	 * @param $action string
+     * @static
 	 */
-	public function loadController($controller, $action = '') {
+	public static function loadController($controller, $action = '') {
 		// Format the controller name correctly
 		$controller = 'Controller_' . $controller;
 
@@ -69,8 +70,10 @@ class Core_Router
 	 * @access public
 	 * @param $controller string
 	 * @param $action string
+     * @return boolean
+     * @static
 	 */
-	public function loadAction($controller, $action) {
+	public static function loadAction($controller, $action) {
 		// Does the method exist?
 		$actionExists = method_exists($controller, $action . 'Action');
 

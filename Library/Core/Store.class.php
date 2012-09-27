@@ -44,7 +44,7 @@ class Core_Store
 	 * Store a variable for use later on.
 	 *
 	 * If you pass in an array or object then it will be serialized and
-	 * deserialized automatically when storing in the session.
+	 * unserialized automatically when storing in the session.
 	 * 
 	 * @access public
 	 * @param $variable string

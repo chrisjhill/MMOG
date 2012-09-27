@@ -36,9 +36,11 @@ class Core_Language
 	 * @access public
 	 * @param $file string
 	 * @param $language string
+     * @return boolean
+     * @static
 	 * @throws Exception
 	 */
-	public function load($file, $language = 'en') {
+	public static function load($file, $language = 'en') {
 		// Is there a language in the store?
 		if (Core_Store::has('language')) {
 			$language = Core_Store::get('language');
@@ -56,6 +58,7 @@ class Core_Language
 
 		// File exists and we have not already loaded it
 		include PATH_LANGUAGE . $language . DS . $file . '.php';
+        return true;
 	}
 
 	/**
@@ -63,8 +66,9 @@ class Core_Language
 	 *
 	 * @access public
 	 * @return array
+     * @static
 	 */
-	public function getLanguage() {
+	public static function getLanguage() {
 		return self::$lang;
 	}
 }

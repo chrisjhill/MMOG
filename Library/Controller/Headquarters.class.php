@@ -6,7 +6,7 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       22/09/2012
  */
-class Controller_Headquaters extends Core_Controller
+class Controller_Headquarters extends Core_Controller
 {
 	/**
 	 * Controller initiated.
@@ -19,8 +19,7 @@ class Controller_Headquaters extends Core_Controller
 
 		// Load language file
 		Core_Language::load('navigation-private');
-		Core_Language::load('page-headquaters');
-		$lang = Core_Language::getLanguage();
+		Core_Language::load('page-headquarters');
 	}
 
 	/**
@@ -41,7 +40,7 @@ class Controller_Headquaters extends Core_Controller
 		$lang = Core_Language::getLanguage();
 
 		// Set default variables
-		$this->view->addVariable('title', $lang['headquaters-title']);
+		$this->view->addVariable('title', $lang['headquarters-title']);
 
 		// Tell the planet to fetch the countries
 		$planet = $this->view->getVariable('planet');

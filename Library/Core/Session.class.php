@@ -13,6 +13,8 @@ class Core_Session
 	 * Open a connection to the database.
 	 *
 	 * @access public
+     * @param $session string
+     * @param $sessionName string
 	 * @return boolean
 	 */
 	public function open($session, $sessionName) {
@@ -64,6 +66,7 @@ class Core_Session
 	 * @access public
 	 * @param $sessionId string
 	 * @param $sessionData string
+     * @return boolean
 	 */
 	public function write($sessionId, $sessionData) {
 		// Do not bother to write if we have no session data
