@@ -2,12 +2,13 @@
 /**
  * Returns a notice fully coded in HTML.
  *
- * There are three types of notice that you can use:
+ * There are four types of notice that you can use:
  * 
  * <ol>
  *     <li>Success</li>
  *     <li>Error</li>
  *     <li>Notice</li>
+ *     <li>Info</li>
  * </ol>
  *
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
