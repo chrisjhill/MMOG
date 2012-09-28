@@ -19,6 +19,10 @@ self::$lang['sign out'] = 'Sign out';
 self::$lang['error-title']   = 'An error occurred';
 self::$lang['success-title'] = 'Success!';
 
+// Forms
+self::$lang['update'] = 'Update';
+self::$lang['save']   = 'Save';
+
 // Bits and bobs
 self::$lang['of']  = 'of';
 self::$lang['and'] = 'and';

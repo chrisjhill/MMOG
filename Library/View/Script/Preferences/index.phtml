@@ -1,0 +1,43 @@
+<h2><?=$lang['preferences-title']?></h2>
+
+<h4><?=$lang['preferences-title-rename-country']?></h4>
+
+<form action="<?=$this->url(array('controller' => 'preferences', 'action' => 'change-ruler-and-country-name'))?>" method="post" class="form-inline">
+	<p>
+		<input type="text" name="country_ruler_name" class="input-long" value="<?=$this->safe($country->getInfo('country_ruler_name'))?>" />
+
+		<input type="text" name="country_name" class="input-medium" value="<?=$this->safe($country->getInfo('country_name'))?>" />
+
+		<button type="submit" class="btn"><?=$lang['update']?></button>
+	</p>
+</form>
+
+<hr />
+
+<h4><?=$lang['preferences-title-change-planet']?></h4>
+
+<p><?=$lang['preferences-relocate-message']?></p>
+
+<form action="<?=$this->url(array('controller' => 'preferences', 'action' => 'change-planet'))?>" method="post" class="form-inline">
+	<p>
+		<input type="text" name="planet_password" class="span2" placeholder="<?=$lang['preferences-planet-password']?>" />
+
+		<button type="submit" class="btn"><?=$lang['preferences-relocate']?></button><br />
+
+		<input type="checkbox" name="planet_change" value="1" /> Yes, I am sure I want to relocate
+	</p>
+</form>
+
+<hr />
+
+<h4><?=$lang['preferences-title-change-password']?></h4>
+
+<form action="<?=$this->url(array('controller' => 'preferences', 'action' => 'change-password'))?>" method="post" class="form-inline">
+	<p>
+		<input type="text" name="user_password_current" class="span2" placeholder="<?=$lang['preferences-current-password']?>" />
+
+		<input type="password" name="user_password_current" class="span2" placeholder="<?=$lang['preferences-new-password']?>" />
+
+		<button type="submit" class="btn"><?=$lang['preferences-change-password']?></button><br />
+	</p>
+</form>

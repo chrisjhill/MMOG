@@ -23,14 +23,6 @@ class Controller_Headquarters extends Core_Controller
 	}
 
 	/**
-	 * Set whether we want the bootstrap to automatically fetch us the base classes.
-	 *
-	 * @access public
-	 * @var boolean
-	 */
-	public $setDefaultCountryClasses = true;
-
-	/**
 	 * Display the generic overview page.
 	 *
 	 * @access public

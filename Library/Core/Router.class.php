@@ -74,6 +74,9 @@ class Core_Router
      * @static
 	 */
 	public static function loadAction($controller, $action) {
+		// We want pretty URL's, there might be dashes
+		$action = str_replace('-', '', $action);
+
 		// Does the method exist?
 		$actionExists = method_exists($controller, $action . 'Action');
 
