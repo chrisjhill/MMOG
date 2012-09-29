@@ -6,9 +6,16 @@ self::$lang['preferences-title-change-planet']   = 'Change planet';
 self::$lang['preferences-title-change-password'] = 'Change your account password';
 
 // Form messages
-self::$lang['preferences-error-name-combo-taken'] = 'Ruler and country name combination already exists, please chose another.';
-self::$lang['preferences-error-name-combo-error'] = 'An error occurred whilst trying to update your ruler and country name.';
-self::$lang['preferences-success-name-change']    = 'Successfully updated your ruler and country name.';
+// Change ruler and country name
+self::$lang['preferences-error-name-combo-taken']   = 'Ruler and country name combination already exists, please chose another.';
+self::$lang['preferences-success-name-change']      = 'Successfully updated your ruler and country name.';
+// Planet relocate
+self::$lang['preferences-error-country-not-sure']   = 'Please check the "I Am Sure" checkbox.';
+self::$lang['preferences-error-same-planet']        = 'There was interference with the relocation. Try again in a minute or two.';
+self::$lang['preferences-error-unknown-password']   = 'Sorry, we were unable the locate a planet with that password.';
+self::$lang['preferences-success-relocated']        = 'Welcome to your new planet! Why not introduce yourself to your fellow countrymen?';
+// Change password
+self::$lang['preferences-success-changed-password'] = 'Successfully updated your password.';
 
 // View
 self::$lang['preferences-relocate']         = 'Relocate';

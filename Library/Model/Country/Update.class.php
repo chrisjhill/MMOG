@@ -1,9 +1,17 @@
 <?php
+/**
+ * Handles updating the countries information.
+ *
+ * @copyright   2012 Christopher Hill <cjhill@gmail.com>
+ * @author      Christopher Hill <cjhill@gmail.com>
+ * @since       29/09/2012
+ */
 class Model_Country_Update
 {
 	/**
 	 * Tries to update the ruler and country name.
-	 * 
+	 *
+	 * @access public
 	 * @param $country Model_Cuntry_Instance
 	 * @param $countryRulerName string
 	 * @param $countryName string
@@ -37,12 +45,110 @@ class Model_Country_Update
 			':country_id'         => $country->getInfo('country_id')
 		));
 
-		// How did the update go?
-		if ($statement->rowCount() <= 0) {
-			throw new Exception('preferences-error-name-combo-error');
-		}
+		// Log this event
+		Core_Log::add(array(
+			'user_id'     => $country->getInfo('user_id'),
+			'country_id'  => $country->getInfo('country_id'),
+			'log_action'  => 'country-name-change',
+			'log_status'  => 'success',
+			'log_message' => 'User successfully updated their names to ' . $countryRulerName . ' of ' . $countryName
+		));
 
 		// Success
 		return true;
+	}
+
+	/**
+	 * Relocate the country to a new planet.
+	 *
+	 * @access public
+	 * @param $country Model_Country_Insrance
+	 * @return boolean
+	 *
+	 * @todo The countries Z coord will also need updating.
+	 */
+	public function planetRelocate($country) {
+		// Has the user checked the 'I am sure' checkbox?
+		if (! isset($_POST['planet_change_sure']) || $_POST['planet_change_sure'] != '1') {
+			throw new Exception('preferences-error-country-not-sure');
+		}
+
+		// Get some new coords
+		$planet = new Model_Planet_Random();
+		$planet = $planet->existingPlanet();
+
+		// Is the planet the same as the countries current?
+		if (
+			$planet->getInfo('planet_x_coord') == $country->getInfo('country_x_coord') &&
+			$planet->getInfo('planet_y_coord') == $country->getInfo('country_y_coord')
+		) {
+			throw new Exception('preferences-error-same-planet');
+		}
+
+		// We have new coords
+		// Add one country to the new planet
+		// Get the database connection
+		$database  = Core_Database::getInstance();
+		$statement = $database->prepare("
+			UPDATE `planet` p
+			SET    p.planet_country_count = p.planet_country_count + 1
+			WHERE  p.round_id             = :round_id
+			       AND
+			       p.planet_x_coord       = :planet_x_coord
+			       AND
+			       p.planet_y_coord       = :planet_y_coord
+			LIMIT  1
+		");
+		// Execute the query
+		$statement->execute(array(
+			':round_id' => GAME_ROUND,
+			':planet_x_coord' => $planet->getInfo('planet_x_coord'),
+			':planet_y_coord' => $planet->getInfo('planet_y_coord')
+		));
+
+		// Move the country to this new planet
+		$statement = $database->prepare("
+			UPDATE `country` c
+			SET    c.country_x_coord = :planet_x_coord,
+			       c.country_y_coord = :planet_y_coord
+			WHERE  c.round_id        = :round_id
+			       AND
+			       c.country_id      = :country_id
+			LIMIT  1
+		");
+		// Execute the query
+		$statement->execute(array(
+			':planet_x_coord' => $planet->getInfo('planet_x_coord'),
+			':planet_y_coord' => $planet->getInfo('planet_y_coord'),
+			':round_id'       => GAME_ROUND,
+			':country_id'     => $country->getInfo('country_id')
+		));
+
+		// Deduct one country from their current planet
+		$statement = $database->prepare("
+			UPDATE `planet` p
+			SET    p.planet_country_count = p.planet_country_count - 1
+			WHERE  p.round_id             = :round_id
+			       AND
+			       p.planet_x_coord       = :country_x_coord
+			       AND
+			       p.planet_y_coord       = :country_y_coord
+			LIMIT  1
+		");
+		// Execute the query
+		$statement->execute(array(
+			':round_id' => GAME_ROUND,
+			':country_x_coord' => $country->getInfo('country_x_coord'),
+			':country_y_coord' => $country->getInfo('country_y_coord')
+		));
+
+		// Log this event
+		Core_Log::add(array(
+			'user_id'     => $country->getInfo('user_id'),
+			'country_id'  => $country->getInfo('country_id'),
+			'log_action'  => 'planet-relocate',
+			'log_status'  => 'success',
+			'log_message' => 'User successfully relocated their planet to ' . $planet->getInfo('planet_x_coord') . ':' . $planet->getInfo('planet_y_coord')
+		));
 	}
 }

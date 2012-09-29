@@ -98,13 +98,13 @@ class Model_User_Create
 		      ->setEmailSubject('Welcome to ' . GAME_NAME)
 		      ->send();
 
-        // Log this event
-        Core_Log::add(array(
-            'user_id'     => $user->getInfo('user_id'),
-            'log_action'  => 'create-account',
-            'log_status'  => 'success',
-            'log_message' => 'User successfully created account.'
-        ));
+		// Log this event
+		Core_Log::add(array(
+			'user_id'     => $user->getInfo('user_id'),
+			'log_action'  => 'create-account',
+			'log_status'  => 'success',
+			'log_message' => 'User successfully created account.'
+		));
 
 		// Return a new user model
 		return $user;

@@ -20,13 +20,15 @@
 
 <p><?=$lang['preferences-relocate-message']?></p>
 
+<?=$planetRelocateNotice?>
+
 <form action="<?=$this->url(array('controller' => 'preferences', 'action' => 'change-planet'))?>" method="post" class="form-inline">
 	<p>
 		<input type="text" name="planet_password" class="span2" placeholder="<?=$lang['preferences-planet-password']?>" />
 
 		<button type="submit" class="btn"><?=$lang['preferences-relocate']?></button><br />
 
-		<input type="checkbox" name="planet_change" value="1" /> Yes, I am sure I want to relocate
+		<input type="checkbox" name="planet_change_sure" value="1" /> Yes, I am sure I want to relocate
 	</p>
 </form>
 
@@ -34,11 +36,13 @@
 
 <h4><?=$lang['preferences-title-change-password']?></h4>
 
+<?=$changePasswordNotice?>
+
 <form action="<?=$this->url(array('controller' => 'preferences', 'action' => 'change-password'))?>" method="post" class="form-inline">
 	<p>
-		<input type="text" name="user_password_current" class="span2" placeholder="<?=$lang['preferences-current-password']?>" />
+		<input type="password" name="user_password_current" class="span2" placeholder="<?=$lang['preferences-current-password']?>" />
 
-		<input type="password" name="user_password_current" class="span2" placeholder="<?=$lang['preferences-new-password']?>" />
+		<input type="password" name="user_password" class="span2" placeholder="<?=$lang['preferences-new-password']?>" />
 
 		<button type="submit" class="btn"><?=$lang['preferences-change-password']?></button><br />
 	</p>

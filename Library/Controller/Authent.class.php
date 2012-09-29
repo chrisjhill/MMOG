@@ -35,7 +35,7 @@ class Controller_Authent extends Core_Controller
 		// Has the user submitted the form?
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Create login model
-			$login = new Model_User_Login($_POST['user_email'], $_POST['user_password'], GAME_ROUND);
+			$login = new Model_User_Login($_POST['user_email'], $_POST['user_password']);
 
 			// Try and login
 			// Throws an Exception if the password is formatted incorrectly

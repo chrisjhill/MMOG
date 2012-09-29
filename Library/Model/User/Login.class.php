@@ -31,30 +31,16 @@ class Model_User_Login
 	private $_password;
 
 	/**
-	 * Which round we are on.
-	 *
-	 * Whilst this is irrelevant to actually logging in, we need to set the game
-	 * the user is playing in the session and to make sure the user actually has
-	 * a country in this particular game.
-	 *
-	 * @access private
-	 * @var int
-	 */
-	private $_round;
-
-	/**
 	 * Set up the login system
 	 *
 	 * @access public
 	 * @param $email string
 	 * @param $password string
-	 * @param $round int
 	 */
-	public function __construct($email, $password, $round) {
+	public function __construct($email, $password) {
 		// Set variables
 		$this->_email    = $email;
 		$this->_password = $password;
-		$this->_round    = $round;
 	}
 
 	/**
