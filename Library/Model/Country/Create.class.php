@@ -51,7 +51,7 @@ class Model_Country_Create extends Model_Country_Coord
 		}
 
 		// Does the ruler name and country name combination already exist?
-		if (Model_Country_Utilities::countryNameCombinationAlreadyExists($this->_countryRulerName, $this->_countryName)) {
+		if (Model_Country_RulerAndCountryNameExist::check($this->_countryRulerName, $this->_countryName)) {
 			throw new Exception('register-error-name-combo-taken');
 		}
 

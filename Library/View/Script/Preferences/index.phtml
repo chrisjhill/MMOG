@@ -2,6 +2,8 @@
 
 <h4><?=$lang['preferences-title-rename-country']?></h4>
 
+<?=$rulerAndCountryNameChangeNotice?>
+
 <form action="<?=$this->url(array('controller' => 'preferences', 'action' => 'change-ruler-and-country-name'))?>" method="post" class="form-inline">
 	<p>
 		<input type="text" name="country_ruler_name" class="input-long" value="<?=$this->safe($country->getInfo('country_ruler_name'))?>" />

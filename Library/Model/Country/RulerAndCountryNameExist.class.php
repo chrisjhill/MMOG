@@ -1,13 +1,5 @@
 <?php
-/**
- * A collection of functions that could be written in multiple classes, so
- * are instead grouped together in this one utility class.
- *
- * @copyright   2012 Christopher Hill <cjhill@gmail.com>
- * @author      Christopher Hill <cjhill@gmail.com>
- * @since       21/09/2012
- */
-class Model_Country_Utilities
+class Model_Country_RulerAndCountryNameExist
 {
 	/**
 	 * Only one country can have the same ruler and country name (otherwise)
@@ -16,11 +8,12 @@ class Model_Country_Utilities
 	 * @access public
 	 * @param $countryRulerName string
 	 * @param $countryName string
+	 * @param $user Model_User_Instance
 	 * @return boolean
      * @static
 	 * @throws Exception
 	 */
-	public static function countryNameCombinationAlreadyExists($countryRulerName, $countryName) {
+	public static function check($countryRulerName, $countryName) {
 		// Make sure the user is logged in
 		if (! Model_User_Auth::hasIdentity()) {
 			throw new Exception('Unable to locate a user to check.');
@@ -42,6 +35,8 @@ class Model_Country_Utilities
 			       c.round_id           = :round_id
 			       AND 
 			       c.user_id           != :user_id
+			       AND
+			       c.country_removed   IS NULL
 			LIMIT  1
 		");
 

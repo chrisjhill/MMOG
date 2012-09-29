@@ -6,8 +6,9 @@ self::$lang['preferences-title-change-planet']   = 'Change planet';
 self::$lang['preferences-title-change-password'] = 'Change your account password';
 
 // Form messages
-self::$lang['preferences-error-']   = '';
-self::$lang['preferences-error-']   = '';
+self::$lang['preferences-error-name-combo-taken'] = 'Ruler and country name combination already exists, please chose another.';
+self::$lang['preferences-error-name-combo-error'] = 'An error occurred whilst trying to update your ruler and country name.';
+self::$lang['preferences-success-name-change']    = 'Successfully updated your ruler and country name.';
 
 // View
 self::$lang['preferences-relocate']         = 'Relocate';
