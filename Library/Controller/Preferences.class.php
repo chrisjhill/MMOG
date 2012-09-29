@@ -118,7 +118,7 @@ class Controller_Preferences extends Core_Controller
 		try {
 			// Create country update instance
 			$countryUpdate = new Model_Country_Update();
-			$countryUpdate->planetRelocate($country);
+			$countryUpdate->planetRelocate($country, $_POST['planet_password']);
 		} catch (Exception $e) {
 			// Unable to update the ruler and country name
 			// Set the notice

@@ -63,19 +63,25 @@ class Model_Country_Update
 	 *
 	 * @access public
 	 * @param $country Model_Country_Insrance
+	 * @param $planetPassword string
 	 * @return boolean
-	 *
-	 * @todo The countries Z coord will also need updating.
+	 * @throws Exception
 	 */
-	public function planetRelocate($country) {
+	public function planetRelocate($country, $planetPassword) {
 		// Has the user checked the 'I am sure' checkbox?
 		if (! isset($_POST['planet_change_sure']) || $_POST['planet_change_sure'] != '1') {
 			throw new Exception('preferences-error-country-not-sure');
 		}
 
-		// Get some new coords
-		$planet = new Model_Planet_Random();
-		$planet = $planet->existingPlanet();
+		// Get a planet to move the user to
+		if (empty($planetPassword)) {
+			// Get some new coords from a random planet
+			$planet = new Model_Planet_Random();
+			$planet = $planet->existingPlanet();
+		} else {
+			// User has specified a planet password, can we find that password?
+			$planet = Model_Planet_PasswordToPlanetId::find($planetPassword);
+		}
 
 		// Is the planet the same as the countries current?
 		if (
@@ -110,7 +116,8 @@ class Model_Country_Update
 		$statement = $database->prepare("
 			UPDATE `country` c
 			SET    c.country_x_coord = :planet_x_coord,
-			       c.country_y_coord = :planet_y_coord
+			       c.country_y_coord = :planet_y_coord,
+			       c.country_z_coord = :country_z_coord
 			WHERE  c.round_id        = :round_id
 			       AND
 			       c.country_id      = :country_id
@@ -118,10 +125,11 @@ class Model_Country_Update
 		");
 		// Execute the query
 		$statement->execute(array(
-			':planet_x_coord' => $planet->getInfo('planet_x_coord'),
-			':planet_y_coord' => $planet->getInfo('planet_y_coord'),
-			':round_id'       => GAME_ROUND,
-			':country_id'     => $country->getInfo('country_id')
+			':planet_x_coord'  => $planet->getInfo('planet_x_coord'),
+			':planet_y_coord'  => $planet->getInfo('planet_y_coord'),
+			':country_z_coord' => $planet->getNextAvailableZCoord(),
+			':round_id'        => GAME_ROUND,
+			':country_id'      => $country->getInfo('country_id')
 		));
 
 		// Deduct one country from their current planet
