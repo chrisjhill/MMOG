@@ -1,0 +1,32 @@
+<h1><?=$lang['transmission-title']?></h1>
+
+<table class="table table-hover table-striped">
+	<thead>
+		<tr>
+			<th><?=$lang['transmission-information']?></th>
+			<th><?=$lang['transmission-date']?></th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($transmissions->getIterator() as $transmission) { ?>
+			<tr>
+				<td>
+					<?php if ($transmission->getInfo('transmission_read') == null) { ?>
+						<i class="icon-envelope"></i>
+					<?php } ?>
+					<a href=""><?=$this->safe($transmission->getInfo('transmission_subject'))?></a><br />
+					<small>
+						[<?=$transmission->_transmission['transmission_from']->getCoords()?>]
+						<a href=""><?=$this->safe($transmission->_transmission['transmission_from']->getFullCountryName($lang['of']))?></a>
+					</small>
+				</td>
+				<td>
+					<?=Core_Date::timeAgo($transmission->getInfo('transmission_created'))?><br />
+					<small class="muted"><?=Core_Date::format($lang['date-format-long'], $transmission->getInfo('transmission_created'))?></small>
+				</td>
+				<td></td>
+			</tr>
+		<?php } ?>
+	</tbody>
+</table>
