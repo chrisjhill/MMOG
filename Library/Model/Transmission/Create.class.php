@@ -22,11 +22,12 @@ class Model_Transmission_Create
 	 */
 	public function create($country, $xCoord, $yCoord, $zCoord, $subject, $body) {
 		// Has the user populated the subject and body?
-		if (empty(trim($subject)) || empty(trim($body))) {
-			throw new Exception('transmission-create-empty');
+		if (empty($subject) || empty($body)) {
+			throw new Exception('transmission-error-empty');
 		}
 
 		// Get the countryId from the coords
+		// If we cannot find a country then an error will be thrown
 		$countryToId = Model_Country_CoordsToCountryId::get($xCoord, $yCoord, $zCoord);
 
 		// Get the database connection

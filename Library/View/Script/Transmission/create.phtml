@@ -1,0 +1,17 @@
+<h1><?=$lang['transmission-title']?></h1>
+
+<?=$transmissionSendNotice?>
+
+<form action="<?=$this->url(array('controller' => 'transmission', 'action' => 'create'))?>" method="post">
+	<p>
+		<input type="text" name="country_x_coord" placeholder="X" class="span1" />
+		<input type="text" name="country_y_coord" placeholder="Y" class="span1" />
+		<input type="text" name="country_z_coord" placeholder="Z" class="span1" />
+
+		<input type="text" name="transmission_subject" placeholder="<?=$lang['transmission-create-subject']?>" class="input-long" /><br />
+
+		<textarea name="transmission_message" placeholder="<?=$lang['transmission-create-body']?>" class="span6" rows="10"></textarea><br />
+
+		<button type="submit" class="btn"><?=$lang['transmission-create-send']?></button>
+	</p>
+</form>

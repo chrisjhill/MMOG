@@ -66,7 +66,7 @@ class Model_Transmission_List implements IteratorAggregate
 			       t.transmission_" . ($param['toTransmissions'] ? 'to' : 'from') . "_country_id  = :country_id
 			       AND
 			       t.transmission_removed IS NULL
-			ORDER BY :order_by :order_by_direction
+			ORDER BY t.transmission_created DESC
 			LIMIT    :limit
 		");
 
@@ -74,8 +74,8 @@ class Model_Transmission_List implements IteratorAggregate
 		// Since limit is an integer we cannot use the standard execute
 		$statement->bindValue(':round_id',           GAME_ROUND);
 		$statement->bindValue(':country_id',         $param['country']->getInfo('country_id'));
-		$statement->bindValue(':order_by',           $param['order_by']);
-		$statement->bindValue(':order_by_direction', $param['order_by_direction']);
+		//$statement->bindValue(':order_by',           $param['order_by']);
+		//$statement->bindValue(':order_by_direction', $param['order_by_direction']);
 		$statement->bindValue(':limit',              $param['limit'], PDO::PARAM_INT);
 		$statement->execute();
 
