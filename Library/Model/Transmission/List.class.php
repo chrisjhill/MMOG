@@ -1,4 +1,11 @@
 <?php
+/**
+ * Create a list of transmissions.
+ *
+ * @copyright   2012 Christopher Hill <cjhill@gmail.com>
+ * @author      Christopher Hill <cjhill@gmail.com>
+ * @since       30/09/2012
+ */
 class Model_Transmission_List implements IteratorAggregate
 {
 	/**
