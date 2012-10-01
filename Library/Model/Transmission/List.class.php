@@ -72,11 +72,9 @@ class Model_Transmission_List implements IteratorAggregate
 
 		// Execute the query
 		// Since limit is an integer we cannot use the standard execute
-		$statement->bindValue(':round_id',           GAME_ROUND);
-		$statement->bindValue(':country_id',         $param['country']->getInfo('country_id'));
-		//$statement->bindValue(':order_by',           $param['order_by']);
-		//$statement->bindValue(':order_by_direction', $param['order_by_direction']);
-		$statement->bindValue(':limit',              $param['limit'], PDO::PARAM_INT);
+		$statement->bindValue(':round_id',   GAME_ROUND);
+		$statement->bindValue(':country_id', $param['country']->getInfo('country_id'));
+		$statement->bindValue(':limit',      $param['limit'], PDO::PARAM_INT);
 		$statement->execute();
 
 		// Create a variable to store country instances so we don't keep hitting the database

@@ -20,8 +20,8 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
 
 // Generic game settings
-define('GAME_VERSION', 'v0.8'); // We follow the major.minor.bugfix format
-define('GAME_UPDATED', '23rd September 2012, 21:00');
+define('GAME_VERSION', 'v0.9'); // We follow the major.minor.bugfix format
+define('GAME_UPDATED', '1st October 2012, 20:00');
 define('GAME_NAME',    'MMOG Demo ' . GAME_VERSION);
 define('GAME_ROUND',   1);
 

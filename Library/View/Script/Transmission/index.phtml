@@ -17,10 +17,18 @@
 					<?php if ($transmission->getInfo('transmission_read') == null) { ?>
 						<i class="icon-envelope"></i>
 					<?php } ?>
-					<a href=""><?=$this->safe($transmission->getInfo('transmission_subject'))?></a><br />
+					<a href="<?=$this->url(array('controller' => 'transmission', 'action' => 'read', 'variables' => array('id' => $transmission->getInfo('transmission_id'))))?>"><?=$this->safe($transmission->getInfo('transmission_subject'))?></a><br />
 					<small>
 						[<?=$transmission->_transmission['transmission_from']->getCoords()?>]
-						<a href=""><?=$this->safe($transmission->_transmission['transmission_from']->getFullCountryName($lang['of']))?></a>
+						<a href="<?=$this->url(
+							array(
+								'controller' => 'planet',
+								'action'     => 'explore',
+								'variables'  => array(
+									'x' => $transmission->_transmission['transmission_from']->getInfo('country_x_coord'),
+									'y' => $transmission->_transmission['transmission_from']->getInfo('country_y_coord'),
+									'z' => $transmission->_transmission['transmission_from']->getInfo('country_z_coord'))))
+						?>"><?=$this->safe($transmission->_transmission['transmission_from']->getFullCountryName($lang['of']))?></a>
 					</small>
 				</td>
 				<td>

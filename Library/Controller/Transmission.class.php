@@ -43,6 +43,41 @@ class Controller_Transmission extends Core_Controller
 	}
 
 	/**
+	 * Read a transmission.
+	 * 
+	 * @access public
+	 */
+	public function readAction() {
+		// Get the country and transmission
+		$country      = $this->view->getVariable('country');
+		$transmission = new Model_Transmission_Instance($_GET['id']);
+
+		// Is this transmission for this country?
+		if ($country->getInfo('country_id') != $transmission->getInfo('transmission_to_country_id')) {
+			// No, forward onto the index
+			$this->forward('index');
+		}
+
+		// Has the user not read this transmission before?
+		if ($transmission->getInfo('transmission_read') == null) {
+			$transmissionUpdate = new Model_Transmission_Update();
+			$transmissionUpdate->read($transmission->getInfo('transmission_id'));
+		}
+
+		// Language declaration
+		Core_Language::load('page-transmission-read');
+		$lang = Core_Language::getLanguage();
+
+		// Put some variables into the view
+		$this->view->addVariable('title', $lang['transmission-title']);
+		$this->view->addVariable('transmission', $transmission);
+		$this->view->addVariable(
+			'transmissionFromCountry',
+			new Model_Country_Instance($transmission->getInfo('transmission_from_country_id'))
+		);
+	}
+
+	/**
 	 * Send a transmission to another country.
 	 *
 	 * @access public

@@ -1,0 +1,27 @@
+<h1><?=$lang['transmission-title']?></h1>
+
+<p>
+	<a href="<?=$this->url(array('controller' => 'transmission'))?>"><?=$lang['transmission-back-to-inbound']?></a>
+	or
+	<a href="<?=$this->url(array('controller' => 'transmission', 'action' => 'create'))?>"><?=$lang['transmission-create']?></a>
+</p>
+
+<hr />
+
+<p>
+	<strong><?=$this->safe($transmission->getInfo('transmission_subject'))?></strong><br />
+	<small>
+		[<?=$transmissionFromCountry->getCoords()?>]
+		<a href="<?=$this->url(
+			array(
+				'controller' => 'planet',
+				'action'     => 'explore',
+				'variables'  => array(
+					'x' => $transmissionFromCountry->getInfo('country_x_coord'),
+					'y' => $transmissionFromCountry->getInfo('country_y_coord'),
+					'z' => $transmissionFromCountry->getInfo('country_z_coord'))))
+		?>"><?=$this->safe($transmissionFromCountry->getFullCountryName($lang['of']))?></a>
+	</small>
+</p>
+
+<p><?=$this->safe($transmission->getInfo('transmission_message'))?></p>
