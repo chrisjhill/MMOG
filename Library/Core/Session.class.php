@@ -1,4 +1,11 @@
 <?php
+/**
+ * Handles the interaction with the database server with regards to sessions.
+ *
+ * @copyright   2012 Christopher Hill <cjhill@gmail.com>
+ * @author      Christopher Hill <cjhill@gmail.com>
+ * @since       21/09/2012
+ */
 class Core_Session
 {
 	/**

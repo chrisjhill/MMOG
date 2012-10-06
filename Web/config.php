@@ -1,17 +1,20 @@
 <?php
 // Directory separator quick access
 define('DS', DIRECTORY_SEPARATOR);
+define('MODULE', 'Web');
 
 // Game paths
 define('PATH_WEB',      '/');
 define('PATH_BASE',     '/Users/chris/Documents/Repo/MMOG/');
+define('PATH_CACHE',    PATH_BASE . MODULE . '/cache/');
 define('PATH_LIBRARY',  PATH_BASE . 'Library/');
-define('PATH_VIEW',     PATH_LIBRARY . 'View/');
-define('PATH_SNIPPET',  PATH_LIBRARY . 'View/Snippet/');
-define('PATH_EMAIL',    PATH_LIBRARY . 'View/Email/');
-define('PATH_LAYOUT',   PATH_LIBRARY . 'Layout/');
 define('PATH_LANGUAGE', PATH_LIBRARY . 'Language/');
-define('PATH_CACHE',    PATH_BASE . '/Web/cache/');
+define('PATH_VIEW',     PATH_LIBRARY . 'View/');
+define('PATH_EMAIL',    PATH_VIEW . MODULE . '/Email/');
+define('PATH_EMAIL',    PATH_VIEW . MODULE . '/Helper/');
+define('PATH_LAYOUT',   PATH_VIEW . MODULE . '/Layout/');
+define('PATH_SCRIPT',   PATH_VIEW . MODULE . '/Script/');
+define('PATH_SNIPPET',  PATH_VIEW . MODULE . '/Snippet/');
 
 // Database details
 define('DB_LOCATION', 'localhost');
@@ -20,8 +23,8 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
 
 // Generic game settings
-define('GAME_VERSION', 'v0.9'); // We follow the major.minor.bugfix format
-define('GAME_UPDATED', '1st October 2012, 20:00');
+define('GAME_VERSION', 'v0.10'); // We follow the major.minor.bugfix format
+define('GAME_UPDATED', '6st October 2012, 09:00');
 define('GAME_NAME',    'MMOG Demo ' . GAME_VERSION);
 define('GAME_ROUND',   1);
 
