@@ -107,7 +107,7 @@ class Core_ViewHelper
 	 */
 	public function __call($helperName, $param) {
 		// Try and instantiate the helper
-		$viewHelperClassName = 'View_Helper_' . $helperName;
+		$viewHelperClassName = 'View_' . MODULE . '_Helper_' . ucfirst($helperName);
 		$viewHelper = new $viewHelperClassName();
 
 		// Call the init helper so they can set up any pre rendering settings

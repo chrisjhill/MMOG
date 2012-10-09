@@ -15,7 +15,7 @@
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       17/09/2012
  */
-class View_Helper_Notice
+class View_Web_Helper_Notice
 {
 	/**
 	 * Builds and returns an HTML notice ready to give to the user.

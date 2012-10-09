@@ -11,7 +11,7 @@ define('PATH_LIBRARY',  PATH_BASE . 'Library/');
 define('PATH_LANGUAGE', PATH_LIBRARY . 'Language/');
 define('PATH_VIEW',     PATH_LIBRARY . 'View/');
 define('PATH_EMAIL',    PATH_VIEW . MODULE . '/Email/');
-define('PATH_EMAIL',    PATH_VIEW . MODULE . '/Helper/');
+define('PATH_HELPER',   PATH_VIEW . MODULE . '/Helper/');
 define('PATH_LAYOUT',   PATH_VIEW . MODULE . '/Layout/');
 define('PATH_SCRIPT',   PATH_VIEW . MODULE . '/Script/');
 define('PATH_SNIPPET',  PATH_VIEW . MODULE . '/Snippet/');

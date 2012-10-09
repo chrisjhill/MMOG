@@ -1,0 +1,50 @@
+<h1><?=$lang['conference-title']?></h1>
+
+<?=$threadCreateNotice?>
+
+<table class="table table-hover table-striped">
+	<thead>
+		<tr>
+			<th><?=$lang['information']?></th>
+			<th><?=$lang['posts']?></th>
+			<th><?=$lang['last-updated']?></th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($threads->getIterator() as $thread) { ?>
+			<tr>
+				<td>
+					<a href="<?=$this->url(array('controller' => 'conference', 'action' => 'view', 'variables' => array('thread' => $thread->getInfo('thread_id'))))?>"><?=$this->safe($thread->getInfo('thread_subject'))?></a>
+				</td>
+				<td><?=Core_Format::number($thread->getInfo('thread_post_count'))?></td>
+				<td>
+					<?=Core_Date::timeAgo($thread->getInfo('thread_updated'))?><br />
+					<small>
+						[<?=$thread->getInfo('post')->getInfo('country')->getCoords()?>]
+						<a href="<?=$this->url(
+							array(
+								'controller' => 'planet',
+								'action'     => 'explore',
+								'variables'  => array(
+									'x' => $thread->getInfo('post')->getInfo('country')->getInfo('country_x_coord'),
+									'y' => $thread->getInfo('post')->getInfo('country')->getInfo('country_y_coord'),
+									'z' => $thread->getInfo('post')->getInfo('country')->getInfo('country_z_coord'))))
+						?>"><?=$this->safe($thread->getInfo('post')->getInfo('country')->getFullCountryName($lang['of']))?></a>
+					</small>
+				</td>
+			</tr>
+		<?php } ?>
+	</tbody>
+</table>
+
+<hr />
+
+<form action="<?=$this->url(array('controller' => 'conference', 'action' => 'create'))?>" method="post">
+	<p>
+		<input type="text" name="thread_subject" placeholder="<?=$lang['subject']?>" class="input-long" /><br />
+
+		<textarea name="thread_message" placeholder="<?=$lang['message']?>" class="span6" rows="10"></textarea><br />
+
+		<button type="submit" class="btn"><?=$lang['create-thread']?></button>
+	</p>
+</form>
