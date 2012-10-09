@@ -12,7 +12,7 @@ class Model_Transmission_List implements IteratorAggregate
 	 * The transmissions the country can view.
 	 *
 	 * @access private
-	 * @var array
+	 * @var     array
 	 */
 	private $_transmission = array();
 
@@ -31,7 +31,7 @@ class Model_Transmission_List implements IteratorAggregate
 	 * </code>
 	 *
 	 * @access public
-	 * @param $param array
+	 * @param  array  $param
 	 */
 	public function __construct($param) {
 		// Set some defaults
@@ -53,7 +53,7 @@ class Model_Transmission_List implements IteratorAggregate
 	 * Set the transmissions.
 	 *
 	 * @access protected
-	 * @param $param array
+	 * @param  array     $param
 	 */
 	protected function setInfo($param) {
 		// Get the database connection

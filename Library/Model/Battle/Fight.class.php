@@ -23,8 +23,8 @@ class Model_Battle_Fight
      *
      * This is only ever set once the battle is complete and we have the battle string.
      *
-     * @private
-     * @var int
+     * @access private
+     * @var    int
      */
     private $_battleId;
 
@@ -55,7 +55,7 @@ class Model_Battle_Fight
      * </code>
      *
      * @access private
-     * @var array
+     * @var    array
      */
     private $_ship = array();
     
@@ -96,7 +96,7 @@ class Model_Battle_Fight
      * </code>
      *
      * @access private
-     * @var array
+     * @var    array
      */
     private $_shipMatrix = array();
 
@@ -114,7 +114,7 @@ class Model_Battle_Fight
      * </code>
      *
      * @access private
-     * @var array
+     * @var    array
      */
     private $_squadron = array();
 
@@ -122,7 +122,7 @@ class Model_Battle_Fight
      * Stats on the outcome of each squadron.
      *
      * @access private
-     * @var array
+     * @var    array
      */
     private $_squadronStats = array();
     
@@ -130,7 +130,7 @@ class Model_Battle_Fight
      * Information on the defending country.
      * 
      * @access private
-     * @var Model_Country_Instance
+     * @var    Model_Country_Instance
      */
     private $_defendingCountry = array();
     
@@ -147,7 +147,7 @@ class Model_Battle_Fight
      * </code>
      * 
      * @access private
-     * @var array
+     * @var    array
      */
     private $_defendingShips = array();
 
@@ -164,7 +164,7 @@ class Model_Battle_Fight
      * </code>
      * 
      * @access private
-     * @var array
+     * @var    array
      */
     private $_attackingShips = array();
 
@@ -172,7 +172,7 @@ class Model_Battle_Fight
      * How much primary salvage the defending country managed to reclaim.
      *
      * @access private
-     * @var int
+     * @var    int
      */
     private $_salvagePrimaryReclaimed = 0;
 
@@ -180,7 +180,7 @@ class Model_Battle_Fight
      * How much secondary salvage the defending country managed to reclaim.
      *
      * @access private
-     * @var int
+     * @var    int
      */
     private $_salvageSecondaryReclaimed = 0;
 
@@ -188,7 +188,7 @@ class Model_Battle_Fight
      * The quantity of asteroids the attacker has stolen.
      * 
      * @access private
-     * @var int
+     * @var    int
      */
     private $_asteroidsStolen = 0;
 
@@ -199,7 +199,7 @@ class Model_Battle_Fight
      * for this example.
      *
      * @access public
-     * @param $defendingCountryId int
+     * @param  int    $defendingCountryId
      */
     public function __construct($defendingCountryId) {
         // Set country information
@@ -213,7 +213,7 @@ class Model_Battle_Fight
      * Set the information about the defending country such as asteroid count.
      * 
      * @access private
-     * @param $defendingCountryId int
+     * @param  int     $defendingCountryId
      */
     private function setDefendingCountryInformation($defendingCountryId) {
         // Set information about the defending country
@@ -512,10 +512,10 @@ class Model_Battle_Fight
      * in the main battle function with potential for errors. This function will
      * give consistent results far better and make the code neater overall.
      *
-     * @param $attackerOrDefender string Which ship number do we need?
-     * @param $shipId int Which ships are we referring to?
-     * @param $shipsToDeduct array Do we want to deduct frozen/stolen/destroyed from the total?
      * @access private
+     * @param  string $attackerOrDefender Which ship number do we need?
+     * @param  int    $shipId             Which ships are we referring to?
+     * @param  array  $shipsToDeduct      Do we want to deduct frozen/stolen/destroyed from the total?
      * @return int
      */
     private function getCountryShipNumber($attackerOrDefender, $shipId, $shipsToDeduct) {

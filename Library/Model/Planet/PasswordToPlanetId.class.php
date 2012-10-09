@@ -12,7 +12,7 @@ class Model_Planet_PasswordToPlanetId
 	 * Try and find a planet based off a password.
 	 *
 	 * @access public
-	 * @param $planetPassword string
+	 * @param  string                $planetPassword
 	 * @return Model_Planet_Password
 	 * @static
 	 */

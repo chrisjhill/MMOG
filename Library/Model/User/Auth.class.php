@@ -27,10 +27,10 @@ class Model_User_Auth
 	 * we will only get it once we seem it to be stale, in this case after 60 seconds.
 	 * 
 	 * @access public
-	 * @param $user Model_User_Instance
-	 * @param $stale int
+	 * @param  Model_User_Instance $user
+	 * @param  int                 $stale
+	 * @throws Exception           If user is not a Model_User_Interface.
      * @static
-	 * @throws Exception
 	 */
 	public static function putIdentity($user, $stale = 60) {
 		// Have we been passed a Model_User_Instance?
@@ -55,8 +55,8 @@ class Model_User_Auth
 	 * 
 	 * @access public
 	 * @return Model_User_Instance
+	 * @throws Exception           If the user isn't currently logged in.
      * @static
-	 * @throws Exception
 	 */
 	public static function getIdentity() {
 		// Get the identity

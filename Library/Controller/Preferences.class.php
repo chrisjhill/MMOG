@@ -10,7 +10,8 @@ class Controller_Preferences extends Core_Controller
 {
 	/**
 	 * Controller initiated
-	 * @return [type] [description]
+	 *
+	 * @access public
 	 */
 	public function init() {
 		// Set the layout

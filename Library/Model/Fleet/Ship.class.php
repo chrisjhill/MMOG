@@ -26,7 +26,7 @@ class Model_Fleet_Ship
 	 * </code>
 	 * 
 	 * @access public
-	 * @var array
+	 * @var    array
 	 * @static
 	 */
 	public static $_ship;

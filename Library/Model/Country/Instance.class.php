@@ -17,7 +17,7 @@ class Model_Country_Instance extends Core_Instance
 	 * squadron could be docked, whilst another two are sent out on missions.
 	 *
 	 * @access private
-	 * @var Model_Fleet_List
+	 * @var    Model_Fleet_List
 	 */
 	private $_fleetList;
 
@@ -25,7 +25,7 @@ class Model_Country_Instance extends Core_Instance
 	 * Sets up the country information.
 	 *
 	 * @access public
-	 * @param int $countryId
+	 * @param  int    $countryId
 	 */
 	public function __construct($countryId = 0) {
 		$this->setInfo($countryId);
@@ -35,7 +35,7 @@ class Model_Country_Instance extends Core_Instance
 	 * Get the countries information from the database and set it locally.
 	 *
 	 * @access protected
-	 * @param int $countryId
+	 * @param  int       $countryId
 	 */
 	protected function setInfo($countryId) {
 		// Get the database connection
@@ -107,7 +107,7 @@ class Model_Country_Instance extends Core_Instance
 	 * Return a squadron that the country controls.
 	 * 
 	 * @access public
-	 * @param int $squadronId
+	 * @param  int                  $squadronId
 	 * @return Model_Fleet_Squadron
 	 */
 	public function getSquadron($squadronId = 0) {
@@ -131,7 +131,7 @@ class Model_Country_Instance extends Core_Instance
 	 * Return the full country name.
 	 *
 	 * @access public
-     * @param $separator string
+     * @param  string $separator
 	 * @return string
 	 */
 	public function getFullCountryName($separator) {
@@ -142,7 +142,7 @@ class Model_Country_Instance extends Core_Instance
 	 * Builds the coords of a country.
 	 *
 	 * @access public
-	 * @param $coords array
+	 * @param  array  $coords
 	 * @return string
 	 */
 	public function getCoords($coords = array('x', 'y', 'z')) {

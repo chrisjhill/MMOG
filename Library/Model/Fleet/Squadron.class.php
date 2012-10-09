@@ -20,7 +20,7 @@ class Model_Fleet_Squadron
 	 * Class constructor.
 	 *
 	 * @access public
-	 * @param array $squadron
+	 * @param  array  $squadron
 	 */
 	public function __construct($squadron) {
 		// We have the initial squadron information
@@ -63,7 +63,7 @@ class Model_Fleet_Squadron
 	 * Return how many we have of a certain ship.
 	 *
 	 * @access public
-	 * @param int $shipId
+	 * @param  int    $shipId
 	 * @return int
 	 */
 	public function getShip($shipId) {
@@ -78,7 +78,7 @@ class Model_Fleet_Squadron
 	 * Note: This function can return more than just a ship, such as its status.
 	 *
 	 * @access public
-	 * @param string $index
+	 * @param  string $index
 	 * @return string
 	 */
 	public function getInfo($index) {

@@ -14,11 +14,11 @@ class Model_User_Update
 	 * User needs to supply their current password to make sure it's really them.
 	 *
 	 * @access public
-	 * @param Model_User_Instance $user
-	 * @param string $currentPassword
-	 * @param string $newPassword
+	 * @param  Model_User_Instance $user
+	 * @param  string              $currentPassword
+	 * @param  string              $newPassword
+	 * @throws Exception           If the password is in the incorrect format.
 	 * @return boolean
-	 * @throws Exception
 	 */
 	public function changePassword($user, $currentPassword, $newPassword) {
 		// Make sure the password is less than 72 characters

@@ -12,7 +12,7 @@ class Model_Country_Count
 	 * Returns how many countries there are in the round.
 	 * 
 	 * @access public
-     * @param $roundId int
+     * @param  int    $roundId
 	 * @return int
      * @static
 	 */

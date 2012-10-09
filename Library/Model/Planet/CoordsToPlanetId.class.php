@@ -12,11 +12,11 @@ class Model_Planet_CoordsToPlanetId
 	 * Get the ID of a planet from X and Y coords.
 	 *
 	 * @access public
-	 * @param $xCoord int
-	 * @param $yCoord int
+	 * @param  int       $xCoord
+	 * @param  int       $yCoord
+	 * @throws Exception If the planet does not exist.
 	 * @return int
      * @static
-	 * @throws Exception
 	 */
 	public static function get($xCoord, $yCoord) {
 		// Get the database connection

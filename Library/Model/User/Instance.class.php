@@ -12,7 +12,7 @@ class Model_User_Instance extends Core_Instance
 	 * Class constructor. Requires an ID.
 	 *
 	 * @access public
-	 * @param int $userId
+	 * @param  int    $userId
 	 */
 	public function __construct($userId) {
 		$this->setInfo($userId);
@@ -22,7 +22,7 @@ class Model_User_Instance extends Core_Instance
 	 * Get the user information from the database and set it locally.
 	 *
 	 * @access protected
-	 * @param int $userId
+	 * @param  int       $userId
 	 */
 	protected function setInfo($userId) {
 		// Get the database connection

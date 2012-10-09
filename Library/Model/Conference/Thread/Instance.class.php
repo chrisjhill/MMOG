@@ -12,7 +12,7 @@ class Model_Conference_Thread_Instance extends Core_Instance
 	 * Set up the thread information.
 	 *
 	 * @access public
-	 * @param $threadId int
+	 * @param  int    $threadId
 	 */
 	public function __construct($threadId) {
 		// Set thread information
@@ -23,7 +23,7 @@ class Model_Conference_Thread_Instance extends Core_Instance
 	 * Set the information on the planet.
 	 *
 	 * @access protected
-	 * @param $threadId int
+	 * @param  int       $threadId
 	 */
 	protected function setInfo($threadId) {
 		// Get the database connection

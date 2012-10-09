@@ -26,7 +26,7 @@ class Model_Battle_Report
 	 * </code>
 	 *
 	 * @access private
-	 * @var array
+	 * @var    array
 	 */
 	private $_battle;
 
@@ -34,7 +34,7 @@ class Model_Battle_Report
 	 * Information on what exactly happened in the battle.
 	 * 
 	 * @access private
-	 * @var array
+	 * @var    array
 	 */
 	private $_battleMatrix;
 
@@ -42,7 +42,7 @@ class Model_Battle_Report
 	 * Information on the defending country.
 	 * 
 	 * @access private
-	 * @var Model_Country_Instance
+	 * @var    Model_Country_Instance
 	 */
 	private $_defendingCountry;
 
@@ -50,7 +50,7 @@ class Model_Battle_Report
 	 * Information on the ships in this game.
 	 *
 	 * @access private
-	 * @var Model_Fleet_Ship
+	 * @var    Model_Fleet_Ship
 	 */
 	private $_ship;
 
@@ -58,7 +58,7 @@ class Model_Battle_Report
 	 * The report in HTML.
 	 *
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_template;
 
@@ -66,8 +66,8 @@ class Model_Battle_Report
 	 * Output a battle report from a battle string held in the database.
 	 *
 	 * @access public
-	 * @param $battleId int
-	 * @param $countryId int
+	 * @param  int    $battleId int
+	 * @param  int    $countryId int
 	 * @return string
 	 */
 	public function output($battleId, $countryId) {
@@ -117,7 +117,7 @@ class Model_Battle_Report
 	 * Return the battle report stored in the database.
 	 * 
 	 * @access public
-	 * @param $battleId int
+	 * @param  int    $battleId
 	 * @return array
 	 */
 	public function getBattleReport($battleId) {
@@ -245,7 +245,7 @@ class Model_Battle_Report
 	 * </code>
 	 * 
 	 * @access public
-	 * @param $battleString string
+	 * @param  string $battleString
 	 * @return array
 	 */
 	public function parseBattleString($battleString) {

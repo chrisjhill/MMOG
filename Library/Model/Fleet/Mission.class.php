@@ -12,8 +12,8 @@ class Model_Fleet_Mission
 	 * Get mission for a single squadron.
 	 *
 	 * @access public
-	 * @param int $countryId
-	 * @param int $squadronId
+	 * @param  int    $countryId
+	 * @param  int    $squadronId
      * @return array
 	 */
 	public function getSquadron($countryId, $squadronId) {
@@ -46,7 +46,7 @@ class Model_Fleet_Mission
 	 * Get all of the missions for a country.
 	 *
 	 * @access public
-	 * @param int $countryId
+	 * @param  int    $countryId
      * @return array
 	 */
 	public function getCountry($countryId) {
@@ -77,7 +77,7 @@ class Model_Fleet_Mission
 	 * Used in the battle and radar code.
 	 *
 	 * @access public
-	 * @param int $countryId
+	 * @param  int    $countryId
 	 * @return array
      * @static
 	 */
@@ -112,7 +112,7 @@ class Model_Fleet_Mission
 	 * Standardise the missions that are returned.
 	 *
 	 * @access public
-	 * @param $statement object
+	 * @param  object $statement
 	 * @return array
 	 */
 	public function prepareMissions($statement) {

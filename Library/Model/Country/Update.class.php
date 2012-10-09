@@ -12,11 +12,11 @@ class Model_Country_Update
 	 * Tries to update the ruler and country name.
 	 *
 	 * @access public
-	 * @param $country Model_Cuntry_Instance
-	 * @param $countryRulerName string
-	 * @param $countryName string
+	 * @param  Model_Cuntry_Instance $country
+	 * @param  string                $countryRulerName
+	 * @param  string                $countryName
+	 * @throws Exception             If the ruler and country name combo is already taken.
 	 * @return boolean
-	 * @throws Exception
 	 */
 	public function updateRulerAndCountryName($country, $countryRulerName, $countryName) {
 		// Does the ruler name and country name combination already exist?
@@ -62,10 +62,10 @@ class Model_Country_Update
 	 * Relocate the country to a new planet.
 	 *
 	 * @access public
-	 * @param $country Model_Country_Insrance
-	 * @param $planetPassword string
+	 * @param  Model_Country_Insrance $country
+	 * @param  string                 $planetPassword
+	 * @throws Exception              If the user has not checked the "I'm sure" checkbox.
 	 * @return boolean
-	 * @throws Exception
 	 */
 	public function planetRelocate($country, $planetPassword) {
 		// Has the user checked the 'I am sure' checkbox?

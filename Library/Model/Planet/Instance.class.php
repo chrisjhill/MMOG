@@ -1,11 +1,18 @@
 <?php
+/**
+ * Handles a single planet.
+ *
+ * @copyright   2012 Christopher Hill <cjhill@gmail.com>
+ * @author      Christopher Hill <cjhill@gmail.com>
+ * @since       22/09/2012
+ */
 class Model_Planet_Instance extends Core_Instance implements IteratorAggregate
 {
 	/**
 	 * The countries that inhabit this planet.
 	 *
 	 * @access private
-	 * @var array
+	 * @var    array
 	 */
 	private $_inhabitants = array();
 
@@ -13,8 +20,8 @@ class Model_Planet_Instance extends Core_Instance implements IteratorAggregate
 	 * Set up the planet information.
 	 *
 	 * @access public
-	 * @param $planetId int
-     * @param $autoloadCountries boolean
+	 * @param  int     $planetId
+     * @param  boolean $autoloadCountries
 	 */
 	public function __construct($planetId, $autoloadCountries = false) {
 		// Set planet information
@@ -30,7 +37,7 @@ class Model_Planet_Instance extends Core_Instance implements IteratorAggregate
 	 * Set the information on the planet.
 	 *
 	 * @access protected
-	 * @param $planetId int
+	 * @param  int       $planetId
 	 */
 	protected function setInfo($planetId) {
 		// Get the database connection
@@ -97,8 +104,8 @@ class Model_Planet_Instance extends Core_Instance implements IteratorAggregate
 	 * Return the next available Z coord on this planet.
 	 *
 	 * @access public
+	 * @throws Exception If the planet is already full.
 	 * @return mixed
-	 * @throws Exception
 	 */
 	public function getNextAvailableZCoord() {
 		// Are all the countries occupied?

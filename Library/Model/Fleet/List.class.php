@@ -14,7 +14,7 @@ class Model_Fleet_List implements IteratorAggregate
 	 * An array of the squadrons this country controls.
 	 *
 	 * @access private
-	 * @var array of Model_Fleet_Squadron
+	 * @var    array   Array of Model_Fleet_Squadron
 	 */
 	private $_fleet = array();
 
@@ -22,7 +22,7 @@ class Model_Fleet_List implements IteratorAggregate
 	 * Add a Model_Fleet_Squadron to this list.
 	 *
 	 * @access public
-	 * @param Model_Fleet_Squadron $squadron
+	 * @param  Model_Fleet_Squadron $squadron
 	 */
 	public function add($squadron) {
 		if (get_class($squadron) == 'Model_Fleet_Squadron') {
@@ -34,7 +34,7 @@ class Model_Fleet_List implements IteratorAggregate
 	 * Does the squadron exist in this list?
 	 *
 	 * @access public
-	 * @param int $squadronId
+	 * @param  int     $squadronId
 	 * @return boolean 
 	 */
 	public function exists($squadronId) {
@@ -45,7 +45,7 @@ class Model_Fleet_List implements IteratorAggregate
 	 * Return a squadron.
 	 *
 	 * @access public
-	 * @param int $squadronId
+	 * @param  int                  $squadronId
 	 * @return Model_Fleet_Squadron
 	 */
 	public function get($squadronId) {

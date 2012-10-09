@@ -12,7 +12,7 @@ class Model_Transmission_Instance extends Core_Instance
 	 * Sets up the transmission information.
 	 *
 	 * @access public
-	 * @param $transmissionId int
+	 * @param  int    $transmissionId
 	 */
 	public function __construct($transmissionId) {
 		$this->setInfo($transmissionId);
@@ -22,7 +22,7 @@ class Model_Transmission_Instance extends Core_Instance
 	 * Get the transmission information from the database and set it locally.
 	 *
 	 * @access protected
-	 * @param $transmissionId int
+	 * @param  int       $transmissionId
 	 */
 	protected function setInfo($transmissionId) {
 		// Get the database connection

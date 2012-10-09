@@ -18,7 +18,7 @@ class Model_User_Login
 	 * The supplied email address.
 	 *
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_email;
 
@@ -26,7 +26,7 @@ class Model_User_Login
 	 * The supplied password in unhashed form.
 	 * 
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_password;
 
@@ -34,8 +34,8 @@ class Model_User_Login
 	 * Set up the login system
 	 *
 	 * @access public
-	 * @param $email string
-	 * @param $password string
+	 * @param  string  $email
+	 * @param  string  $password
 	 */
 	public function __construct($email, $password) {
 		// Set variables
@@ -51,8 +51,8 @@ class Model_User_Login
 	 * check the hashes side-by-side. Annoying, but far more secure.
 	 *
 	 * @access private
+	 * @throws Exception           If the password is incorrectly formatted.
 	 * @return Model_User_Instance 
-	 * @throws Exception
 	 */
 	public function login() {
 		// Make sure the password is less than 72 characters

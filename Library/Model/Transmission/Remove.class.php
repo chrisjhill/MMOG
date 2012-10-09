@@ -11,8 +11,8 @@ class Model_Transmission_Remove
 	/**
 	 * Remove a single transmission.
 	 * 
-	 * @param $country Model_Country_Instance
-	 * @param int $transmissionId
+	 * @param  Model_Country_Instance $country
+	 * @param  int                    $transmissionId
 	 * @return boolean
 	 */
 	public function remove($country, $transmissionId) {

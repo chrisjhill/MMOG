@@ -30,7 +30,7 @@ class View_Web_Helper_Notice
 	 * </code>
 	 *
 	 * @access public
-	 * @param $param array
+	 * @param  array  $param
 	 * @return array
 	 */
 	public function render($param) {

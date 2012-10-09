@@ -12,7 +12,7 @@ class Model_User_Create
 	 * The email address the user is signing up with.
 	 *
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_email;
 
@@ -20,7 +20,7 @@ class Model_User_Create
 	 * Sets the email address the users wishes to use.
 	 *
 	 * @access public
-	 * @param $email string
+	 * @param  string $email
 	 */
 	public function __construct($email) {
 		$this->_email = $email;
@@ -30,7 +30,7 @@ class Model_User_Create
 	 * Tries to create the user.
 	 *
 	 * @access public
-	 * @throws Exception
+	 * @throws Exception           If the email address is invalid.
 	 * @return Model_User_Instance
 	 */
 	public function create() {
@@ -114,7 +114,7 @@ class Model_User_Create
 	 * Checks to see if the email address already exists in our user table.
 	 * 
 	 * @access public
-	 * @param $database PDO
+	 * @param  PDO     $database
 	 * @return boolean
 	 */
 	public function emailExists($database) {

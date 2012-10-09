@@ -11,8 +11,8 @@ class Model_Country_Coord
 	/**
 	 * Do we need to create a private planet?
 	 *
-	 * @access  private
-	 * @var boolean
+	 * @access private
+	 * @var    boolean
 	 */
 	private $_planetPrivate = false;
 
@@ -20,7 +20,7 @@ class Model_Country_Coord
 	 * The countries X coord.
 	 *
 	 * @access private
-	 * @var int
+	 * @var    int
 	 */
 	private $_countryXCoord;
 
@@ -28,7 +28,7 @@ class Model_Country_Coord
 	 * The countries Y coord.
 	 *
 	 * @access private
-	 * @var int
+	 * @var    int
 	 */
 	private $_countryYCoord;
 
@@ -36,7 +36,7 @@ class Model_Country_Coord
 	 * The countries Z coord.
 	 *
 	 * @access private
-	 * @var int
+	 * @var    int
 	 */
 	private $_countryZCoord;
 
@@ -87,7 +87,7 @@ class Model_Country_Coord
 	/**
 	 * Return a coordinate.
 	 * 
-	 * @param $coord string
+	 * @param  string $coord
 	 * @return int
 	 */
 	public function getCoord($coord) {

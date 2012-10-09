@@ -11,14 +11,14 @@ class Model_Transmission_Create
 	/**
 	 * Send a transmission to another country.
 	 * 
-	 * @param $country Model_Country_Instance
-	 * @param $xCoord string
-	 * @param $yCoord string
-	 * @param $zCoord string
-	 * @param $subject string
-	 * @param $body string
+	 * @param  Model_Country_Instance $country
+	 * @param  string                 $xCoord
+	 * @param  string                 $yCoord
+	 * @param  string                 $zCoord
+	 * @param  string                 $subject
+	 * @param  string                 $body
+	 * @throws Exception              If the subject or message is empty.
 	 * @return boolean
-	 * @throws Exception
 	 */
 	public function create($country, $xCoord, $yCoord, $zCoord, $subject, $body) {
 		// Has the user populated the subject and body?

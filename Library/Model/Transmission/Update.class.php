@@ -12,7 +12,7 @@ class Model_Transmission_Update
 	 * Set the time when the transmission was read.
 	 *
 	 * @access public
-	 * @param $transmissionId int
+	 * @param  int     $transmissionId
 	 * @return boolean
 	 */
 	public function read($transmissionId) {

@@ -12,7 +12,7 @@ class Model_Conference_Thread_List implements IteratorAggregate
 	 * The threads that are in this conference.
 	 *
 	 * @access private
-	 * @var array
+	 * @var    array
 	 */
 	private $_thread = array();
 
@@ -20,7 +20,7 @@ class Model_Conference_Thread_List implements IteratorAggregate
 	 * Get a list of threads that are in the conference.
 	 *
 	 * @access public
-	 * @param $planetId int
+	 * @param  int    $planetId
 	 */
 	public function __construct($planetId) {
 		$this->setInfo($planetId);
@@ -30,7 +30,7 @@ class Model_Conference_Thread_List implements IteratorAggregate
 	 * Set the threads.
 	 *
 	 * @access protected
-	 * @param $planetId int
+	 * @param  int $planetId
 	 */
 	protected function setInfo($planetId) {
 		// Get the database connection

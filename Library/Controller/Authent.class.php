@@ -18,10 +18,9 @@ class Controller_Authent extends Core_Controller
 	}
 
 	/**
-	 * Allows the user 
+	 * Allows the user to login to their account.
 	 *
 	 * @access public
-	 * @return string
 	 */
 	public function loginAction() {
 		// Load language file

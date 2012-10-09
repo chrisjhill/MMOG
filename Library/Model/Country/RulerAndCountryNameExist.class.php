@@ -6,12 +6,12 @@ class Model_Country_RulerAndCountryNameExist
 	 * things might get confusing.
 	 *
 	 * @access public
-	 * @param $countryRulerName string
-	 * @param $countryName string
-	 * @param $user Model_User_Instance
+	 * @param  string              $countryRulerName
+	 * @param  string              $countryName
+	 * @param  Model_User_Instance $user
+	 * @throws Exception           If the user is not logged in.
 	 * @return boolean
      * @static
-	 * @throws Exception
 	 */
 	public static function check($countryRulerName, $countryName) {
 		// Make sure the user is logged in

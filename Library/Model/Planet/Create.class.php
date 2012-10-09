@@ -12,7 +12,7 @@ class Model_Planet_Create
 	 * Create a new planet with random coords.
 	 *
 	 * @access public
-	 * @param $planetPrivate boolean
+	 * @param  boolean               $planetPrivate boolean
 	 * @return Model_Planet_Instance
 	 */
 	public function create($planetPrivate = false) {
@@ -66,9 +66,9 @@ class Model_Planet_Create
 	 *
 	 * This function is recursive, it will keep trying until it finds an available coord.
 	 * 
-	 * @param $database PDO
-	 * @param $xCoord int
-	 * @param $yCoord int
+	 * @param  PDO   $database
+	 * @param  int   $xCoord
+	 * @param  int   $yCoord
 	 * @return array
 	 * @recursive
 	 */

@@ -7,18 +7,19 @@
  * @since       08/10/2012
  *
  * @todo thread_updated needs to be a timestamp on creation automatically.
+ * @todo We should create a new post using Model_Conference_Post_Create
  */
 class Model_Conference_Thread_Create
 {
 	/**
 	 * Create a new conference thread.
 	 * 
-	 * @param $country Model_Country_Instance
-	 * @param $planet Model_Planet_Instance
-	 * @param $subject string
-	 * @param $message string
+	 * @param  Model_Country_Instance $country
+	 * @param  Model_Planet_Instance  $planet
+	 * @param  string                 $subject
+	 * @param  string                 $message
 	 * @return boolean
-	 * @throws Exception
+	 * @throws Exception              If the subject or message is empty.
 	 */
 	public function create($country, $planet, $subject, $message) {
 		// Has the user populated the subject and body?

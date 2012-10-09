@@ -12,7 +12,7 @@ class Model_Country_Create extends Model_Country_Coord
 	 * The ruler name of the country.
 	 *
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_countryRulerName;
 
@@ -20,7 +20,7 @@ class Model_Country_Create extends Model_Country_Coord
 	 * The name of the country.
 	 *
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_countryName;
 
@@ -28,8 +28,8 @@ class Model_Country_Create extends Model_Country_Coord
 	 * Class constructor, set the variables.
 	 *
 	 * @access public
-	 * @param $countryRulerName string
-	 * @param $countryName string
+	 * @param string  $countryRulerName
+	 * @param string  $countryName
 	 */
 	public function __construct($countryRulerName, $countryName) {
 		$this->_countryRulerName = trim($countryRulerName);
@@ -40,9 +40,10 @@ class Model_Country_Create extends Model_Country_Coord
 	 * Create the country.
 	 *
 	 * @access public
-	 * @param $user Model_User_Instance
+	 * @param  Model_User_Instance $user
+	 * @throws Exception           If the ruler or country name are empty.
+	 * @throws Exception           If the ruler and country name combo is already taken.
 	 * @return int
-	 * @throws Exception
 	 */
 	public function create($user) {
 		// Has the user actually entered a ruler and a country name?

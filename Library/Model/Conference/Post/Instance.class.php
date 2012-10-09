@@ -12,7 +12,7 @@ class Model_Conference_Post_Instance extends Core_Instance
 	 * Set up the post information.
 	 *
 	 * @access public
-	 * @param $postId int
+	 * @param  int    $postId
 	 */
 	public function __construct($postId) {
 		// Set post information
@@ -23,7 +23,7 @@ class Model_Conference_Post_Instance extends Core_Instance
 	 * Set the information on the post.
 	 *
 	 * @access protected
-	 * @param $postId int
+	 * @param  int       $postId
 	 */
 	protected function setInfo($postId) {
 		// Get the database connection

@@ -12,12 +12,12 @@ class Model_Country_CoordsToCountryId
 	 * Return a country ID from an X, Y, and Z coord.
 	 *
 	 * @access public
-	 * @param $xCoord int
-	 * @param $yCoord int
-	 * @param $zCoord int
+	 * @param  int       $xCoord
+	 * @param  int       $yCoord
+	 * @param  int       $zCoord
+	 * @throws Exception If the country does not exist.
 	 * @return int
      * @static
-	 * @throws Exception
 	 */
 	public static function get($xCoord, $yCoord, $zCoord) {
 		// Get the database connection
