@@ -11,16 +11,7 @@
 <p>
 	<strong><?=$this->safe($transmission->getInfo('transmission_subject'))?></strong><br />
 	<small>
-		[<?=$transmissionFromCountry->getCoords()?>]
-		<a href="<?=$this->url(
-			array(
-				'controller' => 'planet',
-				'action'     => 'explore',
-				'variables'  => array(
-					'x' => $transmissionFromCountry->getInfo('country_x_coord'),
-					'y' => $transmissionFromCountry->getInfo('country_y_coord'),
-					'z' => $transmissionFromCountry->getInfo('country_z_coord'))))
-		?>"><?=$this->safe($transmissionFromCountry->getFullCountryName($lang['of']))?></a>
+		<?=$this->countryString(array('country' => $transmissionFromCountry))?>
 	</small>
 </p>
 

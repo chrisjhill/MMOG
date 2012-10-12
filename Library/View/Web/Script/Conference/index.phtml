@@ -20,16 +20,7 @@
 				<td>
 					<?=Core_Date::timeAgo($thread->getInfo('thread_updated'))?><br />
 					<small>
-						[<?=$thread->getInfo('post')->getInfo('country')->getCoords()?>]
-						<a href="<?=$this->url(
-							array(
-								'controller' => 'planet',
-								'action'     => 'explore',
-								'variables'  => array(
-									'x' => $thread->getInfo('post')->getInfo('country')->getInfo('country_x_coord'),
-									'y' => $thread->getInfo('post')->getInfo('country')->getInfo('country_y_coord'),
-									'z' => $thread->getInfo('post')->getInfo('country')->getInfo('country_z_coord'))))
-						?>"><?=$this->safe($thread->getInfo('post')->getInfo('country')->getFullCountryName($lang['of']))?></a>
+						<?=$this->countryString(array('country' => $thread->getInfo('post')->getInfo('country')))?>
 					</small>
 				</td>
 			</tr>

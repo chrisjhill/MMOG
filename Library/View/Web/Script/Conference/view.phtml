@@ -1,0 +1,15 @@
+<h1><?=$lang['conference-title']?></h1>
+
+<h2><?=$this->safe($thread->getInfo('thread_subject'))?></h2>
+
+<?php foreach ($posts->getIterator() as $post) { ?>
+	<p>
+		<?=$this->countryString(array('country' => $post->getInfo('country')))?><br />
+
+		<?=$this->safe($post->getInfo('post_message'))?>
+	</p>
+
+	<hr />
+<?php } ?>
+
+<h2>Respond to thread</h2>

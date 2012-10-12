@@ -19,7 +19,6 @@ class Controller_Conference extends Core_Controller
 
 		// Load language file
 		Core_Language::load('navigation-private');
-		Core_Language::load('page-conference');
 
 		// Set variables
 		$this->view->addVariable('threadCreateNotice', '');
@@ -32,6 +31,7 @@ class Controller_Conference extends Core_Controller
 	 */
 	public function indexAction() {
 		// Load language file
+		Core_Language::load('page-conference');
 		$lang = Core_Language::getLanguage();
 
 		// Set default variables
@@ -52,6 +52,7 @@ class Controller_Conference extends Core_Controller
 	 */
 	public function createAction() {
 		// Load language file
+		Core_Language::load('page-conference');
 		$lang = Core_Language::getLanguage();
 
 		// Try and create a new thread
@@ -84,5 +85,37 @@ class Controller_Conference extends Core_Controller
 
 		// This action has finished, forward onto the index action to render
 		$this->forward('index');
+	}
+
+	/**
+	 * Viewing a thread.
+	 * 
+	 * @access public
+	 */
+	public function viewAction() {
+		// Load language file
+		Core_Language::load('page-conference-thread');
+		$lang = Core_Language::getLanguage();
+
+		// Get the thread
+		try {
+			$thread = new Model_Conference_Thread_Instance($_GET['thread']);
+		} catch (Exception $e) {
+			// We were unable to locate the thread
+			// Just forward onto the index action
+			$this->forward('index');
+		}
+
+		// We found the thread
+		// Add the thread to the view
+		$this->view->addVariable('thread', $thread);
+
+		// Set the title
+		$this->view->addVariable('title', $thread->getInfo('thread_subject') . ' | ' . $lang['conference-title']);
+
+		// Get a list of all the posts that are in this thread
+		$posts = new Model_Conference_Post_List($thread->getInfo('thread_id'));
+		// And add them to the view
+		$this->view->addVariable('posts', $posts);
 	}
 }

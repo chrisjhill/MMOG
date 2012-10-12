@@ -24,6 +24,7 @@ class Model_Conference_Thread_Instance extends Core_Instance
 	 *
 	 * @access protected
 	 * @param  int       $threadId
+	 * @return boolean
 	 */
 	protected function setInfo($threadId) {
 		// Get the database connection
@@ -66,6 +67,10 @@ class Model_Conference_Thread_Instance extends Core_Instance
 			// Yes, set the information
 			$this->_info = $statement->fetch();
 			$this->_info['post'] = new Model_Conference_Post_Instance($this->getInfo('post_id'));
+			return true;
 		}
+
+		// Something went wrong
+		throw new Exception('conference-thread-not-found');
 	}
 }

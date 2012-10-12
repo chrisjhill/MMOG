@@ -52,6 +52,9 @@ class Core_Router
 			if (method_exists($controller, 'init')) {
 				$controller->init();
 			}
+
+			// And set the Core_View for View Helpers
+			Core_ViewHelper::setView($controller->view);
 		} catch (Exception $e) {
 			// Forward to the utilities 404
 			die('Sorry, we were unable to load the page your requested.');

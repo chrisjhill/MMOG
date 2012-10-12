@@ -54,17 +54,17 @@ class Model_Conference_Thread_List implements IteratorAggregate
 			':planet_id' => $planetId
 		));
 
-		// Loop over the transmissions
+		// Loop over the threads
 		while ($thread = $statement->fetch()) {
 			$this->_thread[] = new Model_Conference_Thread_Instance($thread['thread_id']);
 		}
 	}
 
 	/**
-	 * Allow scripts to iterate over the transmissions.
+	 * Allow scripts to iterate over the threads.
 	 * 
 	 * @access public
-	 * @return Model_Transmission_Instance
+	 * @return Model_Conference_Thread_Instance
 	 */
 	public function getIterator() {
 		return new ArrayIterator($this->_thread);
