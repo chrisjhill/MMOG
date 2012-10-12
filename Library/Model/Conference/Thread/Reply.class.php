@@ -48,5 +48,21 @@ class Model_Conference_Thread_Reply
 			':country_id'  => $country->getInfo('country_id'),
 			'post_message' => $message
 		));
+
+		// We can now update the thread as to when it was last updated
+		$statement = $database->prepare("
+			UPDATE `conference_thread` t
+			SET    t.thread_updated = NOW()
+			WHERE  t.round_id  = :round_id
+			       AND
+			       t.thread_id = :thread_id
+			LIMIT  1
+		");
+
+		// Execute the query
+		$statement->execute(array(
+			':round_id'  => GAME_ROUND,
+			':thread_id' => $threadId
+		));
 	}
 }
