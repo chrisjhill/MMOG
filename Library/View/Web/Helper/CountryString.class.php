@@ -4,11 +4,13 @@
  *
  * This class provides a standard way to output the country string, allowing
  * you to make each section clickable and also provide a quick "popup"
- * providing the user a bit more information on the planet.
+ * providing the user a bit more information on the country.
  *
  * @copyright   2012 Christopher Hill <cjhill@gmail.com>
  * @author      Christopher Hill <cjhill@gmail.com>
  * @since       10/10/2012
+ *
+ * @todo        Need to complete 'name_show_info' functionality.
  */
 class View_Web_Helper_CountryString extends Core_ViewHelper
 {

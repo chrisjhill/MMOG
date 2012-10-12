@@ -16,7 +16,7 @@ class Core_Store
 	 * you specify $persistence as 'session' (which it is by default).
 	 *
 	 * @access public
-	 * @var array
+	 * @var    array
 	 * @static
 	 */
 	public static $store;
@@ -25,8 +25,8 @@ class Core_Store
 	 * Returns true or false as to if the variable exists in the storage medium.
 	 * 
 	 * @access public
-	 * @param $variable string
-	 * @param $persistence string
+	 * @param  string  $variable
+	 * @param  string  $persistence
 	 * @return boolean
 	 * @static
 	 */
@@ -47,9 +47,9 @@ class Core_Store
 	 * unserialized automatically when storing in the session.
 	 * 
 	 * @access public
-	 * @param $variable string
-	 * @param $value mixed
-	 * @param $persistence string
+	 * @param  string  $variable
+	 * @param  string  $value
+	 * @param  string  $persistence
 	 * @return boolean
 	 * @static
 	 */
@@ -72,9 +72,9 @@ class Core_Store
 	 * the store.
 	 * 
 	 * @access public
-	 * @param $variable string
-	 * @param $persistence string
-	 * @return mixed
+	 * @param  string $variable
+	 * @param  string $persistence
+	 * @return string
 	 * @static
 	 */
 	public static function get($variable, $persistence = 'session') {
@@ -107,8 +107,8 @@ class Core_Store
 	 * Removes a variable from the store.
 	 * 
 	 * @access public
-	 * @param $variable string
-	 * @param $persistence string
+	 * @param  string $variable
+	 * @param  string $persistence
 	 * @static
 	 */
 	public static function remove($variable, $persistence = 'session') {

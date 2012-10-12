@@ -1,5 +1,7 @@
 <h1><?=$lang['conference-title']?></h1>
 
+<?=$threadCreateNotice?>
+
 <h2><?=$this->safe($thread->getInfo('thread_subject'))?></h2>
 
 <?php foreach ($posts->getIterator() as $post) { ?>
@@ -13,3 +15,11 @@
 <?php } ?>
 
 <h2>Respond to thread</h2>
+
+<form action="<?=$this->url(array('controller' => 'conference', 'action' => 'reply', 'variables' => array('thread' => $thread->getInfo('thread_id'))))?>" method="post">
+	<p>
+		<textarea name="post_message" placeholder="<?=$lang['message']?>" class="span6" rows="10"></textarea><br />
+
+		<button type="submit" class="btn"><?=$lang['add-post']?></button>
+	</p>
+</form>

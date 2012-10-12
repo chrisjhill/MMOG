@@ -16,7 +16,7 @@ class Core_View
 	 * Which layout we are going to use for this view.
 	 *
 	 * @access public
-	 * @var string
+	 * @var    string
 	 */
 	public $layout = 'default';
 
@@ -24,7 +24,7 @@ class Core_View
 	 * The controller that we need to render.
 	 *
 	 * @access public
-	 * @var string
+	 * @var    string
 	 */
 	public $controller = 'index';
 
@@ -32,7 +32,7 @@ class Core_View
 	 * The action that we need to render.
 	 *
 	 * @access public
-	 * @var string
+	 * @var    string
 	 */
 	public $action = 'index';
 
@@ -40,7 +40,7 @@ class Core_View
 	 * Information on whether to cache the view or not.
 	 * 
 	 * @access public
-	 * @var Core_Cache
+	 * @var    Core_Cache
 	 */
 	public $cache;
 
@@ -48,7 +48,7 @@ class Core_View
 	 * The variables that we want to pass to this view.
 	 *
 	 * @access public
-	 * @var array
+	 * @var    array
 	 */
 	public $_variables = array();
 
@@ -59,8 +59,8 @@ class Core_View
 	 * been defined will be overwritten.
 	 *
 	 * @access public
-	 * @param $variable string
-	 * @param $value string
+	 * @param  string $variable
+	 * @param  string $value
 	 */
 	public function addVariable($variable, $value) {
 		$this->_variables[$variable] = $value;
@@ -70,7 +70,7 @@ class Core_View
 	 * Returns a set variable if it exists.
 	 *
 	 * @access public
-	 * @param $variable string
+	 * @param  string $variable
 	 * @return mixed
 	 */
 	public function getVariable($variable) {
@@ -154,7 +154,7 @@ class Core_View
 	 * </code>
 	 *
 	 * @access public
-	 * @param $param array
+	 * @param  array $param
 	 * @return string
 	 */
 	public function url($param = array()) {
@@ -198,7 +198,7 @@ class Core_View
 	 * Ensure that a string is safe to be outputted to the browser.
 	 *
 	 * @access public
-	 * @param $string string
+	 * @param  string $string
 	 * @return string
 	 */
 	public function safe($string) {
@@ -213,8 +213,8 @@ class Core_View
 	 * a nicer implementation in each view helper. This is why it needs to be an array.
 	 *
 	 * @access public
-	 * @param $helperName string
-	 * @param $param array
+	 * @param  string $helperName
+	 * @param  array  $param
 	 * @return string
 	 */
 	public function __call($helperName, $param) {

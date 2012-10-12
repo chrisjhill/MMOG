@@ -15,7 +15,7 @@ class Core_EmailSend
 	 * The template that we want to use.
 	 * 
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_emailTemplate;
 
@@ -23,7 +23,7 @@ class Core_EmailSend
 	 * Variables that we want to replace in the template.
 	 * 
 	 * @access private
-	 * @var array
+	 * @var    array
 	 */
 	private $_emailVariables = array();
 
@@ -31,7 +31,7 @@ class Core_EmailSend
 	 * The ID of the user we are sending the email to.
 	 * 
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_emailTo;
 
@@ -39,7 +39,7 @@ class Core_EmailSend
 	 * The ID of the user we are sending the email from.
 	 * 
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_emailFrom;
 
@@ -49,7 +49,7 @@ class Core_EmailSend
 	 * We will use variable replacements on this field.
 	 * 
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_emailSubject;
 
@@ -57,7 +57,7 @@ class Core_EmailSend
 	 * The location of a file we wish to attach to this email.
 	 * 
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_emailAttachment;
 
@@ -65,7 +65,7 @@ class Core_EmailSend
 	 * Send the email after a certain date.
 	 * 
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_emailSendAfter = 1;
 
@@ -73,8 +73,7 @@ class Core_EmailSend
 	 * Send the email to the user with the specified data.
 	 * 
 	 * @access private
-	 * @var string
-	 * @return mixed int on success, boolean false on error
+	 * @return boolean Whether the email insertion went successfully.
 	 */
 	public function send() {
 		// Fetch the template and set a local copy of the subject
@@ -129,10 +128,10 @@ class Core_EmailSend
 	 * Note: This refers to a HTML file as defined the in the PATH_EMAIL variable.
 	 * 
 	 * @access private
-	 * @param $template string
-	 * @param $language string
+	 * @param  string $template
+	 * @param  string $language
+	 * @throws Exception        If the email template does not exist.
 	 * @return Core_EmailSend
-	 * @throws Exception
 	 */
 	public function setTemplate($template, $language = 'en') {
 		// Does the template exist?
@@ -158,9 +157,9 @@ class Core_EmailSend
 	 * then use the setVariables() method.
 	 *
 	 * @access public
-	 * @param $variable string
+	 * @param  string          $variable
+	 * @param  string          $value
 	 * @return Core_EmailSend
-	 * @param $value string
 	 */
 	public function addVariable($variable, $value) {
 		// Set the individual variable
@@ -184,7 +183,7 @@ class Core_EmailSend
 	 * Note: If you want to pass in just one variable then addVariable() is better.
 	 *
 	 * @access public
-	 * @param $variables array
+	 * @param  array          $variables
 	 * @return Core_EmailSend
 	 */
 	public function setVariables($variables) {
@@ -199,7 +198,7 @@ class Core_EmailSend
 	 * Set the ID of the user we wish to send the email to.
 	 *
 	 * @access public
-	 * @param $userId int
+	 * @param  int            $userId
 	 * @return Core_EmailSend
 	 */
 	public function setEmailTo($userId) {
@@ -214,7 +213,7 @@ class Core_EmailSend
 	 * Set the ID of the user this email is coming from.
 	 *
 	 * @access public
-	 * @param $userId int
+	 * @param  int            $userId
 	 * @return Core_EmailSend
 	 */
 	public function setEmailFrom($userId) {
@@ -229,7 +228,7 @@ class Core_EmailSend
 	 * Set the subject of the email.
 	 *
 	 * @access public
-	 * @param $subject string
+	 * @param  string         $subject
 	 * @return Core_EmailSend
 	 */
 	public function setEmailSubject($subject) {
@@ -247,9 +246,9 @@ class Core_EmailSend
 	 * to the file you wish to attach.
 	 *
 	 * @access public
-	 * @param $file string
+	 * @param  string         $file
+	 * @throws Exception      If the attachment could not be found.
 	 * @return Core_EmailSend
-	 * @throws Exception
 	 */
 	public function setEmailAttachment($file) {
 		// Does the attachment actually exist?
@@ -268,9 +267,9 @@ class Core_EmailSend
 	 * A date when the email should be sent out, and not before.
 	 *
 	 * @access public
-	 * @param $date int Unix timestamp
+	 * @param  int            $date Accepts a UNIX timestamp.
+	 * @throws Exception      If the date is in the past.
 	 * @return Core_EmailSend
-	 * @throws Exception
 	 */
 	public function setEmailSendAfter($date) {
 		// Is the date in the past?

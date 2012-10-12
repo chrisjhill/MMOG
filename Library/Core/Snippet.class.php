@@ -19,7 +19,7 @@ class Core_Snippet extends Core_Cache
 	 * </code>
 	 *
 	 * @access private
-	 * @var array
+	 * @var    array
 	 */
 	private $_variable = array();
 
@@ -30,9 +30,9 @@ class Core_Snippet extends Core_Cache
 	 * constructor too much power, and we would rather build the snippet up as we go along.
 	 *
 	 * @access public
-	 * @param $file string
-	 * @param $path string
-	 * @throws Exception
+	 * @param  string    $file
+	 * @param  string    $path
+	 * @throws Exception If we are unable to locate the snippet to cache.
 	 */
 	public function __construct($file, $path = PATH_SNIPPET) {
 		parent::__construct($file, $path);
@@ -44,8 +44,8 @@ class Core_Snippet extends Core_Cache
 	 * Note: If you pass in the same variable twice then it will overwrite the first.
 	 *
 	 * @access public
-	 * @param $variable string
-	 * @param $value string
+	 * @param  string       $variable
+	 * @param  string       $value
 	 * @return Core_Snippet
 	 */
 	public function addVariable($variable, $value) {

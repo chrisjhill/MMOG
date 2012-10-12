@@ -16,7 +16,7 @@ class Core_Language
 	 * Language files that we have already loaded.
 	 *
 	 * @access public
-	 * @var array
+	 * @var    array
 	 * @static
 	 */
 	public static $includedLanguageFiles = array();
@@ -25,7 +25,7 @@ class Core_Language
 	 * The container for all the language items.
 	 *
 	 * @access public
-	 * @var array
+	 * @var    array
 	 * @static
 	 */
 	public static $lang = array();
@@ -34,11 +34,11 @@ class Core_Language
 	 * Tries to load a language file.
 	 *
 	 * @access public
-	 * @param $file string
-	 * @param $language string
+	 * @param  string    $file
+	 * @param  string    $language
+	 * @throws Exception If we cannot load the language file.
      * @return boolean
      * @static
-	 * @throws Exception
 	 */
 	public static function load($file, $language = 'en') {
 		// Is there a language in the store?

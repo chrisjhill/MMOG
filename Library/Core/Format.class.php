@@ -12,7 +12,7 @@ class Core_Format
 	 * Make sure that anything outputted to the browser is safe.
 	 *
 	 * @access public
-	 * @param $string string
+	 * @param  string $string
 	 * @return string
 	 * @static
 	 */
@@ -24,10 +24,10 @@ class Core_Format
 	 * Provides a single access point for numbers.
 	 *
 	 * @access public
-	 * @param $number int
-     * @param $decimals int
-     * @param $decimalPoint string
-     * @param $thousandsSeparator string
+	 * @param  int    $number
+     * @param  int    $decimals
+     * @param  string $decimalPoint
+     * @param  string $thousandsSeparator
 	 * @return string
      * @static
 	 */

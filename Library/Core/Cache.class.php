@@ -22,7 +22,7 @@ class Core_Cache
 	 * Set to false by default as we should not need to use it.
 	 *
 	 * @access protected
-	 * @var boolean
+	 * @var    boolean
 	 */
 	protected $_enableCache = false;
 
@@ -32,7 +32,7 @@ class Core_Cache
 	 * Set to one hour by default.
 	 *
 	 * @access private
-	 * @var int
+	 * @var    int
 	 */
 	private $_cacheLife = 3600;
 
@@ -43,7 +43,7 @@ class Core_Cache
 	 * 123_file_name.tpl
 	 *
 	 * @access private
-	 * @var int
+	 * @var    int
 	 */
 	private $_cacheUser;
 
@@ -51,7 +51,7 @@ class Core_Cache
 	 * The location that we are going to use to store the cached file.
 	 *
 	 * @access private
-	 * @var string
+	 * @var    string
 	 */
 	private $_cacheLocation;
 
@@ -62,10 +62,10 @@ class Core_Cache
 	 * too much power, and we would rather build the cache up as we go along.
 	 *
 	 * @access public
-	 * @param $file string
-	 * @param $path string
-	 * @param $performExist boolean
-	 * @throws Exception
+	 * @param  string    $file
+	 * @param  string    $path
+	 * @param  boolean   $performExist
+	 * @throws Exception If we are unable to locate the view to cache, and we *do* want to check it exists.
 	 */
 	public function __construct($file, $path = PATH_VIEW, $performExist = true) {
 		// Do we actually have this file?
@@ -83,7 +83,7 @@ class Core_Cache
 	 * Set whether we want to use the cache or not.
 	 *
 	 * @access public
-	 * @param $enableCache boolean
+	 * @param  boolean    $enableCache
 	 * @return Core_Cache
 	 */
 	public function setCache($enableCache) {
@@ -97,7 +97,7 @@ class Core_Cache
 	 * Pass in seconds (3600 = one hour, 86400 = one day, etc.).
 	 *
 	 * @access public
-	 * @param $life int
+	 * @param  int        $life
 	 * @return Core_Cache
 	 */
 	public function setCacheLife($life) {
@@ -109,7 +109,7 @@ class Core_Cache
 	 * Set whether this cache is meant for a particular user.
 	 *
 	 * @access public
-	 * @param $userId int
+	 * @param  int        $userId
 	 * @return Core_Cache
 	 */
 	public function setUser($userId) {
@@ -177,7 +177,7 @@ class Core_Cache
 	 * Save the file to the cache.
 	 * 
 	 * @access public
-	 * @param $content string
+	 * @param  string $content
 	 */
 	public function saveFileToCache($content) {
 		// If the content is nothing then something has obviously gone wrong

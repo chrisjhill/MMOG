@@ -18,7 +18,7 @@ class Model_Conference_Thread_Create
 	 * @param  Model_Planet_Instance  $planet
 	 * @param  string                 $subject
 	 * @param  string                 $message
-	 * @return boolean
+	 * @return int                    The thread ID.
 	 * @throws Exception              If the subject or message is empty.
 	 */
 	public function create($country, $planet, $subject, $message) {
@@ -79,7 +79,7 @@ class Model_Conference_Thread_Create
 			'post_message' => $message
 		));
 
-		// All went well
-		return true;
+		// All went well, return the thread ID
+		return $threadId;
 	}
 }

@@ -12,7 +12,7 @@ class Core_Session
 	 * The database connection we have created.
 	 *
 	 * @access private
-	 * @var Core_Database
+	 * @var    Core_Database
 	 */
 	private $_database;
 
@@ -20,8 +20,8 @@ class Core_Session
 	 * Open a connection to the database.
 	 *
 	 * @access public
-     * @param $session string
-     * @param $sessionName string
+     * @param  string $session
+     * @param  string $sessionName
 	 * @return boolean
 	 */
 	public function open($session, $sessionName) {
@@ -36,7 +36,7 @@ class Core_Session
 	 * Retrieve the session from the database.
 	 *
 	 * @access public
-	 * @param $sessionId string
+	 * @param  string $sessionId
 	 * @return string
 	 */
 	public function read($sessionId) {
@@ -71,8 +71,8 @@ class Core_Session
 	 * Write the session data to the database.
 	 *
 	 * @access public
-	 * @param $sessionId string
-	 * @param $sessionData string
+	 * @param  string $sessionId
+	 * @param  string $sessionData
      * @return boolean
 	 */
 	public function write($sessionId, $sessionData) {
@@ -109,7 +109,7 @@ class Core_Session
 	 * Delete the users session from the database.
 	 *
 	 * @access public
-	 * @param $sessionId string
+	 * @param  string $sessionId
 	 * @return boolean
 	 */ 
 	public function destroy($sessionId) {
@@ -133,7 +133,7 @@ class Core_Session
 	 * each page load.
 	 *
 	 * @access public
-	 * @param $sessionExpirationSeconds int
+	 * @param  int $sessionExpirationSeconds
 	 */
 	public function gc($sessionExpirationSeconds) {
 		// Prepare the SQL

@@ -16,8 +16,8 @@ class Core_Bootstrap
 	 * A request has come in, we know the controller name and the action name.
 	 * 
 	 * @access public
-	 * @param $controllerName string
-	 * @param $actionName string
+	 * @param  string $controllerName
+	 * @param  string $actionName
 	 * @static
 	 */
 	public static function initRequest($controllerName, $actionName) {
@@ -34,7 +34,7 @@ class Core_Bootstrap
 	 * A controller has been initialised.
 	 * 
 	 * @access public
-	 * @param $controller Core_Controller
+	 * @param  Core_Controller$controller
 	 * @static
 	 */
 	public static function initController($controller) {
@@ -62,8 +62,8 @@ class Core_Bootstrap
 	 * We have finished rendering a page and are about to shut down.
 	 * 
 	 * @access public
-	 * @param $controllerName string
-	 * @param $actionName string
+	 * @param  string $controllerName
+	 * @param  string $actionName
 	 * @static
 	 */
 	public static function initShutdown($controllerName, $actionName) {

@@ -12,7 +12,7 @@ class Core_Controller
 	 * The controller that we are managing.
 	 *
 	 * @access public
-	 * @var Core_Controller
+	 * @var    Core_Controller
 	 */
 	public $child;
 
@@ -20,7 +20,7 @@ class Core_Controller
 	 * Instance of the view.
 	 *
 	 * @access public
-	 * @var Core_View
+	 * @var    Core_View
 	 */
 	public $view;
 
@@ -28,7 +28,7 @@ class Core_Controller
 	 * Whether we need to render this controller.
 	 *
 	 * @access private
-	 * @var bool
+	 * @var    boolean
 	 */
 	private $_void = false;
 
@@ -66,9 +66,9 @@ class Core_Controller
 	 * Change the layout from the default.
 	 *
 	 * @access public
-	 * @param $layout string
+	 * @param  string    $layout
+	 * @throws Exception If the layout does not exist.
 	 * @return string
-	 * @throws Exception
 	 */
 	public function setLayout($layout) {
 		// Does this layout exist?
@@ -89,8 +89,8 @@ class Core_Controller
 	 * This function will keep the same URL, that will not be changed between forwards.
 	 *
 	 * @access public
-	 * @param $controller string
-	 * @param $action string
+	 * @param  string $controller
+	 * @param  string $action
 	 * @throws Exception
 	 */
 	public function forward($action = 'index', $controller = '') {
@@ -117,7 +117,7 @@ class Core_Controller
 	 * pass variables.
 	 * 
 	 * @access public
-	 * @param $param array
+	 * @param  array  $param
 	 */
 	public function redirect($param) {
 		header('Location: ' . $this->view->url($param)); exit();

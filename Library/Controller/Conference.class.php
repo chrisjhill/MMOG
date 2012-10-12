@@ -51,40 +51,54 @@ class Controller_Conference extends Core_Controller
 	 * @access public
 	 */
 	public function createAction() {
+		// Has the user actually submitted the form?
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			$this->forward('index');
+		}
+
 		// Load language file
 		Core_Language::load('page-conference');
 		$lang = Core_Language::getLanguage();
 
 		// Try and create a new thread
-		// But only if the user gas submitted the form
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			try {
-				$threadCreate = new Model_Conference_Thread_Create();
-				$threadCreate->create(
-					$this->view->getVariable('country'),
-					$this->view->getVariable('planet'),
-					$_POST['thread_subject'],
-					$_POST['thread_message']
-				);
-			} catch(Exception $e) {
-				// Unable to create a new conference thread
-				// Set the notice
-				$this->view->addVariable(
-					'threadCreateNotice',
-					$this->view->notice(array(
-						'status' => 'error',
-						'title'  => $lang['error-title'],
-						'body'   => $lang[$e->getMessage()]
-					))
-				);
+		try {
+			$threadCreate = new Model_Conference_Thread_Create();
+			$threadId = $threadCreate->create(
+				$this->view->getVariable('country'),
+				$this->view->getVariable('planet'),
+				$_POST['thread_subject'],
+				$_POST['thread_message']
+			);
+		} catch(Exception $e) {
+			// Unable to create a new conference thread
+			// Set the notice
+			$this->view->addVariable(
+				'threadCreateNotice',
+				$this->view->notice(array(
+					'status' => 'error',
+					'title'  => $lang['error-title'],
+					'body'   => $lang[$e->getMessage()]
+				))
+			);
 
-				// And render
-				$this->forward('index');
-			}
+			// And render
+			$this->forward('index');
 		}
 
-		// This action has finished, forward onto the index action to render
-		$this->forward('index');
+		// All went okay
+		// Set the thread ID and success message
+		$_GET['thread'] = $threadId;
+		$this->view->addVariable(
+			'threadCreateNotice',
+			$this->view->notice(array(
+				'status' => 'success',
+				'title'  => $lang['success-title'],
+				'body'   => $lang['conference-success-thread-create']
+			))
+		);
+
+		// We can now view the thread
+		$this->forward('view');
 	}
 
 	/**
@@ -117,5 +131,61 @@ class Controller_Conference extends Core_Controller
 		$posts = new Model_Conference_Post_List($thread->getInfo('thread_id'));
 		// And add them to the view
 		$this->view->addVariable('posts', $posts);
+	}
+
+	/**
+	 * Replying to a thread.
+	 * 
+	 * @access public
+	 * @todo   Is this thread actually in the planets conference?
+	 */
+	public function replyAction() {
+		// Is the form posted?
+		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+			$this->forward('view');
+		}
+
+		// Get the language
+		Core_Language::load('page-conference-thread');
+		$lang = Core_Language::getLanguage();
+
+		// Try and create the thread
+		try {
+			// Create reply instance
+			$threadReply = new Model_Conference_Thread_Reply();
+			$threadReply->reply(
+				$this->view->getVariable('country'),
+				$_GET['thread'],
+				$_POST['post_message']
+			);
+		} catch (Exception $e) {
+			// Unable to reply to the thread
+			// Set the notice
+			$this->view->addVariable(
+				'threadCreateNotice',
+				$this->view->notice(array(
+					'status' => 'error',
+					'title'  => $lang['error-title'],
+					'body'   => $lang[$e->getMessage()]
+				))
+			);
+
+			// And render
+			$this->forward('view');
+		}
+
+		// Everything seemed to go well
+		// Set the notice
+		$this->view->addVariable(
+			'threadCreateNotice',
+			$this->view->notice(array(
+				'status' => 'success',
+				'title'  => $lang['success-title'],
+				'body'   => $lang['conference-success-replied']
+			))
+		);
+
+		// And forward onto the thread
+		$this->forward('view');
 	}
 }

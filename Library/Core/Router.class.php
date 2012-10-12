@@ -29,8 +29,8 @@ class Core_Router
 	 * Try and load the controller.
 	 *
 	 * @access public
-	 * @param $controller string
-	 * @param $action string
+	 * @param  string $controller
+	 * @param  string $action
      * @static
 	 */
 	public static function loadController($controller, $action = '') {
@@ -71,8 +71,8 @@ class Core_Router
 	 * Try and run the action.
 	 *
 	 * @access public
-	 * @param $controller string
-	 * @param $action string
+	 * @param  string $controller
+	 * @param  string $action
      * @return boolean
      * @static
 	 */

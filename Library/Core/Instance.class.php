@@ -13,15 +13,15 @@ abstract class Core_Instance
 	 * Storage for an instance of an object.
 	 *
 	 * @access protected
-	 * @var array
+	 * @var    array
 	 */
 	protected $_info;
 
 	/**
 	 * Set the instance information.
 	 *
-	 * @access protected
-	 * @param $abstractId int
+	 * @access   protected
+	 * @param    $abstractId int
 	 * @abstract
 	 */
 	abstract protected function setInfo($abstractId);
@@ -30,7 +30,7 @@ abstract class Core_Instance
 	 * Return a piece of information on the country.
 	 *
 	 * @access public
-	 * @param string $index
+	 * @param  string $index
 	 * @return string
 	 */
 	public function getInfo($index) {

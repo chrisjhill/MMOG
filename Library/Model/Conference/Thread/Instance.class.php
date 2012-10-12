@@ -24,6 +24,7 @@ class Model_Conference_Thread_Instance extends Core_Instance
 	 *
 	 * @access protected
 	 * @param  int       $threadId
+	 * @throws Exception If the thread is not found.
 	 * @return boolean
 	 */
 	protected function setInfo($threadId) {

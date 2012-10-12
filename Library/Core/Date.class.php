@@ -12,8 +12,8 @@ class Core_Date
 	 * Takes a timestamp or MySQL datetime and returns the format specified.
 	 *
 	 * @access public
-	 * @param $format string
-	 * @param $time string
+	 * @param  string $format
+	 * @param  string $time
 	 * @return string
 	 * @static
 	 */
@@ -33,9 +33,11 @@ class Core_Date
 	 * Returns a word representation of how long ago something was.
 	 *
 	 * @access public
-	 * @param $time string
+	 * @param  string $time
 	 * @return string
 	 * @static
+	 *
+	 * @todo   Need to handle singular and plural periods.
 	 */
 	public static function timeAgo($time) {
 		// Is this a unix timestamp or a MySQL datetime?
@@ -91,7 +93,7 @@ class Core_Date
 	 * Convert a MySQL datetime field to a unix timestamp.
 	 *
 	 * @access public
-	 * @param $datetime string
+	 * @param  string $datetime
 	 * @return int
 	 * @static
 	 */
